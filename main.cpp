@@ -248,7 +248,7 @@ int main() {
     itemulf2=itemulp1;
     // std::cout<<itemulf2.getName()<<"\n";
     std::cout << itemulp1.getName()<<"~"<<itemulp1.getBrand()<<"\n";
-    std::cout<<"\n";
+    // std::cout<<"\n";
 
     std::vector<Items> var1 = {itemulp1,itemull1};
     std::vector<Items> var2 = {itemulf1,itemull1};
