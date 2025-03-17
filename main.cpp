@@ -11,12 +11,8 @@ private:
 public:
     Items() {}
     Items(const std::string& name_,const std::string& brand_) : name{name_}, pret{0.0}, brand{brand_}{}
-    Items(const std::string& name_, double pret_,const std::string& brand_): name{name_}, pret{pret_}, brand{brand_} {
-        // std::cout<<"constructor de initializare";
-    }
-    Items(const Items& other) : name{other.name}, pret{other.pret}, brand{other.brand} {
-        // std::cout<<"constructor copiere\n";
-    }
+    Items(const std::string& name_, double pret_,const std::string& brand_): name{name_}, pret{pret_}, brand{brand_} {}
+    Items(const Items& other) : name{other.name}, pret{other.pret}, brand{other.brand} {}
     const std::string& getName() const{ return this->name;}
     double getPret() const{ return this->pret;}
     const std::string& getBrand() const{ return this->brand;}
@@ -73,12 +69,9 @@ private:
     std::vector <Items> items;
     // int buget;
 public:
-    listaCumparaturi(){}
-    listaCumparaturi(std::vector <Items> items_) : items{items_}{}
-    // listaCumparaturi(std::vector <Items> items_, int buget_) : items{items_}, buget{buget_} {}
+    listaCumparaturi() : items{} {}
+    explicit listaCumparaturi(const std::vector <Items>& items_) : items{items_}{}
     listaCumparaturi(const listaCumparaturi& other) : items{other.items} {}
-    // int getBuget() const{ return this->buget;}
-    // const std::vector& getItems() const { return this-> items;}???
     void getItem() const {
         for (const auto& item: items) {
             std::cout << item.getName() << "\n";
@@ -87,7 +80,6 @@ public:
     //operator =
     listaCumparaturi& operator=(const listaCumparaturi& other) {
         items = other.items;
-        // buget = other.buget;
         std::cout << "operator= copiere Items\n";
         return *this;
     }
@@ -125,17 +117,6 @@ class cosCumparaturi {
 
     ~cosCumparaturi() = default;
 
-    // friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos) {
-    //     for ( const auto& item : cos.lista) {
-    //         os << item.getName()<<" ";
-    //     }
-    //     os << "\n";
-    //     for (const auto& item : cos.items) {
-    //         os << item.getName()<<" ";
-    //     }
-    //     os << "\n";
-    //     return os;
-    // }
 };
 
 class Joc {
@@ -146,13 +127,12 @@ private:
     int timp;
     int buget;
 public:
-    explicit Joc(const std::string& playerName_) : playerName{playerName_} {}
-    Joc(int timp_, int buget_) : timp{timp_}, buget(buget_) {}
+    explicit Joc(const std::string& playerName_) : playerName{playerName_}, lista{}, variantaJoc(0), timp(0), buget(0) {}
+    Joc(int timp_, int buget_ ) : timp{timp_}, buget(buget_) {}
     explicit Joc(int timp_) : playerName("Default"), variantaJoc(0),timp{timp_} {}
     Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}{}
 
     int getVarianta() const{ return this->variantaJoc; }
-    // const listaCumparaturi& getLista() const{ return this->lista;}
     const std::string& getPlayer() const { return this->playerName; }
     int getTimer() const{ return this->timp; }
     int getBuget() const{ return this->buget; }
@@ -166,8 +146,6 @@ public:
     }
 
     Joc& operator=(const Joc& other) {
-        if (this == &other)
-            return *this;
         lista = other.lista;
         variantaJoc = other.variantaJoc;
         timp = other.timp;
@@ -232,9 +210,8 @@ int main() {
         itemulf1{"banane",5,"kaufland"};
     Items itemulf2;
     itemulf2=itemulp1;
-    // std::cout<<itemulf2.getName()<<"\n";
     std::cout << itemulp1.getName()<<"~"<<itemulp1.getBrand()<<"\n";
-    // std::cout<<"\n";
+    std::cout<<"\n";
 
     std::vector<Items> var1 = {itemulp1,itemull1};
     std::vector<Items> var2 = {itemulf1,itemull1};
@@ -242,10 +219,8 @@ int main() {
     listaCumparaturi lista1{var1},lista2{var2};
     std::cout<<"lista 1:\n";
     lista1.getItem();
-    // std::cout<<lista1.getBuget()<<"\n";
     std::cout<<"lista 2:\n";
     lista2.getItem();
-    // std::cout<<lista2.getBuget()<<"\n";
     std::cout<<"\n";
 
     cosCumparaturi cos1{lista1,{}};
