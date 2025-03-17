@@ -284,7 +284,7 @@ int main() {
     std::cout<<start.getTimer()<<"\n";
     start.verificarePret();
     start.listaGoala();
-    std::cout<<"\n";
+    // std::cout<<"\n";
 
     std::cout<<start;
 
