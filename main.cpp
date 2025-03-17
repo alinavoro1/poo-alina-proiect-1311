@@ -128,9 +128,9 @@ private:
     int buget;
 public:
     explicit Joc(const std::string& playerName_) : playerName{playerName_}, lista{}, variantaJoc(0), timp(0), buget(0) {}
-    Joc(int timp_, int buget_ ) : timp{timp_}, buget(buget_) {}
-    explicit Joc(int timp_) : playerName("Default"), variantaJoc(0),timp{timp_} {}
-    Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}{}
+    // Joc(int timp_, int buget_ ) : timp{timp_}, buget(buget_) {}
+    // explicit Joc(int timp_) : playerName("Default"), variantaJoc(0),timp{timp_} {}
+    Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}, timp(0), buget(0) {}
 
     int getVarianta() const{ return this->variantaJoc; }
     const std::string& getPlayer() const { return this->playerName; }
