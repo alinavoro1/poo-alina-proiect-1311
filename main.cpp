@@ -71,13 +71,13 @@ public:
 class listaCumparaturi {
 private:
     std::vector <Items> items;
-    int buget;
+    // int buget;
 public:
     listaCumparaturi(){}
     listaCumparaturi(std::vector <Items> items_) : items{items_}{}
-    listaCumparaturi(std::vector <Items> items_, int buget_) : items{items_}, buget{buget_} {}
-    listaCumparaturi(const listaCumparaturi& other) : items{other.items}, buget{other.buget} {}
-    int getBuget() const{ return this->buget;}
+    // listaCumparaturi(std::vector <Items> items_, int buget_) : items{items_}, buget{buget_} {}
+    listaCumparaturi(const listaCumparaturi& other) : items{other.items} {}
+    // int getBuget() const{ return this->buget;}
     // const std::vector& getItems() const { return this-> items;}???
     void getItem() const {
         for (const auto& item: items) {
@@ -87,7 +87,7 @@ public:
     //operator =
     listaCumparaturi& operator=(const listaCumparaturi& other) {
         items = other.items;
-        buget = other.buget;
+        // buget = other.buget;
         std::cout << "operator= copiere Items\n";
         return *this;
     }
@@ -96,7 +96,6 @@ public:
     ~listaCumparaturi() = default;
 
     friend std::ostream& operator<<(std::ostream& os, const listaCumparaturi& lista) {
-        os<<"Buget: "<< lista.buget<<"\n";
         for (const auto& item : lista.items) {
             os<<item.getName()<<" ";
         }
@@ -239,8 +238,8 @@ int main() {
 
     std::vector<Items> var1 = {itemulp1,itemull1};
     std::vector<Items> var2 = {itemulf1,itemull1};
-    std::vector<Items> var3 = {itemulp1,itemulf1};
-    listaCumparaturi lista1{var1,35},lista2{var2,70};
+    // std::vector<Items> var3 = {itemulp1,itemulf1};
+    listaCumparaturi lista1{var1},lista2{var2};
     std::cout<<"lista 1:\n";
     lista1.getItem();
     // std::cout<<lista1.getBuget()<<"\n";
