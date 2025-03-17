@@ -158,13 +158,13 @@ public:
     int getTimer() const{ return this->timp; }
     int getBuget() const{ return this->buget; }
 
-    // void setTimp(int timp_) {
-    //     timp = timp_;
-    // }
-    //
-    // void setBuget(int buget_) {
-    //     buget = buget_;
-    // }
+    void setTimp(int timp_) {
+        timp = timp_;
+    }
+
+    void setBuget(int buget_) {
+        buget = buget_;
+    }
 
     Joc& operator=(const Joc& other) {
         if (this == &other)
@@ -187,19 +187,20 @@ public:
                << " buget: " << obj.buget;
     }
 
-    void setareTimer(Joc& joc) {
+    void setareTimer() {
         if (variantaJoc == 0) {
             std::cout << playerName << " please select a game version!\n";
             return;
         }
         else if (variantaJoc ==1) {
-            Joc joc{30};
+            setTimp(30);
         }
         else if (variantaJoc ==2) {
-            Joc joc{20};
+            setTimp(15);
         }
         else if (variantaJoc ==3) {
-            Joc joc{20,150};
+            setTimp(20);
+            setBuget(150);
         }
     }
 
@@ -266,7 +267,7 @@ int main() {
     std::cout<<"\n";
 
     Joc start("Alina", lista1, 3);
-    start.setareTimer(start);
+    start.setareTimer();
     std::cout<<start.getPlayer()<<"\n";
     std::cout<<start.getVarianta()<<"\n";
     std::cout<<start.getTimer()<<"\n";
