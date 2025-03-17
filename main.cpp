@@ -153,18 +153,18 @@ public:
     Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}{}
 
     int getVarianta() const{ return this->variantaJoc; }
-    const listaCumparaturi& getLista() const{ return this->lista;}
+    // const listaCumparaturi& getLista() const{ return this->lista;}
     const std::string& getPlayer() const { return this->playerName; }
     int getTimer() const{ return this->timp; }
     int getBuget() const{ return this->buget; }
 
-    void setTimp(int timp_) {
-        timp = timp_;
-    }
-
-    void setBuget(int buget_) {
-        buget = buget_;
-    }
+    // void setTimp(int timp_) {
+    //     timp = timp_;
+    // }
+    //
+    // void setBuget(int buget_) {
+    //     buget = buget_;
+    // }
 
     Joc& operator=(const Joc& other) {
         if (this == &other)
@@ -178,19 +178,6 @@ public:
     }
     ~Joc() = default;
 
-    // friend std::ostream& operator<<(std::ostream& os, const Joc& joc) {
-    //     os<< "Player: "<< joc.playerName << " ";
-    //     os<< "Varianta joc: "<< joc.variantaJoc<< " ";
-    //     os<< "Timp: "<< joc.timp<< " ";
-    //     os<< "Buget: "<< joc.buget<< " ";
-    //     os<< "lista cumparaturi : ";
-    //     for (const auto& item : joc.lista) {
-    //         os<< item.getName()<<" ";
-    //     }
-    //     os << "\n";
-    //     return os;
-    // }
-
     friend std::ostream & operator<<(std::ostream &os, const Joc &obj) {
         return os
                << "playerName: " << obj.playerName
@@ -200,20 +187,19 @@ public:
                << " buget: " << obj.buget;
     }
 
-    void setareTimer() {
+    void setareTimer(Joc& joc) {
         if (variantaJoc == 0) {
             std::cout << playerName << " please select a game version!\n";
             return;
         }
         else if (variantaJoc ==1) {
-            setTimp(30);
+            Joc joc{30};
         }
         else if (variantaJoc ==2) {
-            setTimp(15);
+            Joc joc{20};
         }
         else if (variantaJoc ==3) {
-            setTimp(20);
-            setBuget(150);
+            Joc joc{20,150};
         }
     }
 
@@ -279,9 +265,12 @@ int main() {
     raion2.getItems();
     std::cout<<"\n";
 
-    Joc start("Alina", lista1, 1);
-    start.setareTimer();
+    Joc start("Alina", lista1, 3);
+    start.setareTimer(start);
+    std::cout<<start.getPlayer()<<"\n";
+    std::cout<<start.getVarianta()<<"\n";
     std::cout<<start.getTimer()<<"\n";
+    std::cout<<start.getBuget()<<"\n";
     start.verificarePret();
     start.listaGoala();
     std::cout<<"\n";
