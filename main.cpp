@@ -124,7 +124,7 @@ class cosCumparaturi {
         lista.getItem();
     }
 
-    ~cosCumparaturi() = default;
+    // ~cosCumparaturi() = default;
 
     // friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos) {
     //     for ( const auto& item : cos.lista) {
