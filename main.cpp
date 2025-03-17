@@ -271,7 +271,7 @@ int main() {
     raion raion1{"bread",bread_};
     std::cout<<raion1.getName()<<":\n";
     raion1.getItems();
-    std::cout<<"\n";
+    // std::cout<<"\n";
 
     std::vector<Items> vegetables_ = {itemull1,itemull2,itemull3,itemull4,itemull5};
     raion raion2{"vegetables", vegetables_};
