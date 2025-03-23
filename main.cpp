@@ -159,11 +159,11 @@ public:
 
     friend std::ostream & operator<<(std::ostream &os, const Joc &obj) {
         os
-               << "playerName: " << obj.playerName
+               << "playerName: " << obj.playerName<< "\n"
                << " lista: " << obj.lista
-               << " variantaJoc: " << obj.variantaJoc
-               << " timp: " << obj.timp
-               << " buget: " << obj.buget;
+               << " variantaJoc: " << obj.variantaJoc << "\n"
+               << " timp: " << obj.timp<< "\n"
+               << " buget: " << obj.buget << "\n";
         return os;
     }
 
@@ -185,15 +185,17 @@ public:
     }
 
     void verificarePret() const {
+        int ok =0;
         for (const auto& item : lista.getItems()) {
             if (item.getPret() == 0){
-                std::cout << "This version is not available right now\n";
-            }
-            else{
-                std::cout << "This version is available right now\n";
-            }
+                ok++;}
         }
+        if(ok == 0){
+            std::cout << "this version is available right now.\n";
     }
+        else{
+            std::cout << "this version is not availble right now.\n";}
+}
 
 };
 
@@ -202,17 +204,20 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
         // std::cout << "Lista de cumparaturi este goala. \n";
         if(cos.getItems().empty()) {
             std::cout << "Jocul are o problema....\n";
+            return;
         }
         else if(cos.getItems() == cos.getLista().getItems()){
-            std::cout<< "Bravo ai castigat.🙄";
+            std::cout<< "Bravo ai castigat.🙄\n";
+            return;
         }
-    else if (cos.getItems().size() != 0 && cos.getItems() != cos.getLista().getItems()){
-        std::cout<<"NU AI ADUNAT TOT.:P";
-    }
-    else if(cos.getItems().size() == 0 and joc.getLista().getItems().size()!=0){
-        std::cout<<"Jocul poate incepe!!!!!!!!!!!!!!!!!!";
-    }
 }
+    else if(cos.getItems().empty()!=true){
+        std::cout<<"NU AI ADUNAT TOT.:P\n";
+              return;
+    }
+    else{
+    std::cout<<"Jocul poate incepe!!!!!!!!!!!!!!!!!!\n";}
+
 }
 
 int main(){
