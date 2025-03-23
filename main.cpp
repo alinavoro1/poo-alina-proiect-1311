@@ -9,14 +9,10 @@ private:
     double pret;
     std::string brand;
 public:
-    Items() {}
+    Items(): pret(0.0) {}
     Items(const std::string& name_,const std::string& brand_) : name{name_}, pret{0.0}, brand{brand_}{}
-    Items(const std::string& name_, double pret_,const std::string& brand_): name{name_}, pret{pret_}, brand{brand_} {
-        // std::cout<<"constructor de initializare";
-    }
-    Items(const Items& other) : name{other.name}, pret{other.pret}, brand{other.brand} {
-        // std::cout<<"constructor copiere\n";
-    }
+    Items(const std::string& name_,double pret_,const std::string& brand_): name{name_}, pret{pret_}, brand{brand_} {}
+    Items(const Items& other) : name{other.name}, pret{other.pret}, brand{other.brand} {}
     const std::string& getName() const{ return this->name;}
     double getPret() const{ return this->pret;}
     const std::string& getBrand() const{ return this->brand;}
@@ -36,6 +32,10 @@ public:
         os<< item.name << "~" << item.brand << " ($" << item.pret << ")";
         return os;
     }
+
+    bool operator==(const Items& other) const {
+        return name == other.name && pret == other.pret && brand == other.brand;
+    }
 };
 
 class raion {
@@ -43,14 +43,9 @@ private:
     std::string name;
     std::vector <Items> Item;
 public:
-    raion(const std::string& name_, std::vector <Items> Item_) : name{name_}, Item{Item_} {}
+    raion(const std::string& name_,const std::vector <Items>& Item_) : name{name_}, Item{Item_} {}
     raion(const raion&  other) : name{other.name}, Item{other.Item} {}
     const std::string& getName() const{ return name;}
-    void getItems() const {
-        for (const auto& item : Item) {
-            std::cout << item.getName() <<"~"<<item.getBrand()<< std::endl;
-        }
-    }
     raion& operator=(const raion& other) {
         name = other.name;
         Item = other.Item;
@@ -58,12 +53,11 @@ public:
     }
     ~raion() = default;
 
-    friend std::ostream& operator<<(std::ostream& os, const raion& raion) {
-        os << raion.name<< " ";
-        for (const auto& item : raion.Item) {
-            os << item.getName()<<" ";
+    friend std::ostream & operator<<(std::ostream &os, const raion &obj) {
+        os<< "name: " << obj.name<< "\n";
+        for (const auto& item : obj.Item) {
+            os << item<< " ";
         }
-        os << " \n";
         return os;
     }
 };
@@ -71,23 +65,15 @@ public:
 class listaCumparaturi {
 private:
     std::vector <Items> items;
-    int buget;
+    // int buget;
 public:
-    listaCumparaturi(){}
-    listaCumparaturi(std::vector <Items> items_) : items{items_}{}
-    listaCumparaturi(std::vector <Items> items_, int buget_) : items{items_}, buget{buget_} {}
-    listaCumparaturi(const listaCumparaturi& other) : items{other.items}, buget{other.buget} {}
-    int getBuget() const{ return this->buget;}
-    // const std::vector& getItems() const { return this-> items;}???
-    void getItem() const {
-        for (const auto& item: items) {
-            std::cout << item.getName() << "\n";
-        }
-    }
+    listaCumparaturi() : items{} {}
+    explicit listaCumparaturi(const std::vector <Items>& items_) : items{items_}{}
+    listaCumparaturi(const listaCumparaturi& other) : items{other.items} {}
+
     //operator =
     listaCumparaturi& operator=(const listaCumparaturi& other) {
         items = other.items;
-        buget = other.buget;
         std::cout << "operator= copiere Items\n";
         return *this;
     }
@@ -96,47 +82,82 @@ public:
     ~listaCumparaturi() = default;
 
     friend std::ostream& operator<<(std::ostream& os, const listaCumparaturi& lista) {
-        os<<"Buget: "<< lista.buget<<"\n";
         for (const auto& item : lista.items) {
-            os<<item.getName()<<" ";
+            os<<item<<" ";
         }
         os << "\n";
         return os;
     }
 };
-
+class Joc;
 class cosCumparaturi {
     listaCumparaturi lista;
     std::vector <Items> items;
+    int totalPlata;
     public:
-    cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Items> &items_): lista(lista_),items(items_) {}
-    cosCumparaturi(const cosCumparaturi &other): lista(other.lista),items(other.items) {}
+    cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Items> &items_, int totalPlata_ = 0): lista(lista_),items(items_), totalPlata(totalPlata_) {}
+    cosCumparaturi(const cosCumparaturi &other): lista(other.lista),items(other.items), totalPlata(other.totalPlata) {}
 
     cosCumparaturi& operator=(const cosCumparaturi &other) {
         if (this == &other)
             return *this;
         lista = other.lista;
         items = other.items;
+        totalPlata = other.totalPlata;
         return *this;
     }
-
-    void getLista() {
-        lista.getItem();
-    }
+    const listaCumparaturi& getLista() const {return lista;}
+    const std::vector<Items>& getItems() const {return this->items;}
 
     ~cosCumparaturi() = default;
 
-    // friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos) {
-    //     for ( const auto& item : cos.lista) {
-    //         os << item.getName()<<" ";
-    //     }
-    //     os << "\n";
-    //     for (const auto& item : cos.items) {
-    //         os << item.getName()<<" ";
-    //     }
-    //     os << "\n";
-    //     return os;
-    // }
+    friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos) {
+        os <<"cosul trebuie sa contina: "<< cos.lista;
+        os << "total plata: " << cos.totalPlata<<"\n";
+        for (const auto& item : cos.items) {
+            os<< item<< "\n";
+        }
+        os<<"\n";
+        return os;
+    }
+
+    double sumadinCos() {
+        double suma = 0;
+        for (const auto& item: items){
+            suma+=item.getPret();
+        }
+    return suma;}
+};
+
+class Magazin {
+    std::vector <raion> raioane;
+public:
+    explicit Magazin(const std::vector<raion> &raioane_)
+        : raioane(raioane_) {
+    }
+    Magazin() {}
+
+    ~Magazin() = default;
+
+    Magazin(const Magazin &other)
+        : raioane(other.raioane) {
+    }
+
+    Magazin & operator=(const Magazin &other) {
+        if (this == &other)
+            return *this;
+        raioane = other.raioane;
+        return *this;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Magazin& magazin) {
+        os << "raioane: ";
+        for (const auto& items : magazin.raioane) {
+            os << items << " ";
+        }
+        os << "\n";
+        return os;
+    }
 };
 
 class Joc {
@@ -147,16 +168,14 @@ private:
     int timp;
     int buget;
 public:
-    explicit Joc(const std::string& playerName_) : playerName{playerName_} {}
-    Joc(int timp_, int buget_) : timp{timp_}, buget(buget_) {}
-    explicit Joc(int timp_) : playerName("Default"), variantaJoc(0),timp{timp_} {}
-    Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}{}
+    explicit Joc(const std::string& playerName_) : playerName{playerName_}, lista{}, variantaJoc(0), timp(0), buget(0) {}
+    Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}, timp(0), buget(0) {}
 
     int getVarianta() const{ return this->variantaJoc; }
-    const listaCumparaturi& getLista() const{ return this->lista;}
     const std::string& getPlayer() const { return this->playerName; }
     int getTimer() const{ return this->timp; }
     int getBuget() const{ return this->buget; }
+    const listaCumparaturi& getLista() const { return this->lista; }
 
     void setTimp(int timp_) {
         timp = timp_;
@@ -167,8 +186,6 @@ public:
     }
 
     Joc& operator=(const Joc& other) {
-        if (this == &other)
-            return *this;
         lista = other.lista;
         variantaJoc = other.variantaJoc;
         timp = other.timp;
@@ -178,26 +195,14 @@ public:
     }
     ~Joc() = default;
 
-    // friend std::ostream& operator<<(std::ostream& os, const Joc& joc) {
-    //     os<< "Player: "<< joc.playerName << " ";
-    //     os<< "Varianta joc: "<< joc.variantaJoc<< " ";
-    //     os<< "Timp: "<< joc.timp<< " ";
-    //     os<< "Buget: "<< joc.buget<< " ";
-    //     os<< "lista cumparaturi : ";
-    //     for (const auto& item : joc.lista) {
-    //         os<< item.getName()<<" ";
-    //     }
-    //     os << "\n";
-    //     return os;
-    // }
-
     friend std::ostream & operator<<(std::ostream &os, const Joc &obj) {
-        return os
-               << "playerName: " << obj.playerName
+        os
+               << "playerName: " << obj.playerName<< "\n"
                << " lista: " << obj.lista
-               << " variantaJoc: " << obj.variantaJoc
-               << " timp: " << obj.timp
-               << " buget: " << obj.buget;
+               << " variantaJoc: " << obj.variantaJoc << "\n"
+               << " timp: " << obj.timp<< "\n"
+               << " buget: " << obj.buget << "\n";
+        return os;
     }
 
     void setareTimer() {
@@ -218,75 +223,153 @@ public:
     }
 
     void verificarePret() const {
+        int ok =0;
         for (const auto& item : lista.getItems()) {
             if (item.getPret() == 0){
-                std::cout << "This version is not available right now\n";
-            }
+                ok++;}
         }
+        if(ok == 0){
+            std::cout << "this version is available right now.\n";
     }
-    //aici o sa completez cu varianta cand lista este goala dar  cosul de  cumparaturi
-    //este plin deci jocul se termina
-    //aceasta este varianta cand lista este goala inainte de a incepe jocul deci
-    //ar trebui ca  jocul sa nu porneasca.
-    void listaGoala() const {
-        if (lista.getItems().empty()) {
-            std::cout << "Lista de cumparaturi este goala. \n";
-            return;
-        }
-        else {
-            std::cout<<"Jocul poate incepe!!!!!!!!!!!!!!!!!!";
-        }
-    }
+        else{
+            std::cout << "this version is not availble right now.\n";}
+}
+
 };
 
-int main() {
-    Items itemulp1{"sourdough", "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"},itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"},
+void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
+    if (joc.getLista().getItems().empty()) {
+        // std::cout << "Lista de cumparaturi este goala. \n";
+        if(cos.getItems().empty()) {
+            std::cout << "Jocul are o problema....\n";
+            return;
+        }
+        else if(cos.getItems() == cos.getLista().getItems()){
+            std::cout<< "Bravo ai castigat.🙄\n"; //o sa adaug si un if pt varianta 3 de  joc sa verific daca suma din cos se  incadreaza in buget.
+            return;
+        }
+}
+    else if(cos.getItems().empty()!=true){
+        std::cout<<"NU AI ADUNAT TOT.:P\n";
+              return;
+    }
+    else{
+    std::cout<<"Jocul poate incepe!!!!!!!!!!!!!!!!!!\n";}
 
-        itemull1{"carrots",11.0,"lidl"},itemull2{"tomatoes",5.0,"lidl"},itemull3{"cucumbers",6.0,"lidl"},itemull4{"cabbage",3.0,"lidl"},itemull5{"potatoes",7.5,"lidl"},
-        itemulf1{"banane",5,"kaufland"};
-    Items itemulf2;
-    itemulf2=itemulp1;
-    // std::cout<<itemulf2.getName()<<"\n";
+}
+
+int main(){
+//paine
+    Items itemulp1{"sourdough",5.0, "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"};
+    Items itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"};
+    Items itemulp6{"sourdough", 6.0, "kaufland"}, itemulp7{"ciabatta", 11.0, "kaufland",}, itemulp8{"focaccia", 12.0, "kaufland"};
+    Items itemulp9{"brioche", 10.0, "kaufland"}, itemulp10{"rye bread",9.0, "kaufland"};
+    Items itemulp11{"sourdough", 7.5, "auchan"}, itemul12{"ciabatta", 13.0, "auchan"}, itemulp13{"focaccia", 11.0, "auchan"};
+    Items itemulp14{"brioche",5.0, "auchan"}, itemulp15{"rye bread",8.0, "auchan"};
+//legume
+    Items itemull1{"carrots",11.0,"lidl"}, itemull2{"tomatoes",5.0,"lidl"}, itemull3{"cucumbers",6.0,"lidl"};
+    Items itemull4{"cabbage",3.0,"lidl"}, itemull5{"potatoes",7.5,"lidl"};
+    Items itemull6{"carrots", 10.0, "kaufland"}, itemull7{"tomatoes", 7.0, "kaufland"}, itemull8{"cucumbers", 8.0, "kaufland"};
+    Items itemull9{"cabbage", 4.0, "kaufland"}, itemull10{"potatoes", 6.5, "kaufland"};
+    Items itemull11{"carrots", 9.0, "auchan"}, itemull12{"tomatoes", 6.0, "auchan"}, itemull13{"cucumbers", 7.0, "auchan"};
+    Items itemull14{"cabbage", 3.5, "auchan"}, itemull15{"potatoes", 6.0, "auchan"};
+//fructe
+    Items itemulf1{"apples", 10.0, "lidl"}, itemulf2{"bananas", 5.0, "lidl"}, itemulf3{"oranges", 7.0, "lidl"};
+    Items itemulf4{"grapes", 12.0, "lidl"}, itemulf5{"strawberries", 14.0, "lidl"};
+    Items itemulf6{"apples", 11.0, "kaufland"}, itemulf7{"bananas", 4.5, "kaufland"}, itemulf8{"oranges", 8.0, "kaufland"};
+    Items itemulf9{"grapes", 13.0, "kaufland"}, itemulf10{"strawberries", 16.0, "kaufland"};
+    Items itemulf11{"apples", 12.5, "auchan"}, itemulf12{"bananas", 5.5, "auchan"}, itemulf13{"oranges", 7.5, "auchan"};
+    Items itemulf14{"grapes", 14.0, "auchan"}, itemulf15{"strawberries", 15.5, "auchan"};
+    Items itemulf16;
+    itemulf16=itemulp1;
+//bauturi
+    Items itemulb1{"water", 1.5, "lidl"}, itemulb2{"juice", 3.0, "lidl"}, itemulb3{"soda", 3.5, "lidl"};
+    Items itemulb4{"coffee", 4.5, "lidl"}, itemulb5{"tea", 2.5, "lidl"};
+    Items itemulb6{"water", 1.7, "kaufland"}, itemulb7{"juice", 3.5, "kaufland"}, itemulb8{"soda", 3.8, "kaufland"};
+    Items itemulb9{"coffee", 5.0, "kaufland"}, itemulb10{"tea", 2.8, "kaufland"};
+    Items itemulb11{"water", 1.8, "auchan"}, itemulb12{"juice", 4.0, "auchan"}, itemulb13{"soda", 4.0, "auchan"};
+    Items itemulb14{"coffee", 5.5, "auchan"}, itemulb15{"tea", 3.0, "auchan"};
+
+//kitchen utensils
+    Items itemulk1{"spoon", 2.0, "lidl"}, itemulk2{"fork", 2.0, "lidl"}, itemulk3{"knife", 2.5, "lidl"};
+    Items itemulk4{"cutting board", 5.0, "lidl"}, itemulk5{"pan", 10.0, "lidl"};
+    Items itemulk6{"spoon", 2.5, "kaufland"}, itemulk7{"fork", 2.5, "kaufland"}, itemulk8{"knife", 3.0, "kaufland"};
+    Items itemulk9{"cutting board", 5.5, "kaufland"}, itemulk10{"pan", 12.0, "kaufland"};
+    Items itemulk11{"spoon", 3.0, "auchan"}, itemulk12{"fork", 3.0, "auchan"}, itemulk13{"knife", 3.5, "auchan"};
+    Items itemulk14{"cutting board", 6.0, "auchan"}, itemulk15{"pan", 13.0, "auchan"};
+
+//gradina
+    Items itemulg1{"fertilizer", 7.0, "lidl"}, itemulg2{"seeds", 5.0, "lidl"}, itemulg3{"watering can", 6.0, "lidl"};
+    Items itemulg4{"garden gloves", 5.0, "lidl"}, itemulg5{"plant pots", 6.0, "lidl"};
+    Items itemulg6{"fertilizer", 7.5, "kaufland"}, itemulg7{"seeds", 5.5, "kaufland"}, itemulg8{"watering can", 6.5, "kaufland"};
+    Items itemulg9{"garden gloves", 5.5, "kaufland"}, itemulg10{"plant pots", 6.5, "kaufland"};
+    Items itemulg11{"fertilizer", 8.0, "auchan"}, itemulg12{"seeds", 6.0, "auchan"}, itemulg13{"watering can", 7.0, "auchan"};
+    Items itemulg14{"garden gloves", 6.0, "auchan"}, itemulg15{"plant pots", 7.0, "auchan"};
+
+//school supplies
+    Items itemuss1{"notebook", 2.5, "lidl"}, itemuss2{"pen", 1.0, "lidl"}, itemuss3{"pencil", 0.8, "lidl"};
+    Items itemuss4{"eraser", 0.6, "lidl"}, itemuss5{"ruler", 2.5, "lidl"};
+    Items itemuss6{"notebook", 2.8, "kaufland"}, itemuss7{"pen", 1.2, "kaufland"}, itemuss8{"pencil", 1.0, "kaufland"};
+    Items itemuss9{"eraser", 0.7, "kaufland"}, itemuss10{"ruler", 3.0, "kaufland"};
+    Items itemuss11{"notebook", 3.0, "auchan"}, itemuss12{"pen", 1.5, "auchan"}, itemuss13{"pencil", 1.2, "auchan"};
+    Items itemuss14{"eraser", 0.8, "auchan"}, itemuss15{"ruler", 3.5, "auchan"};
+
+//snacks
+    Items itemuls1{"chips", 4.0, "lidl"}, itemuls2{"popcorn", 3.0, "lidl"}, itemuls3{"pretzels", 4.0, "lidl"};
+    Items itemuls4{"nuts", 5.0, "lidl"}, itemuls5{"crackers", 3.5, "lidl"};
+    Items itemuls6{"chips", 4.5, "kaufland"}, itemuls7{"popcorn", 3.5, "kaufland"}, itemuls8{"pretzels", 4.5, "kaufland"};
+    Items itemuls9{"nuts", 5.5, "kaufland"}, itemuls10{"crackers", 4.0, "kaufland"};
+    Items itemuls11{"chips", 5.0, "auchan"}, itemuls12{"popcorn", 4.0, "auchan"}, itemuls13{"pretzels", 5.0, "auchan"};
+    Items itemuls14{"nuts", 6.0, "auchan"}, itemuls15{"crackers", 4.5, "auchan"};
+//carne
+    Items itemulc1{"chicken breast", 18.0, "lidl"}, itemulc2{"ground beef", 15.0, "lidl"}, itemulc3{"pork chops", 17.0, "lidl"};
+    Items itemulc4{"sausage", 12.0, "lidl"}, itemulc5{"steak", 24.0, "lidl"};
+    Items itemulc6{"chicken breast", 20.0, "kaufland"}, itemulc7{"ground beef", 18.0, "kaufland"}, itemulc8{"pork chops", 19.0, "kaufland"};
+    Items itemulc9{"sausage", 13.0, "kaufland"}, itemulc10{"steak", 26.0, "kaufland"};
+    Items itemulc11{"chicken breast", 19.0, "auchan"}, itemulc12{"ground beef", 17.0, "auchan"}, itemulc13{"pork chops", 18.0, "auchan"};
+    Items itemulc14{"sausage", 12.5, "auchan"}, itemulc15{"steak", 25.0, "auchan"};
+
     std::cout << itemulp1.getName()<<"~"<<itemulp1.getBrand()<<"\n";
-    // std::cout<<"\n";
+    std::cout<<"\n";
 
     std::vector<Items> var1 = {itemulp1,itemull1};
     std::vector<Items> var2 = {itemulf1,itemull1};
-    std::vector<Items> var3 = {itemulp1,itemulf1};
-    listaCumparaturi lista1{var1,35},lista2{var2,70};
+    // std::vector<Items> var3 = {itemulp1,itemulf1};
+    listaCumparaturi lista1{var1},lista2{var2};
     std::cout<<"lista 1:\n";
-    lista1.getItem();
-    // std::cout<<lista1.getBuget()<<"\n";
+    std::cout<< lista1;
+
     std::cout<<"lista 2:\n";
-    lista2.getItem();
-    // std::cout<<lista2.getBuget()<<"\n";
+    std::cout<< lista2;
     std::cout<<"\n";
 
-    cosCumparaturi cos1{lista1,{}};
-    std::cout<<"ce trebuie sa fie in cos la finalul jocului: ";
-    cos1.getLista();
-    std::cout<<"\n";
+    cosCumparaturi cos1{lista1,{itemulf1,itemulf2}, 12};
+    std::cout<< cos1;
+    std::cout<<"suma din cos este: \n";
+    std::cout<<cos1.sumadinCos()<<"\n";
 
     std::vector<Items> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5};
-    raion raion1{"bread",bread_};
-    std::cout<<raion1.getName()<<":\n";
-    raion1.getItems();
+    raion raionp{"bread",bread_};
+    std::cout<<raionp;
     std::cout<<"\n";
 
     std::vector<Items> vegetables_ = {itemull1,itemull2,itemull3,itemull4,itemull5};
-    raion raion2{"vegetables", vegetables_};
-    std::cout<<raion2.getName()<<":\n";
-    raion2.getItems();
+    raion raionf{"vegetables", vegetables_};
+    std::cout<<raionf;
     std::cout<<"\n";
 
-    Joc start("Alina", lista1, 1);
+    Joc start("Alina", lista1, 3);
+    std::cout<<start;
     start.setareTimer();
+    std::cout<<start.getPlayer()<<"\n";
+    std::cout<<start.getVarianta()<<"\n";
     std::cout<<start.getTimer()<<"\n";
+    std::cout<<start.getBuget()<<"\n";
     start.verificarePret();
-    start.listaGoala();
-    // std::cout<<"\n";
-
+    listaGoala(start, cos1);
+    std::cout<<"\n";
     std::cout<<start;
 
     return 0;
 }
+
