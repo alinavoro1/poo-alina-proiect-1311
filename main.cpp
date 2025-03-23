@@ -56,7 +56,7 @@ public:
     friend std::ostream & operator<<(std::ostream &os, const raion &obj) {
         os<< "name: " << obj.name<< "\n";
         for (const auto& item : obj.Item) {
-            os << item<< " ";
+            os << item<< ", ";
         }
         return os;
     }
@@ -83,7 +83,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const listaCumparaturi& lista) {
         for (const auto& item : lista.items) {
-            os<<item<<" ";
+            os<<item<<", ";
         }
         os << "\n";
         return os;
@@ -153,7 +153,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Magazin& magazin) {
         os << "raioane: ";
         for (const auto& items : magazin.raioane) {
-            os << items << " ";
+            os << items << ", ";
         }
         os << "\n";
         return os;
@@ -264,7 +264,7 @@ int main(){
     Items itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"};
     Items itemulp6{"sourdough", 6.0, "kaufland"}, itemulp7{"ciabatta", 11.0, "kaufland",}, itemulp8{"focaccia", 12.0, "kaufland"};
     Items itemulp9{"brioche", 10.0, "kaufland"}, itemulp10{"rye bread",9.0, "kaufland"};
-    Items itemulp11{"sourdough", 7.5, "auchan"}, itemul12{"ciabatta", 13.0, "auchan"}, itemulp13{"focaccia", 11.0, "auchan"};
+    Items itemulp11{"sourdough", 7.5, "auchan"}, itemulp12{"ciabatta", 13.0, "auchan"}, itemulp13{"focaccia", 11.0, "auchan"};
     Items itemulp14{"brioche",5.0, "auchan"}, itemulp15{"rye bread",8.0, "auchan"};
 //legume
     Items itemull1{"carrots",11.0,"lidl"}, itemull2{"tomatoes",5.0,"lidl"}, itemull3{"cucumbers",6.0,"lidl"};
@@ -329,6 +329,25 @@ int main(){
     Items itemulc11{"chicken breast", 19.0, "auchan"}, itemulc12{"ground beef", 17.0, "auchan"}, itemulc13{"pork chops", 18.0, "auchan"};
     Items itemulc14{"sausage", 12.5, "auchan"}, itemulc15{"steak", 25.0, "auchan"};
 
+//dairy
+    Items itemuld1{"milk", 2.5, "lidl"}, itemuld2{"cheese", 5.0, "lidl"}, itemuld3{"butter", 4.5, "lidl"};
+    Items itemuld4{"yogurt", 2.0, "lidl"}, itemuld5{"cream", 3.0, "lidl"};
+    Items itemuld6{"milk", 2.8, "kaufland"}, itemuld7{"cheese", 5.5, "kaufland"}, itemuld8{"butter", 4.8, "kaufland"};
+    Items itemuld9{"yogurt", 2.2, "kaufland"}, itemuld10{"cream", 3.2, "kaufland"};
+    Items itemuld11{"milk", 3.0, "auchan"}, itemuld12{"cheese", 5.8, "auchan"}, itemuld13{"butter", 4.2, "auchan"};
+    Items itemuld14{"yogurt", 2.5, "auchan"}, itemuld15{"cream", 3.5, "auchan"};
+
+
+//dulciuri - sweets sw
+    Items itemulsw1{"chocolate", 8.0, "lidl"}, itemulsw2{"gummy bears", 6.0, "lidl"}, itemulsw3{"biscuits", 5.0, "lidl"};
+    Items itemulsw4{"candy bars", 7.0, "lidl"}, itemulsw5{"lollipops", 4.0, "lidl"};
+    Items itemulsw6{"chocolate", 8.5, "kaufland"}, itemulsw7{"gummy bears", 7.0, "kaufland"}, itemulsw8{"biscuits", 6.0, "kaufland"};
+    Items itemulsw9{"candy bars", 8.5, "kaufland"}, itemulsw10{"lollipops", 5.0, "kaufland"};
+    Items itemulsw11{"chocolate", 9.0, "auchan"}, itemulsw12{"gummy bears", 7.5, "auchan"}, itemulsw13{"biscuits", 6.5, "auchan"};
+    Items itemulsw14{"candy bars", 9.0, "auchan"}, itemulsw15{"lollipops", 5.5, "auchan"};
+
+
+
     std::cout << itemulp1.getName()<<"~"<<itemulp1.getBrand()<<"\n";
     std::cout<<"\n";
 
@@ -348,14 +367,28 @@ int main(){
     std::cout<<"suma din cos este: \n";
     std::cout<<cos1.sumadinCos()<<"\n";
 
-    std::vector<Items> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5};
+    std::vector<Items> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5,itemulp6,itemulp7,itemulp8,itemulp9,itemulp10,itemulp11, itemulp12, itemulp13, itemulp14, itemulp15};
     raion raionp{"bread",bread_};
     std::cout<<raionp;
     std::cout<<"\n";
 
-    std::vector<Items> vegetables_ = {itemull1,itemull2,itemull3,itemull4,itemull5};
-    raion raionf{"vegetables", vegetables_};
+    std::vector<Items> vegetables_ = {itemull1,itemull2,itemull3,itemull4,itemull5, itemull6, itemull7, itemull8, itemull9, itemull10, itemull11, itemull12, itemull13, itemull14, itemull15};
+    raion raionl{"vegetables", vegetables_};
+    std::cout<<raionl;
+    std::cout<<"\n";
+
+    std::vector <Items> fruits_ = {itemulf1,itemulf2,itemulf3, itemulf4, itemulf5, itemulf6, itemulf7, itemulf8, itemulf9, itemulf10, itemulf11, itemulf12, itemulf13, itemulf14, itemulf15};
+    raion raionf{"fruits", fruits_};
     std::cout<<raionf;
+    std::cout<<"\n";
+
+    std::vector <Items> drinks_ = {itemulb1, itemulb2, itemulb3, itemulb4, itemulb5, itemulb6, itemulb7, itemulb8, itemulb9, itemulb10, itemulb11, itemulb12, itemulb13, itemuld14, itemuld15};
+    raion raionb{"drinks", drinks_};
+    std::cout<<raionb;
+    std::cout<<"\n";
+
+    Magazin magazin{{raionb, raionf,raionl, raionp}};
+    std::cout<<magazin;
     std::cout<<"\n";
 
     Joc start("Alina", lista1, 3);
