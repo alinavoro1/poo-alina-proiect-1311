@@ -32,6 +32,10 @@ public:
         os<< item.name << "~" << item.brand << " ($" << item.pret << ")";
         return os;
     }
+
+    bool operator==(const Items& other) const {
+        return name == other.name && pret == other.pret && brand == other.brand;
+    }
 };
 
 class raion {
@@ -85,7 +89,7 @@ public:
         return os;
     }
 };
-
+class Joc;
 class cosCumparaturi {
     listaCumparaturi lista;
     std::vector <Items> items;
@@ -102,6 +106,8 @@ class cosCumparaturi {
         totalPlata = other.totalPlata;
         return *this;
     }
+    const listaCumparaturi& getLista() const {return lista;}
+    const std::vector<Items>& getItems() const {return this->items;}
 
     ~cosCumparaturi() = default;
 
@@ -114,6 +120,8 @@ class cosCumparaturi {
         os<<"\n";
         return os;
     }
+    void listaGoala (const Joc& joc, const cosCumparaturi& cos) {}
+
 };
 
 class Joc {
@@ -131,6 +139,7 @@ public:
     const std::string& getPlayer() const { return this->playerName; }
     int getTimer() const{ return this->timp; }
     int getBuget() const{ return this->buget; }
+    const listaCumparaturi& getLista() const { return this->lista; }
 
     void setTimp(int timp_) {
         timp = timp_;
@@ -182,22 +191,34 @@ public:
             if (item.getPret() == 0){
                 std::cout << "This version is not available right now\n";
             }
+            else{
+                std::cout << "This version is available right now\n";
+            }
         }
     }
-    //aici o sa completez cu varianta cand lista este goala dar  cosul de  cumparaturi
-    //este plin deci jocul se termina
-    //aceasta este varianta cand lista este goala inainte de a incepe jocul deci
-    //ar trebui ca  jocul sa nu porneasca.
-    void listaGoala() const {
-        if (lista.getItems().empty()) {
-            std::cout << "Lista de cumparaturi este goala. \n";
-            return;
-        }
-        std::cout<<"Jocul poate incepe!!!!!!!!!!!!!!!!!!";
-    }
+
+    void listaGoala(const Joc& joc, const cosCumparaturi& cos) {}
 };
 
-int main() {
+void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
+    if (joc.getLista().getItems().empty()) {
+        // std::cout << "Lista de cumparaturi este goala. \n";
+        if(cos.getItems().empty()) {
+            std::cout << "Jocul are o problema....\n";
+        }
+        else if(cos.getItems() == cos.getLista().getItems()){
+            std::cout<< "Bravo ai castigat.🙄";
+        }
+    else if (cos.getItems().size() != 0 && cos.getItems() != cos.getLista().getItems()){
+        std::cout<<"NU AI ADUNAT TOT.:P";
+    }
+    else if(cos.getItems().size() == 0 and joc.getLista().getItems().size()!=0){
+        std::cout<<"Jocul poate incepe!!!!!!!!!!!!!!!!!!";
+    }
+}
+}
+
+int main(){
     Items itemulp1{"sourdough",5.0, "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"},itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"},
 
         itemull1{"carrots",11.0,"lidl"},itemull2{"tomatoes",5.0,"lidl"},itemull3{"cucumbers",6.0,"lidl"},itemull4{"cabbage",3.0,"lidl"},itemull5{"potatoes",7.5,"lidl"},
@@ -239,7 +260,7 @@ int main() {
     std::cout<<start.getTimer()<<"\n";
     std::cout<<start.getBuget()<<"\n";
     start.verificarePret();
-    start.listaGoala();
+    start.listaGoala(start, cos1);
     std::cout<<"\n";
     std::cout<<start;
 
