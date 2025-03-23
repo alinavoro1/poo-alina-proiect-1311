@@ -120,8 +120,6 @@ class cosCumparaturi {
         os<<"\n";
         return os;
     }
-    void listaGoala (const Joc& joc, const cosCumparaturi& cos) {}
-
 };
 
 class Joc {
@@ -197,7 +195,6 @@ public:
         }
     }
 
-    void listaGoala(const Joc& joc, const cosCumparaturi& cos) {}
 };
 
 void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
@@ -260,7 +257,7 @@ int main(){
     std::cout<<start.getTimer()<<"\n";
     std::cout<<start.getBuget()<<"\n";
     start.verificarePret();
-    start.listaGoala(start, cos1);
+    listaGoala(start, cos1);
     std::cout<<"\n";
     std::cout<<start;
 
