@@ -39,7 +39,7 @@ private:
     std::string name;
     std::vector <Items> Item;
 public:
-    raion(const std::string& name_, std::vector <Items> Item_) : name{name_}, Item{Item_} {}
+    raion(const std::string& name_,const std::vector <Items>& Item_) : name{name_}, Item{Item_} {}
     raion(const raion&  other) : name{other.name}, Item{other.Item} {}
     const std::string& getName() const{ return name;}
     raion& operator=(const raion& other) {
@@ -92,13 +92,14 @@ class cosCumparaturi {
     int totalPlata;
     public:
     cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Items> &items_, int totalPlata_ = 0): lista(lista_),items(items_), totalPlata(totalPlata_) {}
-    cosCumparaturi(const cosCumparaturi &other): lista(other.lista),items(other.items) {}
+    cosCumparaturi(const cosCumparaturi &other): lista(other.lista),items(other.items), totalPlata(other.totalPlata) {}
 
     cosCumparaturi& operator=(const cosCumparaturi &other) {
         if (this == &other)
             return *this;
         lista = other.lista;
         items = other.items;
+        totalPlata = other.totalPlata;
         return *this;
     }
 
