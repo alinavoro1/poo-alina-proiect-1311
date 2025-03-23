@@ -120,6 +120,13 @@ class cosCumparaturi {
         os<<"\n";
         return os;
     }
+
+    double sumadinCos() {
+        double suma = 0;
+        for (const auto& item: items){
+            suma+=item.getPret();
+        }
+    return suma;}
 };
 
 class Joc {
@@ -207,7 +214,7 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
             return;
         }
         else if(cos.getItems() == cos.getLista().getItems()){
-            std::cout<< "Bravo ai castigat.🙄\n";
+            std::cout<< "Bravo ai castigat.🙄\n"; //o sa adaug si un if pt varianta 3 de  joc sa verific daca suma din cos se  incadreaza in buget.
             return;
         }
 }
@@ -243,6 +250,8 @@ int main(){
 
     cosCumparaturi cos1{lista1,{itemulf1,itemulf2}, 12};
     std::cout<< cos1;
+    std::cout<<"suma din cos este: \n";
+    std::cout<<cos1.sumadinCos()<<"\n";
 
     std::vector<Items> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5};
     raion raion1{"bread",bread_};
