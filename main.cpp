@@ -150,10 +150,11 @@ public:
         return *this;
     }
 
-    friend std::ostream & operator<<(std::ostream &os, const Magazin& raioane) {
-        os << "raioane: " ;
-        for( const auto& raion: raioane)
-            os<<raion;
+    friend std::ostream& operator<<(std::ostream& os, const Magazin& magazin) {
+        os << "raioane: ";
+        for (const auto& items : magazin.raioane) {
+            os << items << " ";
+        }
         os << "\n";
         return os;
     }
