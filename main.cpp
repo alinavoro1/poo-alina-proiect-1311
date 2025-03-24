@@ -127,8 +127,8 @@ class cosCumparaturi {
     }
 
     void sumadinCos(cosCumparaturi& cos) {
-        double suma = 0;
         if (cos.items.size() > 0) {
+            double suma = 0.0;
             for (const auto& item: items){
                 suma+=item.getPret();
             }
