@@ -79,7 +79,6 @@ public:
     //operator =
     listaCumparaturi& operator=(const listaCumparaturi& other) {
         items = other.items;
-        std::cout << "operator= copiere Items\n";
         return *this;
     }
     const std::vector<Items>& getItems() const {return this->items; }
@@ -98,10 +97,11 @@ class Joc;
 class cosCumparaturi {
     listaCumparaturi lista;
     std::vector <Items> items;
-    int totalPlata;
+    double totalPlata;
     public:
-    cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Items> &items_, int totalPlata_ = 0): lista(lista_),items(items_), totalPlata(totalPlata_) {}
+    cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Items> &items_, double totalPlata_ = 0.0): lista(lista_),items(items_), totalPlata(totalPlata_) {}
     cosCumparaturi(const cosCumparaturi &other): lista(other.lista),items(other.items), totalPlata(other.totalPlata) {}
+    explicit cosCumparaturi( double totalPlata_ ) : totalPlata(totalPlata_) {}
 
     cosCumparaturi& operator=(const cosCumparaturi &other) {
         if (this == &other)
@@ -126,12 +126,18 @@ class cosCumparaturi {
         return os;
     }
 
-    double sumadinCos() {
-        double suma = 0;
-        for (const auto& item: items){
-            suma+=item.getPret();
+    void sumadinCos(cosCumparaturi& cos) {
+        if (cos.items.size() > 0) {
+            double suma = 0.0;
+            for (const auto& item: items){
+                suma+=item.getPret();
+            }
+            cos.totalPlata = suma;
         }
-    return suma;}
+        else {
+            std::cout<<"cosul este gol womp womp\n";
+        }
+    }
 };
 
 class Magazin {
@@ -279,7 +285,7 @@ listaCumparaturi listGenerator(const Magazin& magazin) {
 
         std::uniform_int_distribution<int> dist(1, 3);
         int numItems = std::min(dist(gen), (int)produseleRndm.size());
-        
+
         for (int i = 0; i< numItems; ++i) {
             if (produse.insert(produseleRndm[i].getName()).second) {
                 listaMea.push_back(produseleRndm[i]);
@@ -339,12 +345,12 @@ int main(){
     Items itemulg14{"garden gloves", 6.0, "auchan"}, itemulg15{"plant pots", 7.0, "auchan"};
 
 //school supplies
-    Items itemuss1{"notebook", 2.5, "lidl"}, itemuss2{"pen", 1.0, "lidl"}, itemuss3{"pencil", 0.8, "lidl"};
-    Items itemuss4{"eraser", 0.6, "lidl"}, itemuss5{"ruler", 2.5, "lidl"};
-    Items itemuss6{"notebook", 2.8, "kaufland"}, itemuss7{"pen", 1.2, "kaufland"}, itemuss8{"pencil", 1.0, "kaufland"};
-    Items itemuss9{"eraser", 0.7, "kaufland"}, itemuss10{"ruler", 3.0, "kaufland"};
-    Items itemuss11{"notebook", 3.0, "auchan"}, itemuss12{"pen", 1.5, "auchan"}, itemuss13{"pencil", 1.2, "auchan"};
-    Items itemuss14{"eraser", 0.8, "auchan"}, itemuss15{"ruler", 3.5, "auchan"};
+    Items itemulss1{"notebook", 2.5, "lidl"}, itemulss2{"pen", 1.0, "lidl"}, itemulss3{"pencil", 0.8, "lidl"};
+    Items itemulss4{"eraser", 0.6, "lidl"}, itemulss5{"ruler", 2.5, "lidl"};
+    Items itemulss6{"notebook", 2.8, "kaufland"}, itemulss7{"pen", 1.2, "kaufland"}, itemulss8{"pencil", 1.0, "kaufland"};
+    Items itemulss9{"eraser", 0.7, "kaufland"}, itemulss10{"ruler", 3.0, "kaufland"};
+    Items itemulss11{"notebook", 3.0, "auchan"}, itemulss12{"pen", 1.5, "auchan"}, itemulss13{"pencil", 1.2, "auchan"};
+    Items itemulss14{"eraser", 0.8, "auchan"}, itemulss15{"ruler", 3.5, "auchan"};
 
 //snacks
     Items itemuls1{"chips", 4.0, "lidl"}, itemuls2{"popcorn", 3.0, "lidl"}, itemuls3{"pretzels", 4.0, "lidl"};
@@ -394,33 +400,49 @@ int main(){
     std::cout<< lista2;
     std::cout<<"\n";
 
-    cosCumparaturi cos1{lista1,{itemulf1,itemulf2}, 12};
+    cosCumparaturi cos1{lista1,{itemulf1,itemulf2}};
     std::cout<< cos1;
-    std::cout<<"suma din cos este: \n";
-    std::cout<<cos1.sumadinCos()<<"\n";
+    // std::cout<<"suma din cos este: \n";
+    cos1.sumadinCos(cos1);
+    std::cout<<cos1;
 
     std::vector<Items> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5,itemulp6,itemulp7,itemulp8,itemulp9,itemulp10,itemulp11, itemulp12, itemulp13, itemulp14, itemulp15};
-    raion raionp{"bread",bread_};
-    std::cout<<raionp;
-    std::cout<<"\n";
+    raion raionb{"bread",bread_};
 
     std::vector<Items> vegetables_ = {itemull1,itemull2,itemull3,itemull4,itemull5, itemull6, itemull7, itemull8, itemull9, itemull10, itemull11, itemull12, itemull13, itemull14, itemull15};
-    raion raionl{"vegetables", vegetables_};
-    std::cout<<raionl;
+    raion raionv{"vegetables", vegetables_};
+    // std::cout<<raionv;
     std::cout<<"\n";
 
     std::vector <Items> fruits_ = {itemulf1,itemulf2,itemulf3, itemulf4, itemulf5, itemulf6, itemulf7, itemulf8, itemulf9, itemulf10, itemulf11, itemulf12, itemulf13, itemulf14, itemulf15};
     raion raionf{"fruits", fruits_};
-    std::cout<<raionf;
-    std::cout<<"\n";
 
     std::vector <Items> drinks_ = {itemulb1, itemulb2, itemulb3, itemulb4, itemulb5, itemulb6, itemulb7, itemulb8, itemulb9, itemulb10, itemulb11, itemulb12, itemulb13, itemuld14, itemuld15};
-    raion raionb{"drinks", drinks_};
-    std::cout<<raionb;
-    std::cout<<"\n";
+    raion raiond{"drinks", drinks_};
 
-    Magazin magazin{{raionb, raionf,raionl, raionp}};
-    std::cout<<magazin;
+    std::vector <Items> kitchen_ = {itemulk1, itemulk2, itemulk3, itemulk4, itemulk5, itemulk6, itemulk7, itemulk8, itemulk9, itemulk10, itemulk11, itemulk12, itemulk13, itemuld14, itemuld15};
+    raion raionk{"Kitchen Utensils", kitchen_ };
+
+    std::vector <Items> garden_ = {itemulg1, itemulg2, itemulg3, itemulg4, itemulg5, itemulg6, itemulg7, itemulg8, itemulg9, itemulg10, itemulg11, itemulg12, itemulg13, itemuld14, itemuld15};
+    raion raiong{"garden", garden_};
+
+    std::vector <Items> school_ = {itemulss1, itemulss2, itemulss3, itemulss4, itemulss5, itemulss6, itemulss7, itemulss8, itemulss9, itemulss10, itemulss11, itemulss12, itemulss13, itemulss14, itemulss15};
+    raion raionss{"school supplies", school_};
+
+    std::vector <Items> snacks_ = {itemuls1, itemuls2, itemuls3, itemuls4, itemuls5, itemuls6, itemuls7, itemuls8, itemuls9, itemuls10, itemuls11, itemuls12, itemuls13, itemuls14, itemuls15};
+    raion raions{"snacks", snacks_};
+
+    std::vector <Items> meat_ = {itemulc1, itemulc2, itemulc3, itemulc4, itemulc5, itemulc6, itemulc7, itemulc8, itemulc9, itemulc10, itemulc11, itemulc12, itemulc13, itemulc14, itemulc15};
+    raion raionm{"meat", meat_};
+
+    std::vector <Items> dairy_ = {itemuld1, itemuld2, itemuld3, itemuld4, itemuld5, itemuld6, itemuld7, itemuld8, itemuld9, itemuld10, itemuld11, itemuld12, itemuld13, itemuld14, itemuld15};
+    raion raionda{"dairy", dairy_};
+
+    std::vector <Items> sweets_ = {itemulsw1, itemulsw2, itemulsw3, itemulsw4, itemulsw5, itemulsw6, itemulsw7, itemulsw8, itemulsw9, itemulsw10, itemulsw11, itemulsw12, itemulsw13, itemulsw14, itemulsw15};
+    raion raionsw{"sweets", sweets_};
+
+    Magazin magazin{{raiond, raionf,raionv, raionb, raionk, raiong, raionss, raions, raionm, raionda, raionsw}};
+    // std::cout<<magazin;
     std::cout<<"\n";
 
     std::cout<<"Enter player name: ";
@@ -439,6 +461,9 @@ int main(){
     }
     std::cout<<"\n";
 
+    cosCumparaturi cos{lista, {}};
+    cos.sumadinCos(cos);
+
     Joc start{nume, lista, versiune };
     start.setareTimer();
     start.verificarePret();
@@ -446,4 +471,5 @@ int main(){
         listaGoala(start, cos1);
     return 0;
 }
+
 
