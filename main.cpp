@@ -177,13 +177,13 @@ private:
 public:
     Joc () {}
     explicit Joc(const std::string& playerName_) : playerName{playerName_}, lista{}, variantaJoc(0), timp(0), buget(0) {}
-    explicit Joc(const std::string& playerName_, int varianta) : playerName(playerName_), variantaJoc{varianta} {}
+    explicit Joc(const std::string& playerName_, int varianta) : playerName(playerName_), variantaJoc{varianta}, timp(0), buget(0) {}
     Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}, timp(0), buget(0) {}
 
-    int getVarianta() const{ return this->variantaJoc; }
-    const std::string& getPlayer() const { return this->playerName; }
+    // int getVarianta() const{ return this->variantaJoc; }
+    // const std::string& getPlayer() const { return this->playerName; }
     int getTimer() const{ return this->timp; }
-    int getBuget() const{ return this->buget; }
+    // int getBuget() const{ return this->buget; }
     const listaCumparaturi& getLista() const { return this->lista; }
 
     void setTimp(int timp_) {
@@ -441,6 +441,9 @@ int main(){
 
     Joc start{nume, lista, versiune };
     start.setareTimer();
+    start.verificarePret();
+    if (start.getTimer() == 0)
+        listaGoala(start, cos1);
     return 0;
 }
 
