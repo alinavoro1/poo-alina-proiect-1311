@@ -2,6 +2,9 @@
 #include <ostream>
 #include <string>
 #include <vector>
+#include <set>
+#include <random>
+#include <algorithm>
 
 class Items {
 private:
@@ -22,7 +25,7 @@ public:
         this->name = other.name;
         this->pret = other.pret;
         this->brand = other.brand;
-        std::cout <<"op=\n";
+        // std::cout <<"op=\n";
         return *this;
     }
 
@@ -60,6 +63,8 @@ public:
         }
         return os;
     }
+
+    const std::vector <Items>& getItems() const { return Item;}
 };
 
 class listaCumparaturi {
@@ -158,6 +163,8 @@ public:
         os << "\n";
         return os;
     }
+
+    const std::vector <raion>& getRaioane() const { return this->raioane;}
 };
 
 class Joc {
@@ -168,13 +175,15 @@ private:
     int timp;
     int buget;
 public:
+    Joc () {}
     explicit Joc(const std::string& playerName_) : playerName{playerName_}, lista{}, variantaJoc(0), timp(0), buget(0) {}
+    explicit Joc(const std::string& playerName_, int varianta) : playerName(playerName_), variantaJoc{varianta}, timp(0), buget(0) {}
     Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}, timp(0), buget(0) {}
 
-    int getVarianta() const{ return this->variantaJoc; }
-    const std::string& getPlayer() const { return this->playerName; }
+    // int getVarianta() const{ return this->variantaJoc; }
+    // const std::string& getPlayer() const { return this->playerName; }
     int getTimer() const{ return this->timp; }
-    int getBuget() const{ return this->buget; }
+    // int getBuget() const{ return this->buget; }
     const listaCumparaturi& getLista() const { return this->lista; }
 
     void setTimp(int timp_) {
@@ -258,11 +267,34 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
 
 }
 
+listaCumparaturi listGenerator(const Magazin& magazin) {
+    std::set<std::string> produse;
+    std::vector<Items> listaMea;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    for (const raion& r : magazin.getRaioane()) {
+        std::vector<Items> produseleRndm = r.getItems();
+        std::shuffle(produseleRndm.begin(),produseleRndm.end(),gen);
+
+        std::uniform_int_distribution<int> dist(1, 3);
+        int numItems = std::min(dist(gen), (int)produseleRndm.size());
+
+        for (int i = 0; i< numItems; ++i) {
+            if (produse.insert(produseleRndm[i].getName()).second) {
+                listaMea.push_back(produseleRndm[i]);
+            }
+        }
+    }
+
+    return listaCumparaturi(listaMea);
+}
+
 int main(){
 //paine
     Items itemulp1{"sourdough",5.0, "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"};
     Items itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"};
-    Items itemulp6{"sourdough", 6.0, "kaufland"}, itemulp7{"ciabatta", 11.0, "kaufland",}, itemulp8{"focaccia", 12.0, "kaufland"};
+    Items itemulp6{"sourdough", 6.0, "kaufland"}, itemulp7{"ciabatta", 11.0, "kaufland"}, itemulp8{"focaccia", 12.0, "kaufland"};
     Items itemulp9{"brioche", 10.0, "kaufland"}, itemulp10{"rye bread",9.0, "kaufland"};
     Items itemulp11{"sourdough", 7.5, "auchan"}, itemulp12{"ciabatta", 13.0, "auchan"}, itemulp13{"focaccia", 11.0, "auchan"};
     Items itemulp14{"brioche",5.0, "auchan"}, itemulp15{"rye bread",8.0, "auchan"};
@@ -391,18 +423,26 @@ int main(){
     std::cout<<magazin;
     std::cout<<"\n";
 
-    Joc start("Alina", lista1, 3);
-    std::cout<<start;
-    start.setareTimer();
-    std::cout<<start.getPlayer()<<"\n";
-    std::cout<<start.getVarianta()<<"\n";
-    std::cout<<start.getTimer()<<"\n";
-    std::cout<<start.getBuget()<<"\n";
-    start.verificarePret();
-    listaGoala(start, cos1);
-    std::cout<<"\n";
-    std::cout<<start;
+    std::cout<<"Enter player name: ";
+    std::string nume;
+    std::cin>>nume;
 
+    std::cout<<"Select a game version:\n - [ 1 ] 30s timer no budget\n - [ 2 ] 15s timer no budget\n - [ 3 ] 20s timer with budget\n ";
+    int versiune;
+    std::cin>>versiune;
+
+    listaCumparaturi lista;
+    lista =  listGenerator(magazin);
+    std::cout<< "lista ta este: ";
+    for (const auto& item : lista.getItems()) {
+        std::cout<<item.getName()<<", ";
+    }
+    std::cout<<"\n";
+
+    Joc start{nume, lista, versiune };
+    start.setareTimer();
+    start.verificarePret();
+    if (start.getTimer() == 0)
+        listaGoala(start, cos1);
     return 0;
 }
-
