@@ -471,3 +471,5 @@ int main(){
         listaGoala(start, cos1);
     return 0;
 }
+
+
