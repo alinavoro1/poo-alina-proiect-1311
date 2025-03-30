@@ -96,8 +96,6 @@ public:
 
     int getBuget() const {return this->buget; }
 
-    // void setBuget(int buget_) { buget = buget_; }
-
     ~listaCumparaturi() = default;
 
     friend std::ostream& operator<<(std::ostream& os, const listaCumparaturi& lista) {
@@ -128,10 +126,6 @@ public:
             items.erase(it);
         }
     }
-
-    // bool esteinLista ( const Item& item) const {
-    //     return std::find(items.begin(), items.end(), item) != items.end();
-    // }
 };
 class Joc;
 class cosCumparaturi {
@@ -228,20 +222,17 @@ private:
     listaCumparaturi lista;
     int variantaJoc;
     int timp;
-    // int buget;
 public:
     Joc () {}
     explicit Joc(const std::string& playerName_) : playerName{playerName_}, lista{}, variantaJoc(0), timp(0){}
     explicit Joc(const std::string& playerName_, int varianta) : playerName(playerName_), variantaJoc{varianta}, timp(0){}
     Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}, timp(0) {}
     int getVarianta() const {return variantaJoc;}
-    // int getTimer() const{ return this->timp; }
     const listaCumparaturi& getLista() const { return this->lista; }
 
     void setTimp(int timp_) {
         timp = timp_;
     }
-
 
     Joc& operator=(const Joc& other) {
         lista = other.lista;
@@ -286,12 +277,11 @@ public:
         if(ok == 0){
             std::cout << "this version is available right now.\n";
             return 1;
-    }
+        }
         else{
             std::cout << "this version is not availble right now.\n";
             return 0;}
-}
-
+    }
 };
 
 void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
@@ -326,7 +316,6 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
     else {
         std::cout << "You lost!";
     }
-
 }
 
 listaCumparaturi listGenerator(const Magazin& magazin) {
@@ -439,30 +428,11 @@ int main(){
     Item itemulsw11{"chocolate", 9.0, "auchan"}, itemulsw12{"gummy bears", 7.5, "auchan"}, itemulsw13{"biscuits", 6.5, "auchan"};
     Item itemulsw14{"candy bars", 9.0, "auchan"}, itemulsw15{"lollipops", 5.5, "auchan"};
 
-    std::cout << itemulp1.getName()<<"~"<<itemulp1.getBrand()<<"\n";
-    std::cout<<"\n";
-
-    std::vector<Item> var1 = {itemulp1,itemull1};
-    std::vector<Item> var2 = {itemulf1,itemull1};
-    listaCumparaturi lista1{var1},lista3{var2};
-    std::cout<<"lista 1:\n";
-    std::cout<< lista1;
-
-    std::cout<<"lista 2:\n";
-    std::cout<< lista3;
-    std::cout<<"\n";
-
-    cosCumparaturi cos1{lista1,{itemulf1,itemulf2}};
-    std::cout<< cos1;
-    cos1.sumadinCos();
-    std::cout<<cos1;
-
     std::vector<Item> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5,itemulp6,itemulp7,itemulp8,itemulp9,itemulp10,itemulp11, itemulp12, itemulp13, itemulp14, itemulp15};
     raion raionb{"bread",bread_};
 
     std::vector<Item> vegetables_ = {itemull1,itemull2,itemull3,itemull4,itemull5, itemull6, itemull7, itemull8, itemull9, itemull10, itemull11, itemull12, itemull13, itemull14, itemull15};
     raion raionv{"vegetables", vegetables_};
-    std::cout<<"\n";
 
     std::vector <Item> fruits_ = {itemulf1,itemulf2,itemulf3, itemulf4, itemulf5, itemulf6, itemulf7, itemulf8, itemulf9, itemulf10, itemulf11, itemulf12, itemulf13, itemulf14, itemulf15};
     raion raionf{"fruits", fruits_};
