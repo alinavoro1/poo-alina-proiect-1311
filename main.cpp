@@ -304,15 +304,13 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
         for (const auto& item : joc.getLista().getItems()) {
             produse.insert(item.getName());
         }
-        bool ok = true;
         for (const auto& item : cos.getItems()) {
             if (produse.find(item.getName()) == produse.end()) {
                 std::cout<<"The shopping cart is not it.";
-                ok = false;
                 return;
             }
         }
-        if (joc.getVarianta() == 3 && ok == true) {
+        if (joc.getVarianta() == 3) {
             if (cos.getTotalPlata() <= joc.getLista().getBuget()) {
                 std::cout<<"Congrats! You won!";
             }
@@ -320,7 +318,7 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
                 std::cout<<"Congrats! You lost!";
             }
         }
-        else if ( ok == true ){
+        else {
             std::cout << "Congrats! You won!";
             return ;
         }
