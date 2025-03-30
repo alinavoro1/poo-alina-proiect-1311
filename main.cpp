@@ -96,7 +96,7 @@ public:
 
     int getBuget() const {return this->buget; }
 
-    void setBuget(int buget_) { buget = buget_; }
+    // void setBuget(int buget_) { buget = buget_; }
 
     ~listaCumparaturi() = default;
 
@@ -116,8 +116,7 @@ public:
                 suma += item.getPret();
             }
         }
-        int buget = int(round(suma));
-        int bugetFinal = buget + 5;
+        int bugetFinal = int(round(suma)) + 5;
         lista.buget = bugetFinal;
     }
     void stergeProdus(const Item& item) {
@@ -130,9 +129,9 @@ public:
         }
     }
 
-    bool esteinLista ( const Item& item) const {
-        return std::find(items.begin(), items.end(), item) != items.end();
-    }
+    // bool esteinLista ( const Item& item) const {
+    //     return std::find(items.begin(), items.end(), item) != items.end();
+    // }
 };
 class Joc;
 class cosCumparaturi {
@@ -236,7 +235,7 @@ public:
     explicit Joc(const std::string& playerName_, int varianta) : playerName(playerName_), variantaJoc{varianta}, timp(0){}
     Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta) : playerName{playerName_}, lista{lista_}, variantaJoc{varianta}, timp(0) {}
     int getVarianta() const {return variantaJoc;}
-    int getTimer() const{ return this->timp; }
+    // int getTimer() const{ return this->timp; }
     const listaCumparaturi& getLista() const { return this->lista; }
 
     void setTimp(int timp_) {
@@ -313,7 +312,7 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
                 return;
             }
         }
-        if (joc.getVarianta() == 3) {
+        if (joc.getVarianta() == 3 && ok == true) {
             if (cos.getTotalPlata() <= joc.getLista().getBuget()) {
                 std::cout<<"Congrats! You won!";
             }
@@ -321,7 +320,7 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
                 std::cout<<"Congrats! You lost!";
             }
         }
-        else {
+        else if ( ok == true ){
             std::cout << "Congrats! You won!";
             return ;
         }
@@ -544,7 +543,7 @@ int main(){
                 while (std::cin>>index) {
                     if ( index == -1) break;
                     else {
-                        if ( index >=0 && index < raion.getItems().size()) {
+                        if ( index >=0 && index < int(raion.getItems().size())) {
                             cos.adaugaInCos(raion.getItems()[index]);
                             cos.sumadinCos();
                         }
