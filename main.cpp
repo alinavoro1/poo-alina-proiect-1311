@@ -22,7 +22,6 @@ public:
     Item(const Item& other) : name{other.name}, pret{other.pret}, brand{other.brand} {}
     const std::string& getName() const{ return this->name;}
     double getPret() const{ return this->pret;}
-    const std::string& getBrand() const{ return this->brand;}
 
     //operator =
     Item& operator=(const Item& other) {
