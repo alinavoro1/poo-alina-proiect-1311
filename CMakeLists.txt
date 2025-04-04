@@ -51,7 +51,6 @@ include(cmake/CopyHelper.cmake)
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
     generated/src/Helper.cpp
-        hello.cpp
         Item.cpp
         Item.h
         Raion.cpp
