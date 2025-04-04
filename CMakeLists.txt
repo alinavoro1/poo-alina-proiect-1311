@@ -51,6 +51,19 @@ include(cmake/CopyHelper.cmake)
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
     generated/src/Helper.cpp
+        hello.cpp
+        Item.cpp
+        Item.h
+        Raion.cpp
+        Raion.h
+        listaCumparaturi.cpp
+        listaCumparaturi.h
+        cosCumparaturi.cpp
+        cosCumparaturi.h
+        Magazin.cpp
+        Magazin.h
+        Joc.cpp
+        Joc.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
@@ -81,3 +94,8 @@ endif()
 copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
+
+#find_package(tabulate CONFIG REQUIRED)
+#target_link_libraries(${oop} PRIVATE tabulate::tabulate)
+#
+#include_directories(include)
