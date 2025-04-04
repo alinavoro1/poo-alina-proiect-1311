@@ -6,7 +6,7 @@
 #define MAGAZIN_H
 #include <set>
 #include <vector>
-#include <bits/random.h>
+#include <random>
 
 #include "listaCumparaturi.h"
 #include "Raion.h"
