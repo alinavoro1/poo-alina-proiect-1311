@@ -99,3 +99,4 @@ copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE
 #target_link_libraries(${oop} PRIVATE tabulate::tabulate)
 #
 #include_directories(include)
+add_executable(oop main.cpp)
