@@ -8,9 +8,9 @@
 
 Jucatorul isi va alege dintre cele 3 variante de joc
 
-- [ 1 ] varianta usoara -> timer de 30 de secunde si niciun buget
-- [ 2 ] varianta medie -> timer de 15 secunde si niciun buget
-- [ 3 ] varianta grea -> timer de 20 de secunde si cu buget
+- [ 1 ] varianta usoara -> timer de 90 de secunde si niciun buget
+- [ 2 ] varianta medie -> timer de 60 secunde si niciun buget
+- [ 3 ] varianta grea -> timer de 60 de secunde si cu buget
 
 La inceputul jocului, jucatorul va primii o lista de cumparaturi, indiferent de varianta aleasa. Lista va contine doar items din raioanele din joc. In timpul alocat, plimbandu-se prin raioane, playerul aduna toate obiectele de pe lista. Cand timpul se  va scurge, se va verifica daca cosul de cumparaturi este plin si coincide cu lista initiala, iar daca playerul a ales varianta 3, se va verifica si daca s-a incadrat in buget.
 
