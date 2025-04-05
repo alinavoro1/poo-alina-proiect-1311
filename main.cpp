@@ -349,13 +349,13 @@ public:
         start_time = std::chrono::high_resolution_clock::now();
         running = true;
     }
-    double stop() {
-        if (!running) return 0.0;
-        auto end_time = std::chrono::high_resolution_clock::now();
-        running = false;
-        std::chrono::duration<double> elapsed = end_time - start_time;
-        return elapsed.count();
-    }
+    // double stop() {
+    //     if (!running) return 0.0;
+    //     auto end_time = std::chrono::high_resolution_clock::now();
+    //     running = false;
+    //     std::chrono::duration<double> elapsed = end_time - start_time;
+    //     return elapsed.count();
+    // }
 
     double elapsed() const {
         if (!running) return 0.0;
