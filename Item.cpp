@@ -6,7 +6,7 @@
 
 Item::Item(): pret(0.0) {}
 
-Item::Item(const std::string &name_, const std::string &brand_): name(name_), brand(brand_), pret{0.0} {}
+Item::Item(const std::string &name_, const std::string &brand_): name(name_), pret{0.0}, brand{brand_} {}
 
 Item::Item(const std::string &name_, double pret_, const std::string &brand_): name{name_}, pret{pret_}, brand{brand_} {}
 
