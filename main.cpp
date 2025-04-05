@@ -165,7 +165,6 @@ class cosCumparaturi {
     void sumadinCos() {
         if (items.empty()) {
             std::cout << "Shopping bag is empty 🤣\n";
-            return;
         }
         else {
             totalPlata = 0.0;
@@ -287,7 +286,6 @@ public:
 void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
     if (joc.getLista().getItems().empty()) {
         std::cout << "The shopping list is empty. \n The game cannot start.\n";
-        return ;
     }
     else if (cos.getLista().getItems().empty()) {
         std::unordered_set<std::string> produse;
@@ -310,7 +308,6 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
         }
         else {
             std::cout << "Congrats! You won!";
-            return ;
         }
     }
     else {
