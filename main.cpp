@@ -8,10 +8,12 @@
 #include <cmath>
 #include <iomanip>
 #include <unordered_set>
+#include <chrono>
+#include <thread>
+#include <atomic>
 
 
 class Item {
-private:
     std::string name;
     double pret;
     std::string brand;
@@ -45,7 +47,6 @@ public:
 };
 
 class raion {
-private:
     std::string name;
     std::vector <Item> items;
 public:
@@ -77,7 +78,6 @@ public:
 };
 
 class listaCumparaturi {
-private:
     std::vector <Item> items;
     int buget;
 public:
@@ -216,11 +216,11 @@ public:
 };
 
 class Joc {
-private:
     std::string playerName;
     listaCumparaturi lista;
     int variantaJoc;
     int timp;
+    std::atomic <bool> running = false;
 public:
     Joc () {}
     explicit Joc(const std::string& playerName_) : playerName{playerName_}, lista{}, variantaJoc(0), timp(0){}
@@ -281,6 +281,7 @@ public:
             std::cout << "this version is not availble right now.\n";
             return 0;}
     }
+
 };
 
 void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
@@ -339,6 +340,30 @@ listaCumparaturi listGenerator(const Magazin& magazin) {
 
     return listaCumparaturi(listaMea);
 }
+
+class Stopwatch {
+    std::chrono::high_resolution_clock::time_point start_time;
+    bool running = false;
+public:
+    void start() {
+        start_time = std::chrono::high_resolution_clock::now();
+        running = true;
+    }
+    double stop() {
+        if (!running) return 0.0;
+        auto end_time = std::chrono::high_resolution_clock::now();
+        running = false;
+        std::chrono::duration<double> elapsed = end_time - start_time;
+        return elapsed.count();
+    }
+
+    double elapsed() const {
+        if (!running) return 0.0;
+        auto now = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = now - start_time;
+        return elapsed.count();
+    }
+};
 
 int main(){
 //paine
@@ -467,9 +492,17 @@ int main(){
     std::string nume;
     std::cin>>nume;
 
-    std::cout<<"Select a game version:\n - [ 1 ] 30s timer no budget\n - [ 2 ] 15s timer no budget\n - [ 3 ] 20s timer with budget\n ";
+    std::cout<<"Select a game version:\n - [ 1 ] 1min 30s timer no budget\n - [ 2 ] 1min timer no budget\n - [ 3 ] 1min timer with budget\n ";
     int versiune;
     std::cin>>versiune;
+
+    int limitaTimp = 0;
+    switch (versiune) {
+        case 1: limitaTimp = 90; break;
+        case 2: limitaTimp = 60; break;
+        case 3: limitaTimp = 60; break;
+        default: std::cout<< "Invalid version\n"; return 1;
+    }
 
     listaCumparaturi lista;
     lista =  listGenerator(magazin);
@@ -486,7 +519,6 @@ int main(){
     listaCumparaturi lista2;
     lista2 = lista;
     cosCumparaturi cos{lista2, {}};
-    // cos.sumadinCos(cos);
 
     Joc start{nume, lista, versiune };
     start.setareTimer();
@@ -495,7 +527,15 @@ int main(){
         std::cout<<"Do you want to start the game? (y/n)\n";
         std::cin>>raspuns;
         if (raspuns == "y" || raspuns == "Y") {
+            Stopwatch timer;
+            timer.start();
+            bool timpExpirat = false;
             for (const auto& raion : magazin.getRaioane()) {
+                if (timer.elapsed() >= limitaTimp) {
+                    std::cout << "\n⏰ Time has expired! You lost!\n";
+                    timpExpirat = true;
+                    break;
+                }
                 std::cout<< raion;
                 std::cout<<"\n";
                 std::cout<< "\n";
@@ -504,23 +544,29 @@ int main(){
                     std::cout<< item.getName()<<", ";
                 }
                 std::cout<< "\n";
-                std::cout<<"Pick a number to add the item to the cart or -1 to go to the next aisle or 99 to exit game\n";
+                std::cout<<"Pick a number to add the item to the cart, -1 if you want to go to the next aisle or 99 to exit game\n";
+                std::cout<<"Enter number: ";
                 int index;
-                // std :: vector <int> indecsi;
                 while (std::cin>>index) {
                     if ( index == -1) break;
-                    else {
-                        if ( index >=0 && index < int(raion.getItems().size())) {
+                    else if ( index >=0 && index < int(raion.getItems().size())) {
                             cos.adaugaInCos(raion.getItems()[index]);
                             cos.sumadinCos();
                         }
-                        else {
-                            std::cout<<"Invalid item number, pick another one: ";
-                        }
+                    else if (index == 99) {
+                        std::cout<< "Exiting ... \n. \n. \n. \n";
+                        break;
+                    }
+                    else {
+                        std::cout<<"Invalid number\n";
                     }
                 }
+                if (index == 99) break;
             }
-            std::cout << "game over\n";
+            if (!timpExpirat) {
+                double timpFinal = timer.elapsed();
+                std::cout<<"You finished in " <<timpFinal<< " seconds!\n" <<std::endl;
+            }
             std::cout<<cos;
 
         }
