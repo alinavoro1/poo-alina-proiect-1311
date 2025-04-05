@@ -6,7 +6,6 @@
 #define JOC_H
 #include <atomic>
 #include <chrono>
-#include <thread>
 
 #include "listaCumparaturi.h"
 
@@ -19,8 +18,6 @@ private:
     int timp;
     std::atomic<bool> jocInDerulare;
 public:
-    Joc();
-
     explicit Joc(const std::string& playerName_);
 
     explicit Joc(const std::string& playerName_, int varianta);
@@ -43,7 +40,7 @@ public:
 
     int verificarePret() const;
 
-    void startTimer();
+    // void startTimer();
 };
 
 

@@ -4,16 +4,11 @@
 
 #include "Joc.h"
 
-Joc::Joc(): jocInDerulare(false) {}
-
 Joc::Joc(const std::string &playerName_): playerName{playerName_}, lista{}, variantaJoc(0), timp(0), jocInDerulare(false) {}
-
 Joc::Joc(const std::string &playerName_, int varianta): playerName(playerName_), variantaJoc{varianta}, timp(0), jocInDerulare(false) {}
-
 Joc::Joc(const std::string &playerName_, const listaCumparaturi &lista_, int varianta): playerName{playerName_}, lista{lista_}, variantaJoc{varianta}, timp(0), jocInDerulare(false) {}
 
 int Joc::getVarianta() const {return variantaJoc;}
-
 const listaCumparaturi & Joc::getLista() const { return this->lista; }
 
 void Joc::setTimp(int timp_) {
@@ -65,28 +60,28 @@ int Joc::verificarePret() const {
         return 0;}
 }
 
-void Joc::startTimer() {
-    using namespace std::chrono;
-
-    auto startTime = steady_clock::now();
-    auto endTime = startTime + seconds(timp);
-
-    while (steady_clock::now() < endTime) {
-        auto remainingTime = duration_cast<seconds>(endTime - steady_clock::now()).count();
-        std::this_thread::sleep_for(seconds(1));
-    }
-    if (jocInDerulare.load()) {
-        std::cout << "\rTimpul a expirat! Jocul s-a încheiat.\n";
-    }
-    jocInDerulare.store(false);
-
-}
-
-std::ostream & operator<<(std::ostream &os, const Joc &obj) {
-    os
-            << "playerName: " << obj.playerName<< "\n"
-            << " lista: " << obj.lista
-            << " variantaJoc: " << obj.variantaJoc << "\n"
-            << " timp: " << obj.timp<< "\n";
-    return os;
-}
+// void Joc::startTimer() {
+//     using namespace std::chrono;
+//
+//     auto startTime = steady_clock::now();
+//     auto endTime = startTime + seconds(timp);
+//
+//     while (steady_clock::now() < endTime) {
+//         auto remainingTime = duration_cast<seconds>(endTime - steady_clock::now()).count();
+//         std::this_thread::sleep_for(seconds(1));
+//     }
+//     if (jocInDerulare.load()) {
+//         std::cout << "\rTimpul a expirat! Jocul s-a încheiat.\n";
+//     }
+//     jocInDerulare.store(false);
+//
+// }
+//
+// std::ostream & operator<<(std::ostream &os, const Joc &obj) {
+//     os
+//             << "playerName: " << obj.playerName<< "\n"
+//             << " lista: " << obj.lista
+//             << " variantaJoc: " << obj.variantaJoc << "\n"
+//             << " timp: " << obj.timp<< "\n";
+//     return os;
+// }

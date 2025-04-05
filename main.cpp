@@ -9,7 +9,7 @@
 #include <unordered_set>
 // #include "include/tabulate.hpp"
 #include <thread>
-#include <atomic>
+// #include <atomic>
 #include "cosCumparaturi.h"
 #include "Item.h"
 #include "Joc.h"
@@ -75,8 +75,6 @@ int main(){
     Item itemulf9{"grapes", 13.0, "kaufland"}, itemulf10{"strawberries", 16.0, "kaufland"};
     Item itemulf11{"apples", 12.5, "auchan"}, itemulf12{"bananas", 5.5, "auchan"}, itemulf13{"oranges", 7.5, "auchan"};
     Item itemulf14{"grapes", 14.0, "auchan"}, itemulf15{"strawberries", 15.5, "auchan"};
-    Item itemulf16;
-    itemulf16=itemulp1;
 //bauturi
     Item itemulb1{"water", 1.5, "lidl"}, itemulb2{"juice", 3.0, "lidl"}, itemulb3{"soda", 3.5, "lidl"};
     Item itemulb4{"coffee", 4.5, "lidl"}, itemulb5{"tea", 2.5, "lidl"};
