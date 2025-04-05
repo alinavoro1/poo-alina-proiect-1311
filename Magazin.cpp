@@ -3,6 +3,7 @@
 //
 
 #include "Magazin.h"
+#include <set>
 
 Magazin::Magazin(const std::vector<Raion> &raioane_): raioane(raioane_) {
 }
