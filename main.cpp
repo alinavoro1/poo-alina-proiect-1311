@@ -13,6 +13,7 @@
 #include <atomic>
 
 
+
 class Item {
     std::string name;
     double pret;
@@ -30,7 +31,6 @@ public:
         this->name = other.name;
         this->pret = other.pret;
         this->brand = other.brand;
-        // std::cout <<"op=\n";
         return *this;
     }
 
@@ -346,13 +346,6 @@ public:
         start_time = std::chrono::high_resolution_clock::now();
         running = true;
     }
-    // double stop() {
-    //     if (!running) return 0.0;
-    //     auto end_time = std::chrono::high_resolution_clock::now();
-    //     running = false;
-    //     std::chrono::duration<double> elapsed = end_time - start_time;
-    //     return elapsed.count();
-    // }
 
     double elapsed() const {
         if (!running) return 0.0;
@@ -384,8 +377,7 @@ int main(){
     Item itemulf9{"grapes", 13.0, "kaufland"}, itemulf10{"strawberries", 16.0, "kaufland"};
     Item itemulf11{"apples", 12.5, "auchan"}, itemulf12{"bananas", 5.5, "auchan"}, itemulf13{"oranges", 7.5, "auchan"};
     Item itemulf14{"grapes", 14.0, "auchan"}, itemulf15{"strawberries", 15.5, "auchan"};
-    Item itemulf16;
-    itemulf16=itemulp1;
+
 //bauturi
     Item itemulb1{"water", 1.5, "lidl"}, itemulb2{"juice", 3.0, "lidl"}, itemulb3{"soda", 3.5, "lidl"};
     Item itemulb4{"coffee", 4.5, "lidl"}, itemulb5{"tea", 2.5, "lidl"};
