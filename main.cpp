@@ -6,11 +6,11 @@
 #include <random>
 #include <algorithm>
 #include <cmath>
-#include <iomanip>
 #include <unordered_set>
 #include <chrono>
 #include <thread>
 #include <atomic>
+#include "ext/include/tabulate.hpp"
 
 
 
@@ -356,6 +356,7 @@ public:
 };
 
 int main(){
+    tabulate::Table tabel;
 //paine
     Item itemulp1{"sourdough",5.0, "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"};
     Item itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"};
