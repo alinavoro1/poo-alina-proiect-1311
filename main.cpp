@@ -594,6 +594,9 @@ int main() {
     std::cout<<"Your list contains: \n";
     std::cout<<listaInit<<"\n";
 
+    item_names.clear();
+    items_combined.clear();
+
     if (versiune == 3) {
         std::cout<< "Your budget is: " << lista.getBuget()<< "\n";
     }
