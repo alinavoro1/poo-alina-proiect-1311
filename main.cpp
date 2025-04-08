@@ -11,6 +11,7 @@
 #include <chrono>
 #include <thread>
 #include <atomic>
+#include "ext/include/tabulate.hpp"
 
 
 
@@ -356,6 +357,13 @@ public:
 };
 
 int main(){
+    tabulate::Table table;
+    table.add_row({"This paragraph contains a very very very long word . teh word will break "
+    "xsmckdcdkncnknv."
+    "aici \n has \nce"});
+    table[0][0].format().width(20);
+    table[0][1].format().width(50);
+    std::cout<< table << std::endl;
 //paine
     Item itemulp1{"sourdough",5.0, "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"};
     Item itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"};
