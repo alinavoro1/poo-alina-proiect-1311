@@ -14,6 +14,12 @@ Jucatorul isi va alege dintre cele 3 variante de joc
 
 La inceputul jocului, jucatorul va primii o lista de cumparaturi, indiferent de varianta aleasa. Lista va contine doar items din raioanele din joc. In timpul alocat, plimbandu-se prin raioane, playerul aduna toate obiectele de pe lista. Cand timpul se  va scurge, se va verifica daca cosul de cumparaturi este plin si coincide cu lista initiala, iar daca playerul a ales varianta 3, se va verifica si daca s-a incadrat in buget.
 
+Pentru a selecta obiectele player-ul trebuie sa scrie indexul corespunzator obiectului dorit, iar pentru a naviga prin raioane trebuie sa scrie -1 sau 99 pentru a incheia jocul
+
+features pe care vreau sa le mai implementez:
+-> win rate, poate si cu bara de procent;D 
+-> bara pentru timer,sa stii cat timp a mai ramas
+
 
 
 ### Tema 0
