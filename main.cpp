@@ -6,7 +6,6 @@
 #include <random>
 #include <algorithm>
 #include <cmath>
-#include <iomanip>
 #include <unordered_set>
 #include <chrono>
 #include <thread>
@@ -651,7 +650,7 @@ int main() {
                     .font_style({tabulate::FontStyle::italic})
                     .font_color(tabulate::Color::magenta);
 
-                std::cout<<lista<<"\n";
+                std::cout<<listaDisplay<<"\n";
 
                 std::cout<< "\n";
                 std::cout<<"Pick a number to add the item to the cart, -1 if you want to go to the next aisle or 99 to exit game\n";
