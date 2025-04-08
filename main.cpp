@@ -47,6 +47,10 @@ public:
     }
 };
 
+std::string to_string(const Item& item) {
+    return item.getName();
+}
+
 class raion {
     std::string name;
     std::vector <Item> items;
@@ -62,18 +66,44 @@ public:
     ~raion() = default;
 
     friend std::ostream & operator<<(std::ostream &os, const raion &obj) {
-        os<< "name: " << obj.name<< "\n";
+
+        tabulate::Table header;
+        tabulate::Table tabel;
+
+        header.add_row({ "Aisle: " + obj.name });
+        header[0].format()
+            .width(60)
+            .font_align(tabulate::FontAlign::center)
+            .font_style({tabulate::FontStyle::bold})
+            .font_background_color(tabulate::Color::red)
+            .font_color(tabulate::Color::white);
+
         size_t n = obj.items.size();
-        for (size_t i = 0; i < n; i++) {
-            os <<"["<< i << "] --> "<< obj.items[i]<< std::right << std::setw(20) ; //
-            if (i + 1 < n) {
-                os << " | "<<"["<< i+1 << "] --> " << obj.items[i + 1] << std::right << std::setw(20);
-                i++;
+        size_t cols = 3;
+
+        for (size_t i = 0; i < n; i += cols) {
+            std::vector<std::string> row;
+            for (size_t j = 0; j < cols; ++j) {
+                if (i + j < n) {
+                    std::stringstream ss;
+                    ss << "[" << (i + j) << "] " << obj.items[i + j];
+                    row.push_back(ss.str());
+                } else {
+                    row.push_back("");
+                }
             }
-            os << "\n";
+            tabel.add_row(tabulate::Table::Row_t{row.begin(),row.end()});
         }
+
+        tabel.format()
+            .font_align(tabulate::FontAlign::center)
+            .padding_top(0)
+            .padding_bottom(0);
+
+        os << header << "\n" << tabel << "\n";
         return os;
     }
+
 
     const std::vector <Item>& getItems() const { return items;}
 };
@@ -357,13 +387,6 @@ public:
 };
 
 int main(){
-    tabulate::Table table;
-    table.add_row({"This paragraph contains a very very very long word . teh word will break ",
-    "xsmckdcdkncnknv."
-    "aici \n has \nce"});
-    table[0][0].format().width(20);
-    table[0][1].format().width(50);
-    std::cout<< table << std::endl;
 //paine
     Item itemulp1{"sourdough",5.0, "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"};
     Item itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"};
@@ -458,7 +481,7 @@ int main(){
     std::vector <Item> fruits_ = {itemulf1,itemulf2,itemulf3, itemulf4, itemulf5, itemulf6, itemulf7, itemulf8, itemulf9, itemulf10, itemulf11, itemulf12, itemulf13, itemulf14, itemulf15};
     raion raionf{"fruits", fruits_};
 
-    std::vector <Item> drinks_ = {itemulb1, itemulb2, itemulb3, itemulb4, itemulb5, itemulb6, itemulb7, itemulb8, itemulb9, itemulb10, itemulb11, itemulb12, itemulb13, itemuld14, itemuld15};
+    std::vector <Item> drinks_ = {itemulb1, itemulb2, itemulb3, itemulb4, itemulb5, itemulb6, itemulb7, itemulb8, itemulb9, itemulb10, itemulb11, itemulb12, itemulb13, itemulb14, itemulb15};
     raion raiond{"drinks", drinks_};
 
     std::vector <Item> kitchen_ = {itemulk1, itemulk2, itemulk3, itemulk4, itemulk5, itemulk6, itemulk7, itemulk8, itemulk9, itemulk10, itemulk11, itemulk12, itemulk13, itemuld14, itemuld15};
@@ -489,6 +512,41 @@ int main(){
     std::string nume;
     std::cin>>nume;
 
+    tabulate::Table welcoming;
+    std::string greet;
+    greet = "Welcome, ";
+    greet += nume;
+    greet += "!";
+    welcoming.add_row({greet});
+
+    welcoming.format()
+        // .width(50)
+        // .height(20)
+        .font_style({tabulate::FontStyle::bold, tabulate::FontStyle::dark})
+        .font_align(tabulate::FontAlign::center)
+        .font_color(tabulate::Color::white)
+        .corner_top_left("@")
+        .corner_top_right("%")
+        .corner_bottom_left("%")
+        .corner_bottom_right("@")
+
+        .corner_top_left_color(tabulate::Color::cyan)
+        .corner_top_right_color(tabulate::Color::yellow)
+        .corner_bottom_left_color(tabulate::Color::green)
+        .corner_bottom_right_color(tabulate::Color::red)
+
+        .border_top("`")
+        .border_bottom("`")
+        .border_left("^")
+        .border_right("^")
+
+        .border_left_color(tabulate::Color::yellow)
+        .border_right_color(tabulate::Color::green)
+        .border_top_color(tabulate::Color::cyan)
+        .border_bottom_color(tabulate::Color::red);
+
+    std::cout<<welcoming<<"\n";
+
     std::cout<<"Select a game version:\n - [ 1 ] 1min 30s timer no budget\n - [ 2 ] 1min timer no budget\n - [ 3 ] 1min timer with budget\n ";
     int versiune;
     std::cin>>versiune;
@@ -504,11 +562,38 @@ int main(){
     listaCumparaturi lista;
     lista =  listGenerator(magazin);
     lista.calculeazaBuget(lista);
-    std::cout<< "Your list contains: ";
-    for (const auto& item : lista.getItems()) {
-        std::cout<<item.getName()<<", ";
+
+    tabulate::Table listaInit;
+    std::vector<std::string> item_names;
+    for (const auto& item: lista.getItems()) {
+        item_names.push_back(item.getName());
     }
-    std::cout<<"\n";
+
+    std::string items_combined;
+    for (size_t i = 0; i < item_names.size(); i++) {
+        items_combined += item_names[i];
+        if ( i< item_names.size() -1)
+            items_combined += ", ";
+    }
+
+    listaInit.add_row({ items_combined});
+
+    // listaInit.format()
+    //     .border_top("═")
+    //     .border_bottom("═")
+    //     .border_left("║")
+    //     .border_right("║")
+    //     .corner_top_left("╔")
+    //     .corner_top_right("╗")
+    //     .corner_bottom_left("╚")
+    //     .corner_bottom_right("╝");
+
+    listaInit[0][0].format()
+        .font_style({tabulate::FontStyle::italic})
+        .font_color({tabulate::Color::red});
+    std::cout<<"Your list contains: \n";
+    std::cout<<listaInit<<"\n";
+
     if (versiune == 3) {
         std::cout<< "Your budget is: " << lista.getBuget()<< "\n";
     }
@@ -536,10 +621,38 @@ int main(){
                 std::cout<< raion;
                 std::cout<<"\n";
                 std::cout<< "\n";
-                std::cout<< "The list: ";
-                for ( const auto& item : cos.getLista().getItems()) {
-                    std::cout<< item.getName()<<", ";
+
+                tabulate::Table lista;
+                std::vector<std::string> item_names;
+                for (const auto& item: cos.getLista().getItems()) {
+                    item_names.push_back(item.getName());
                 }
+
+                std::string items_combined;
+                for (size_t i = 0; i < item_names.size(); i++) {
+                    items_combined += item_names[i];
+                    if ( i< item_names.size() -1)
+                        items_combined += ", ";
+                }
+
+                lista.add_row({"Your list", items_combined});
+
+                // lista.format()
+                //     .border_top("═")
+                //     .border_bottom("═")
+                //     .border_left("║")
+                //     .border_right("║")
+                //     .corner_top_left("╔")
+                //     .corner_top_right("╗")
+                //     .corner_bottom_left("╚")
+                //     .corner_bottom_right("╝");
+
+                lista[0][0].format()
+                    .font_style({tabulate::FontStyle::italic})
+                    .font_color({tabulate::Color::magenta});
+
+                std::cout<<lista<<"\n";
+
                 std::cout<< "\n";
                 std::cout<<"Pick a number to add the item to the cart, -1 if you want to go to the next aisle or 99 to exit game\n";
                 std::cout<<"Enter number: ";
