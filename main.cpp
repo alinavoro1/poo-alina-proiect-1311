@@ -358,7 +358,7 @@ public:
 
 int main(){
     tabulate::Table table;
-    table.add_row({"This paragraph contains a very very very long word . teh word will break "
+    table.add_row({"This paragraph contains a very very very long word . teh word will break ",
     "xsmckdcdkncnknv."
     "aici \n has \nce"});
     table[0][0].format().width(20);
