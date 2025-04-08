@@ -6,6 +6,7 @@
 #include <random>
 #include <algorithm>
 #include <cmath>
+#include <iomanip>
 #include <unordered_set>
 #include <chrono>
 #include <thread>
@@ -546,140 +547,146 @@ int main() {
 
     std::cout<<welcoming<<"\n";
 
-    std::cout<<"Select a game version:\n - [ 1 ] 1min 30s timer no budget\n - [ 2 ] 1min timer no budget\n - [ 3 ] 1min timer with budget\n ";
-    int versiune;
-    std::cin>>versiune;
+    std::string replay;
 
-    int limitaTimp = 0;
-    switch (versiune) {
-        case 1: limitaTimp = 90; break;
-        case 2: limitaTimp = 60; break;
-        case 3: limitaTimp = 60; break;
-        default: std::cout<< "Invalid version\n"; return 1;
-    }
+    do {
+        std::cout<<"Select a game version:\n - [ 1 ] 1min 30s timer no budget\n - [ 2 ] 1min timer no budget\n - [ 3 ] 1min timer with budget\n ";
+        int versiune;
+        std::cin>>versiune;
 
-    listaCumparaturi lista;
-    lista =  listGenerator(magazin);
-    lista.calculeazaBuget(lista);
+        int limitaTimp = 0;
+        switch (versiune) {
+            case 1: limitaTimp = 90; break;
+            case 2: limitaTimp = 60; break;
+            case 3: limitaTimp = 60; break;
+            default: std::cout<< "Invalid version\n"; return 1;
+        }
 
-    tabulate::Table listaInit;
-    std::vector<std::string> display_items;
-    for (const auto& item: lista.getItems()) {
-        display_items.push_back(item.getName());
-    }
+        listaCumparaturi lista;
+        lista =  listGenerator(magazin);
+        lista.calculeazaBuget(lista);
 
-    std::string display_combined;
-    for (size_t i = 0; i < display_items.size(); i++) {
-        display_combined += display_items[i];
-        if ( i< display_items.size() -1)
-            display_combined += ", ";
-    }
+        tabulate::Table listaInit;
+        std::vector<std::string> display_items;
+        for (const auto& item: lista.getItems()) {
+            display_items.push_back(item.getName());
+        }
 
-    listaInit.add_row({display_combined});
+        std::string display_combined;
+        for (size_t i = 0; i < display_items.size(); i++) {
+            display_combined += display_items[i];
+            if ( i< display_items.size() -1)
+                display_combined += ", ";
+        }
 
-    // listaInit.format()
-    //     .border_top("═")
-    //     .border_bottom("═")
-    //     .border_left("║")
-    //     .border_right("║")
-    //     .corner_top_left("╔")
-    //     .corner_top_right("╗")
-    //     .corner_bottom_left("╚")
-    //     .corner_bottom_right("╝");
+        listaInit.add_row({display_combined});
 
-    listaInit[0][0].format()
-        .font_style({tabulate::FontStyle::italic})
-        .font_color(tabulate::Color::red);
-    std::cout<<"Your list contains: \n";
-    std::cout<<listaInit<<"\n";
+        // listaInit.format()
+        //     .border_top("═")
+        //     .border_bottom("═")
+        //     .border_left("║")
+        //     .border_right("║")
+        //     .corner_top_left("╔")
+        //     .corner_top_right("╗")
+        //     .corner_bottom_left("╚")
+        //     .corner_bottom_right("╝");
 
-    if (versiune == 3) {
-        std::cout<< "Your budget is: " << lista.getBuget()<< "\n";
-    }
-    std::cout<<"\n";
-    listaCumparaturi lista2;
-    lista2 = lista;
-    cosCumparaturi cos{lista2, {}};
+        listaInit[0][0].format()
+            .font_style({tabulate::FontStyle::italic})
+            .font_color(tabulate::Color::red);
+        std::cout<<"Your list contains: \n";
+        std::cout<<listaInit<<"\n";
 
-    Joc start{nume, lista, versiune };
-    start.setareTimer();
-    if (start.verificarePret()==1) {
-        std::string raspuns;
-        std::cout<<"Do you want to start the game? (y/n)\n";
-        std::cin>>raspuns;
-        if (raspuns == "y" || raspuns == "Y") {
-            Stopwatch timer;
-            timer.start();
-            bool timpExpirat = false;
-            for (const auto& raion : magazin.getRaioane()) {
-                if (timer.elapsed() >= limitaTimp) {
-                    std::cout << "\n⏰ Time has expired! You lost!\n";
-                    timpExpirat = true;
-                    break;
-                }
-                std::cout<< raion;
-                std::cout<<"\n";
-                std::cout<< "\n";
+        if (versiune == 3) {
+            std::cout<< "Your budget is: " << lista.getBuget()<< "\n";
+        }
+        std::cout<<"\n";
+        listaCumparaturi lista2;
+        lista2 = lista;
+        cosCumparaturi cos{lista2, {}};
 
-                tabulate::Table listaDisplay;
-                std::vector<std::string> item_names;
-                for (const auto& item: cos.getLista().getItems()) {
-                    item_names.push_back(item.getName());
-                }
+        Joc start{nume, lista, versiune };
+        start.setareTimer();
+        if (start.verificarePret()==1) {
+            std::string raspuns;
+            std::cout<<"Do you want to start the game? (y/n)\n";
+            std::cin>>raspuns;
+            if (raspuns == "y" || raspuns == "Y") {
+                Stopwatch timer;
+                timer.start();
+                bool timpExpirat = false;
+                for (const auto& raion : magazin.getRaioane()) {
+                    if (timer.elapsed() >= limitaTimp) {
+                        std::cout << "\n⏰ Time has expired! You lost!\n";
+                        timpExpirat = true;
+                        break;
+                    }
+                    std::cout<< raion;
+                    std::cout<<"\n";
+                    std::cout<< "\n";
 
-                std::string items_combined;
-                for (size_t i = 0; i < item_names.size(); i++) {
-                    items_combined += item_names[i];
-                    if ( i< item_names.size() -1)
-                        items_combined += ", ";
-                }
+                    tabulate::Table listaDisplay;
+                    std::vector<std::string> item_names;
+                    for (const auto& item: cos.getLista().getItems()) {
+                        item_names.push_back(item.getName());
+                    }
 
-                listaDisplay.add_row({"Your list", items_combined});
+                    std::string items_combined;
+                    for (size_t i = 0; i < item_names.size(); i++) {
+                        items_combined += item_names[i];
+                        if ( i< item_names.size() -1)
+                            items_combined += ", ";
+                    }
 
-                // lista.format()
-                //     .border_top("═")
-                //     .border_bottom("═")
-                //     .border_left("║")
-                //     .border_right("║")
-                //     .corner_top_left("╔")
-                //     .corner_top_right("╗")
-                //     .corner_bottom_left("╚")
-                //     .corner_bottom_right("╝");
+                    listaDisplay.add_row({"Your list", items_combined});
 
-                listaDisplay[0][0].format()
-                    .font_style({tabulate::FontStyle::italic})
-                    .font_color(tabulate::Color::magenta);
+                    // lista.format()
+                    //     .border_top("═")
+                    //     .border_bottom("═")
+                    //     .border_left("║")
+                    //     .border_right("║")
+                    //     .corner_top_left("╔")
+                    //     .corner_top_right("╗")
+                    //     .corner_bottom_left("╚")
+                    //     .corner_bottom_right("╝");
 
-                std::cout<<listaDisplay<<"\n";
+                    listaDisplay[0][0].format()
+                        .font_style({tabulate::FontStyle::italic})
+                        .font_color(tabulate::Color::magenta);
 
-                std::cout<< "\n";
-                std::cout<<"Pick a number to add the item to the cart, -1 if you want to go to the next aisle or 99 to exit game\n";
-                std::cout<<"Enter number: ";
-                int index;
-                while (std::cin>>index) {
-                    if ( index == -1) break;
-                    else if ( index >=0 && index < int(raion.getItems().size())) {
+                    std::cout<<listaDisplay<<"\n";
+
+                    std::cout<< "\n";
+                    std::cout<<"Pick a number to add the item to the cart, -1 if you want to go to the next aisle or 99 to exit game\n";
+                    std::cout<<"Enter number: ";
+                    int index;
+                    while (std::cin>>index) {
+                        if ( index == -1) break;
+                        else if ( index >=0 && index < int(raion.getItems().size())) {
                             cos.adaugaInCos(raion.getItems()[index]);
                             cos.sumadinCos();
                         }
-                    else if (index == 99) {
-                        std::cout<< "Exiting ... \n. \n. \n. \n";
-                        break;
+                        else if (index == 99) {
+                            std::cout<< "Exiting ... \n. \n. \n. \n";
+                            break;
+                        }
+                        else {
+                            std::cout<<"Invalid number\n";
+                        }
                     }
-                    else {
-                        std::cout<<"Invalid number\n";
-                    }
+                    if (index == 99) break;
                 }
-                if (index == 99) break;
-            }
-            if (!timpExpirat) {
-                double timpFinal = timer.elapsed();
-                std::cout<<"You finished in " <<timpFinal<< " seconds!\n" <<std::endl;
-            }
-            std::cout<<cos;
+                if (!timpExpirat) {
+                    double timpFinal = timer.elapsed();
+                    std::cout<<"You finished in " <<timpFinal<< " seconds!\n" <<std::endl;
+                }
+                std::cout<<cos;
 
+            }
         }
-    }
-    listaGoala(start,cos);
+        listaGoala(start,cos);
+        std::cout<<" Do you want to play again? Please...\n";
+        std::cin>>replay;
+    }while (replay == "y");
     return 0;
 }
