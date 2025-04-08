@@ -564,19 +564,19 @@ int main() {
     lista.calculeazaBuget(lista);
 
     tabulate::Table listaInit;
-    std::vector<std::string> item_names;
+    std::vector<std::string> display_items;
     for (const auto& item: lista.getItems()) {
-        item_names.push_back(item.getName());
+        display_items.push_back(item.getName());
     }
 
-    std::string items_combined;
-    for (size_t i = 0; i < item_names.size(); i++) {
-        items_combined += item_names[i];
-        if ( i< item_names.size() -1)
-            items_combined += ", ";
+    std::string display_combined;
+    for (size_t i = 0; i < display_items.size(); i++) {
+        display_combined += display_items[i];
+        if ( i< display_items.size() -1)
+            display_combined += ", ";
     }
 
-    listaInit.add_row({ items_combined});
+    listaInit.add_row({display_combined});
 
     // listaInit.format()
     //     .border_top("═")
@@ -593,9 +593,6 @@ int main() {
         .font_color(tabulate::Color::red);
     std::cout<<"Your list contains: \n";
     std::cout<<listaInit<<"\n";
-
-    item_names.clear();
-    items_combined.clear();
 
     if (versiune == 3) {
         std::cout<< "Your budget is: " << lista.getBuget()<< "\n";
@@ -625,7 +622,7 @@ int main() {
                 std::cout<<"\n";
                 std::cout<< "\n";
 
-                tabulate::Table lista;
+                tabulate::Table listaDisplay;
                 std::vector<std::string> item_names;
                 for (const auto& item: cos.getLista().getItems()) {
                     item_names.push_back(item.getName());
@@ -638,7 +635,7 @@ int main() {
                         items_combined += ", ";
                 }
 
-                lista.add_row({"Your list", items_combined});
+                listaDisplay.add_row({"Your list", items_combined});
 
                 // lista.format()
                 //     .border_top("═")
@@ -650,7 +647,7 @@ int main() {
                 //     .corner_bottom_left("╚")
                 //     .corner_bottom_right("╝");
 
-                lista[0][0].format()
+                listaDisplay[0][0].format()
                     .font_style({tabulate::FontStyle::italic})
                     .font_color(tabulate::Color::magenta);
 
