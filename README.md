@@ -2,7 +2,6 @@
 
 ### A supermarket game🛒
 
-![full-length-portrait-happy-man-running](https://github.com/user-attachments/assets/8385aa24-03e0-4975-8def-eefb783263c5)
 
 
 
