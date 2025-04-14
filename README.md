@@ -2,7 +2,7 @@
 
 ### A supermarket game🛒
 
-
+![full-shopping-cart-snacks-grocery-shopping-supermarket-cart](https://github.com/user-attachments/assets/3ba200f7-f8c7-46d8-af70-e37d7baf0fa3)
 
 
 ### Regulile jocului
