@@ -46,9 +46,9 @@ public:
     }
 };
 
-std::string to_string(const Item& item) {
-    return item.getName();
-}
+// std::string to_string(const Item& item) {
+//     return item.getName();
+// }
 
 class raion {
     std::string name;
@@ -513,14 +513,16 @@ int main() {
 
     tabulate::Table welcoming;
     std::string greet;
-    greet = "Welcome, ";
+    greet = "Welcome,\n ";
     greet += nume;
     greet += "!";
     welcoming.add_row({greet});
 
     welcoming.format()
-        // .width(50)
-        // .height(20)
+        .padding_top(2)
+        .padding_bottom(2)
+        .padding_left(8)
+        .padding_right(8)
         .font_style({tabulate::FontStyle::bold, tabulate::FontStyle::dark})
         .font_align(tabulate::FontAlign::center)
         .font_color(tabulate::Color::white)
