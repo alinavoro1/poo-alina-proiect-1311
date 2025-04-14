@@ -3,6 +3,7 @@
 ### A supermarket game
 
 
+![shop](https://github.com/user-attachments/assets/8769f4d9-80f4-4dfd-8446-f0464e317f28)
 
 ### Regulile jocului
 
