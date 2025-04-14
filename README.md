@@ -1,13 +1,12 @@
 # Tag & Bag
 
-### A supermarket game🛒
+# A supermarket game🛒
 
 ## Table of Contents
 - [Reguli](#Regulile-jocului)
 - [Features](#Features-de-implementat)
 - [Teme ramase](#Tema-2)
 
-![full-shopping-cart-snacks-grocery-shopping-supermarket-cart](https://github.com/user-attachments/assets/3ba200f7-f8c7-46d8-af70-e37d7baf0fa3)
 
 
 ### Regulile jocului
@@ -28,6 +27,7 @@ features pe care vreau sa le mai implementez:
 - [ ] win rate, poate si cu bara de procent;D 
 - [ ] bara pentru timer,sa stii cat timp a mai ramas
 
+![full-shopping-cart-snacks-grocery-shopping-supermarket-cart](https://github.com/user-attachments/assets/3ba200f7-f8c7-46d8-af70-e37d7baf0fa3)
 
 ## Tema 2
 
