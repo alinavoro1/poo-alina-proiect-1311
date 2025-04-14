@@ -514,7 +514,7 @@ int main() {
 
     tabulate::Table welcoming;
     std::string greet;
-    greet = "Welcome, ";
+    greet = "Welcome,\n";
     greet += nume;
     greet += "!";
     welcoming.add_row({greet});
@@ -522,6 +522,10 @@ int main() {
     welcoming.format()
         // .width(50)
         // .height(20)
+    .padding_top(2)
+    .padding_bottom(2)
+    .padding_left(8)
+    .padding_right(8)
         .font_style({tabulate::FontStyle::bold, tabulate::FontStyle::dark})
         .font_align(tabulate::FontAlign::center)
         .font_color(tabulate::Color::white)
@@ -685,8 +689,8 @@ int main() {
             }
         }
         listaGoala(start,cos);
-        std::cout<<" Do you want to play again? please...\n";
+        std::cout<<" Do you want to play again? Please...\n";
         std::cin>>replay;
-    }while (replay == "y");
+    }while (replay == "y" or replay == "yes" or replay == "ye" or replay == "yas" or replay == "yaas" or replay == "da");
     return 0;
 }
