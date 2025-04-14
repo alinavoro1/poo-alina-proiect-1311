@@ -6,6 +6,7 @@
 - [Reguli](#Regulile-jocului)
 - [Features](#Features-de-implementat)
 - [Teme ramase](#Tema-2)
+- [Resurse](#Resurse)
 
 
 
@@ -108,6 +109,4 @@ Observație: folderele `build/` și `install_dir/` sunt adăugate în fișierul 
 
 ## Resurse
 
-- adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
-
-  [![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=codemaker2015&theme=blueberry&date_format=M%20j%5B%2C%20Y%5D)](https://git.io/streak-stats)
+- soon
