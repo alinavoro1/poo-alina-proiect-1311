@@ -46,9 +46,6 @@ public:
     }
 };
 
-std::string to_string(const Item& item) {
-    return item.getName();
-}
 
 class raion {
     std::string name;
