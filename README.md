@@ -1,25 +1,26 @@
 # Tag & Bag
 
-### A supermarket game
+### A supermarket game🛒
+
+![full-length-portrait-happy-man-running](https://github.com/user-attachments/assets/8385aa24-03e0-4975-8def-eefb783263c5)
 
 
-![shop](https://github.com/user-attachments/assets/8769f4d9-80f4-4dfd-8446-f0464e317f28)
 
 ### Regulile jocului
 
 Jucatorul isi va alege dintre cele 3 variante de joc
 
-- [ 1 ] varianta usoara -> timer de 90 de secunde si niciun buget
-- [ 2 ] varianta medie -> timer de 60 secunde si niciun buget
-- [ 3 ] varianta grea -> timer de 60 de secunde si cu buget
+- [ ] varianta usoara -> timer de 90 de secunde si niciun buget
+- [ ] varianta medie -> timer de 60 secunde si niciun buget
+- [ ] varianta grea -> timer de 60 de secunde si cu buget
 
 La inceputul jocului, jucatorul va primii o lista de cumparaturi, indiferent de varianta aleasa. Lista va contine doar items din raioanele din joc. In timpul alocat, plimbandu-se prin raioane, playerul aduna toate obiectele de pe lista. Cand timpul se  va scurge, se va verifica daca cosul de cumparaturi este plin si coincide cu lista initiala, iar daca playerul a ales varianta 3, se va verifica si daca s-a incadrat in buget.
 
 Pentru a selecta obiectele player-ul trebuie sa scrie indexul corespunzator obiectului dorit, iar pentru a naviga prin raioane trebuie sa scrie -1 sau 99 pentru a incheia jocul
 
 features pe care vreau sa le mai implementez:
--> win rate, poate si cu bara de procent;D 
--> bara pentru timer,sa stii cat timp a mai ramas
+- [ ] win rate, poate si cu bara de procent;D 
+- [ ] bara pentru timer,sa stii cat timp a mai ramas
 
 
 
