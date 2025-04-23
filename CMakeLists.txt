@@ -57,6 +57,16 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         ObiecteRaioane.h
         Raion.cpp
         Raion.h
+        Stopwatch.cpp
+        Stopwatch.h
+        Joc.cpp
+        Joc.h
+        listaCumparaturi.cpp
+        listaCumparaturi.h
+        Magazin.cpp
+        Magazin.h
+        cosCumparaturi.cpp
+        cosCumparaturi.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
