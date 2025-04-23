@@ -6,6 +6,7 @@
 #define MAGAZIN_H
 #include <vector>
 
+#include "listaCumparaturi.h"
 #include "Raion.h"
 
 
@@ -25,6 +26,8 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Magazin& magazin);
 
     const std::vector<Raion>& getRaioane() const;
+
+    listaCumparaturi genereazaListaCumparaturi() const;
 };
 
 
