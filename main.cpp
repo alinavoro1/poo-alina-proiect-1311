@@ -65,8 +65,6 @@ int main() {
 
     std::cout<<welcoming<<"\n";
 
-    std::string replay;
-
     Joc joc{magazin, nume};
     joc.run();
 
