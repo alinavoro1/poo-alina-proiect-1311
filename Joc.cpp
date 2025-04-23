@@ -115,10 +115,10 @@ int Joc::selecteazaVersiune() {
     return versiune;
 }
 
-void Joc::afiseazaLista(const listaCumparaturi &lista, int versiune) {
+void Joc::afiseazaLista(const listaCumparaturi& listaC, int versiune) {
     tabulate::Table listaInit;
     std::vector<std::string> display_items;
-    for (const auto& item: lista.getItems()) {
+    for (const auto& item: listaC.getItems()) {
         display_items.push_back(item.getName());
     }
     std::string display_combined;
