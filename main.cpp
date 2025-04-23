@@ -13,43 +13,10 @@
 #include <tabulate.hpp>
 #include <indicators.hpp>
 
+#include "Item.h"
+#include "Obiecte.h"
 
 
-class Item {
-    std::string name;
-    double pret;
-    std::string brand;
-public:
-    Item(): pret(0.0) {}
-    Item(const std::string& name_,const std::string& brand_) : name{name_}, pret{0.0}, brand{brand_}{}
-    Item(const std::string& name_,double pret_,const std::string& brand_): name{name_}, pret{pret_}, brand{brand_} {}
-    Item(const Item& other) : name{other.name}, pret{other.pret}, brand{other.brand} {}
-    const std::string& getName() const{ return this->name;}
-    double getPret() const{ return this->pret;}
-
-    //operator =
-    Item& operator=(const Item& other) {
-        this->name = other.name;
-        this->pret = other.pret;
-        this->brand = other.brand;
-        return *this;
-    }
-
-    ~Item() = default;
-
-    friend std::ostream& operator<<(std::ostream& os, const Item& item) {
-        os<< item.name << "~" << item.brand << " ($" << item.pret << ")";
-        return os;
-    }
-
-    bool operator==(const Item& other) const {
-        return name == other.name && pret == other.pret && brand == other.brand;
-    }
-};
-
-// std::string to_string(const Item& item) {
-//     return item.getName();
-// }
 
 class raion {
     std::string name;
@@ -144,7 +111,9 @@ public:
                 suma += item.getPret();
             }
         }
-        int bugetFinal = int(round(suma)) + 5;
+        int bugetFinal = int(round(suma)) + 5;//adaug 5 pentru ca bugetul sa nu fie restrictionat de brandul obiectelor din lista generata random
+        //si sa pot alege de exemplu daca nu am destul timp si un obiect putin mai scump in cazul in care nu il vad pe cel mai ieftin
+        //intrucat la mine sunt items cu acelasi nume dar brand diferit si pretul difera
         lista.buget = bugetFinal;
     }
     void stergeProdus(const Item& item) {
@@ -387,90 +356,6 @@ public:
 };
 
 int main() {
-    //paine
-    Item itemulp1{"sourdough",5.0, "lidl"},itemulp2{"ciabatta", 12.0,"lidl"}, itemulp3{"focaccia",10.0,"lidl"};
-    Item itemulp4{"brioche",6.0,"lidl"},itemulp5{"rye bread",11.0,"lidl"};
-    Item itemulp6{"sourdough", 6.0, "kaufland"}, itemulp7{"ciabatta", 11.0, "kaufland"}, itemulp8{"focaccia", 12.0, "kaufland"};
-    Item itemulp9{"brioche", 10.0, "kaufland"}, itemulp10{"rye bread",9.0, "kaufland"};
-    Item itemulp11{"sourdough", 7.5, "auchan"}, itemulp12{"ciabatta", 13.0, "auchan"}, itemulp13{"focaccia", 11.0, "auchan"};
-    Item itemulp14{"brioche",5.0, "auchan"}, itemulp15{"rye bread",8.0, "auchan"};
-    //legume
-    Item itemull1{"carrots",11.0,"lidl"}, itemull2{"tomatoes",5.0,"lidl"}, itemull3{"cucumbers",6.0,"lidl"};
-    Item itemull4{"cabbage",3.0,"lidl"}, itemull5{"potatoes",7.5,"lidl"};
-    Item itemull6{"carrots", 10.0, "kaufland"}, itemull7{"tomatoes", 7.0, "kaufland"}, itemull8{"cucumbers", 8.0, "kaufland"};
-    Item itemull9{"cabbage", 4.0, "kaufland"}, itemull10{"potatoes", 6.5, "kaufland"};
-    Item itemull11{"carrots", 9.0, "auchan"}, itemull12{"tomatoes", 6.0, "auchan"}, itemull13{"cucumbers", 7.0, "auchan"};
-    Item itemull14{"cabbage", 3.5, "auchan"}, itemull15{"potatoes", 6.0, "auchan"};
-    //fructe
-    Item itemulf1{"apples", 10.0, "lidl"}, itemulf2{"bananas", 5.0, "lidl"}, itemulf3{"oranges", 7.0, "lidl"};
-    Item itemulf4{"grapes", 12.0, "lidl"}, itemulf5{"strawberries", 14.0, "lidl"};
-    Item itemulf6{"apples", 11.0, "kaufland"}, itemulf7{"bananas", 4.5, "kaufland"}, itemulf8{"oranges", 8.0, "kaufland"};
-    Item itemulf9{"grapes", 13.0, "kaufland"}, itemulf10{"strawberries", 16.0, "kaufland"};
-    Item itemulf11{"apples", 12.5, "auchan"}, itemulf12{"bananas", 5.5, "auchan"}, itemulf13{"oranges", 7.5, "auchan"};
-    Item itemulf14{"grapes", 14.0, "auchan"}, itemulf15{"strawberries", 15.5, "auchan"};
-
-    //bauturi
-    Item itemulb1{"water", 1.5, "lidl"}, itemulb2{"juice", 3.0, "lidl"}, itemulb3{"soda", 3.5, "lidl"};
-    Item itemulb4{"coffee", 4.5, "lidl"}, itemulb5{"tea", 2.5, "lidl"};
-    Item itemulb6{"water", 1.7, "kaufland"}, itemulb7{"juice", 3.5, "kaufland"}, itemulb8{"soda", 3.8, "kaufland"};
-    Item itemulb9{"coffee", 5.0, "kaufland"}, itemulb10{"tea", 2.8, "kaufland"};
-    Item itemulb11{"water", 1.8, "auchan"}, itemulb12{"juice", 4.0, "auchan"}, itemulb13{"soda", 4.0, "auchan"};
-    Item itemulb14{"coffee", 5.5, "auchan"}, itemulb15{"tea", 3.0, "auchan"};
-
-    //kitchen utensils
-    Item itemulk1{"spoon", 2.0, "lidl"}, itemulk2{"fork", 2.0, "lidl"}, itemulk3{"knife", 2.5, "lidl"};
-    Item itemulk4{"cutting board", 5.0, "lidl"}, itemulk5{"pan", 10.0, "lidl"};
-    Item itemulk6{"spoon", 2.5, "kaufland"}, itemulk7{"fork", 2.5, "kaufland"}, itemulk8{"knife", 3.0, "kaufland"};
-    Item itemulk9{"cutting board", 5.5, "kaufland"}, itemulk10{"pan", 12.0, "kaufland"};
-    Item itemulk11{"spoon", 3.0, "auchan"}, itemulk12{"fork", 3.0, "auchan"}, itemulk13{"knife", 3.5, "auchan"};
-    Item itemulk14{"cutting board", 6.0, "auchan"}, itemulk15{"pan", 13.0, "auchan"};
-
-    //gradina
-    Item itemulg1{"fertilizer", 7.0, "lidl"}, itemulg2{"seeds", 5.0, "lidl"}, itemulg3{"watering can", 6.0, "lidl"};
-    Item itemulg4{"garden gloves", 5.0, "lidl"}, itemulg5{"plant pots", 6.0, "lidl"};
-    Item itemulg6{"fertilizer", 7.5, "kaufland"}, itemulg7{"seeds", 5.5, "kaufland"}, itemulg8{"watering can", 6.5, "kaufland"};
-    Item itemulg9{"garden gloves", 5.5, "kaufland"}, itemulg10{"plant pots", 6.5, "kaufland"};
-    Item itemulg11{"fertilizer", 8.0, "auchan"}, itemulg12{"seeds", 6.0, "auchan"}, itemulg13{"watering can", 7.0, "auchan"};
-    Item itemulg14{"garden gloves", 6.0, "auchan"}, itemulg15{"plant pots", 7.0, "auchan"};
-
-    //school supplies
-    Item itemulss1{"notebook", 2.5, "lidl"}, itemulss2{"pen", 1.0, "lidl"}, itemulss3{"pencil", 0.8, "lidl"};
-    Item itemulss4{"eraser", 0.6, "lidl"}, itemulss5{"ruler", 2.5, "lidl"};
-    Item itemulss6{"notebook", 2.8, "kaufland"}, itemulss7{"pen", 1.2, "kaufland"}, itemulss8{"pencil", 1.0, "kaufland"};
-    Item itemulss9{"eraser", 0.7, "kaufland"}, itemulss10{"ruler", 3.0, "kaufland"};
-    Item itemulss11{"notebook", 3.0, "auchan"}, itemulss12{"pen", 1.5, "auchan"}, itemulss13{"pencil", 1.2, "auchan"};
-    Item itemulss14{"eraser", 0.8, "auchan"}, itemulss15{"ruler", 3.5, "auchan"};
-
-    //snacks
-    Item itemuls1{"chips", 4.0, "lidl"}, itemuls2{"popcorn", 3.0, "lidl"}, itemuls3{"pretzels", 4.0, "lidl"};
-    Item itemuls4{"nuts", 5.0, "lidl"}, itemuls5{"crackers", 3.5, "lidl"};
-    Item itemuls6{"chips", 4.5, "kaufland"}, itemuls7{"popcorn", 3.5, "kaufland"}, itemuls8{"pretzels", 4.5, "kaufland"};
-    Item itemuls9{"nuts", 5.5, "kaufland"}, itemuls10{"crackers", 4.0, "kaufland"};
-    Item itemuls11{"chips", 5.0, "auchan"}, itemuls12{"popcorn", 4.0, "auchan"}, itemuls13{"pretzels", 5.0, "auchan"};
-    Item itemuls14{"nuts", 6.0, "auchan"}, itemuls15{"crackers", 4.5, "auchan"};
-    //carne
-    Item itemulc1{"chicken breast", 18.0, "lidl"}, itemulc2{"ground beef", 15.0, "lidl"}, itemulc3{"pork chops", 17.0, "lidl"};
-    Item itemulc4{"sausage", 12.0, "lidl"}, itemulc5{"steak", 24.0, "lidl"};
-    Item itemulc6{"chicken breast", 20.0, "kaufland"}, itemulc7{"ground beef", 18.0, "kaufland"}, itemulc8{"pork chops", 19.0, "kaufland"};
-    Item itemulc9{"sausage", 13.0, "kaufland"}, itemulc10{"steak", 26.0, "kaufland"};
-    Item itemulc11{"chicken breast", 19.0, "auchan"}, itemulc12{"ground beef", 17.0, "auchan"}, itemulc13{"pork chops", 18.0, "auchan"};
-    Item itemulc14{"sausage", 12.5, "auchan"}, itemulc15{"steak", 25.0, "auchan"};
-
-    //dairy
-    Item itemuld1{"milk", 2.5, "lidl"}, itemuld2{"cheese", 5.0, "lidl"}, itemuld3{"butter", 4.5, "lidl"};
-    Item itemuld4{"yogurt", 2.0, "lidl"}, itemuld5{"cream", 3.0, "lidl"};
-    Item itemuld6{"milk", 2.8, "kaufland"}, itemuld7{"cheese", 5.5, "kaufland"}, itemuld8{"butter", 4.8, "kaufland"};
-    Item itemuld9{"yogurt", 2.2, "kaufland"}, itemuld10{"cream", 3.2, "kaufland"};
-    Item itemuld11{"milk", 3.0, "auchan"}, itemuld12{"cheese", 5.8, "auchan"}, itemuld13{"butter", 4.2, "auchan"};
-    Item itemuld14{"yogurt", 2.5, "auchan"}, itemuld15{"cream", 3.5, "auchan"};
-
-    //dulciuri - sweets sw
-    Item itemulsw1{"chocolate", 8.0, "lidl"}, itemulsw2{"gummy bears", 6.0, "lidl"}, itemulsw3{"biscuits", 5.0, "lidl"};
-    Item itemulsw4{"candy bars", 7.0, "lidl"}, itemulsw5{"lollipops", 4.0, "lidl"};
-    Item itemulsw6{"chocolate", 8.5, "kaufland"}, itemulsw7{"gummy bears", 7.0, "kaufland"}, itemulsw8{"biscuits", 6.0, "kaufland"};
-    Item itemulsw9{"candy bars", 8.5, "kaufland"}, itemulsw10{"lollipops", 5.0, "kaufland"};
-    Item itemulsw11{"chocolate", 9.0, "auchan"}, itemulsw12{"gummy bears", 7.5, "auchan"}, itemulsw13{"biscuits", 6.5, "auchan"};
-    Item itemulsw14{"candy bars", 9.0, "auchan"}, itemulsw15{"lollipops", 5.5, "auchan"};
 
     std::vector<Item> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5,itemulp6,itemulp7,itemulp8,itemulp9,itemulp10,itemulp11, itemulp12, itemulp13, itemulp14, itemulp15};
     raion raionb{"bread",bread_};
@@ -583,15 +468,6 @@ int main() {
 
         listaInit.add_row({display_combined});
 
-        // listaInit.format()
-        //     .border_top("═")
-        //     .border_bottom("═")
-        //     .border_left("║")
-        //     .border_right("║")
-        //     .corner_top_left("╔")
-        //     .corner_top_right("╗")
-        //     .corner_bottom_left("╚")
-        //     .corner_bottom_right("╝");
 
         listaInit[0][0].format()
             .font_style({tabulate::FontStyle::italic})
@@ -641,16 +517,6 @@ int main() {
                     }
 
                     listaDisplay.add_row({"Your list", items_combined});
-
-                    // lista.format()
-                    //     .border_top("═")
-                    //     .border_bottom("═")
-                    //     .border_left("║")
-                    //     .border_right("║")
-                    //     .corner_top_left("╔")
-                    //     .corner_top_right("╗")
-                    //     .corner_bottom_left("╚")
-                    //     .corner_bottom_right("╝");
 
                     listaDisplay[0][0].format()
                         .font_style({tabulate::FontStyle::italic})
