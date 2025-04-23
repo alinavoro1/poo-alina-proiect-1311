@@ -17,6 +17,7 @@ const listaCumparaturi & Joc::getLista() const { return this->lista; }
 Joc & Joc::operator=(const Joc &other) {
     lista = other.lista;
     timp = other.timp;
+    varianta = other.varianta;
     playerName = other.playerName;
     return *this;
 }
@@ -38,7 +39,7 @@ int Joc::verificarePret() const {
         return 0;}
 }
 
-Joc::Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume) {}
+Joc::Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0) {}
 
 void Joc::listaGoala(const cosCumparaturi &cos) {
     if (lista.getItems().empty()) {
@@ -74,14 +75,14 @@ void Joc::run() {
         int versiune = selecteazaVersiune();
         int limitaTimp = (versiune == 1) ? 90 : 60;
 
-        auto lista = magazin.genereazaListaCumparaturi();
-        lista.calculeazaBuget(lista);
+        auto listaGenerata = magazin.genereazaListaCumparaturi();
+        listaGenerata.calculeazaBuget(listaGenerata);
 
-        afiseazaLista(lista, versiune);
+        afiseazaLista(listaGenerata, versiune);
 
-        listaCumparaturi lista2 = lista;
+        listaCumparaturi lista2 = listaGenerata;
         cosCumparaturi cos{lista2, {}};
-        Joc joc{playerName, lista};
+        Joc joc{playerName, listaGenerata};
 
 
         if (joc.verificarePret() == 1) {
