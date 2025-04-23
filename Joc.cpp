@@ -120,7 +120,7 @@ void Joc::run() {
             }
         }
         listaGoala(cos);
-        std::cout << "Do you want to play again? please...(y/n)\n";
+        std::cout << "Do you want to play again? Please...(y/n)\n";
         std::cin >> replay;
     } while (replay == "y");
 }
