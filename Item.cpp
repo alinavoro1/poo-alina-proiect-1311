@@ -23,8 +23,7 @@ Item & Item::operator=(const Item &other) {
     return *this;
 }
 
-Item::~Item() {
-}
+Item::~Item() = default;
 
 bool Item::operator==(const Item &other) const {
     return name == other.name && pret == other.pret && brand == other.brand;

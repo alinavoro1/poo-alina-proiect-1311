@@ -14,66 +14,9 @@
 #include <indicators.hpp>
 
 #include "Item.h"
-#include "Obiecte.h"
+#include "Raion.h"
+#include "ObiecteRaioane.h"
 
-
-
-class raion {
-    std::string name;
-    std::vector <Item> items;
-public:
-    raion(const std::string& name_,const std::vector <Item>& Item_) : name{name_}, items{Item_} {}
-    raion(const raion&  other) : name{other.name}, items{other.items} {}
-    const std::string& getName() const{ return name;}
-    raion& operator=(const raion& other) {
-        name = other.name;
-        items = other.items;
-        return *this;
-    }
-    ~raion() = default;
-
-    friend std::ostream & operator<<(std::ostream &os, const raion &obj) {
-
-        tabulate::Table header;
-        tabulate::Table tabel;
-
-        header.add_row({ "Aisle: " + obj.name });
-        header[0].format()
-            .width(60)
-            .font_align(tabulate::FontAlign::center)
-            .font_style({tabulate::FontStyle::bold})
-            .font_background_color(tabulate::Color::red)
-            .font_color(tabulate::Color::white);
-
-        size_t n = obj.items.size();
-        size_t cols = 3;
-
-        for (size_t i = 0; i < n; i += cols) {
-            std::vector<std::string> row;
-            for (size_t j = 0; j < cols; ++j) {
-                if (i + j < n) {
-                    std::stringstream ss;
-                    ss << "[" << (i + j) << "] " << obj.items[i + j];
-                    row.push_back(ss.str());
-                } else {
-                    row.push_back("");
-                }
-            }
-            tabel.add_row(tabulate::Table::Row_t{row.begin(),row.end()});
-        }
-
-        tabel.format()
-            .font_align(tabulate::FontAlign::center)
-            .padding_top(0)
-            .padding_bottom(0);
-
-        os << header << "\n" << tabel << "\n";
-        return os;
-    }
-
-
-    const std::vector <Item>& getItems() const { return items;}
-};
 
 class listaCumparaturi {
     std::vector <Item> items;
@@ -126,7 +69,6 @@ public:
         }
     }
 };
-class Joc;
 class cosCumparaturi {
     listaCumparaturi lista;
     std::vector <Item> items;
@@ -182,9 +124,9 @@ class cosCumparaturi {
 };
 
 class Magazin {
-    std::vector <raion> raioane;
+    std::vector <Raion> raioane;
 public:
-    explicit Magazin(const std::vector<raion> &raioane_)
+    explicit Magazin(const std::vector<Raion> &raioane_)
         : raioane(raioane_) {
     }
     Magazin() {}
@@ -211,7 +153,7 @@ public:
         return os;
     }
 
-    const std::vector <raion>& getRaioane() const { return this->raioane;}
+    const std::vector <Raion>& getRaioane() const { return this->raioane;}
 };
 
 class Joc {
@@ -303,7 +245,7 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
                 std::cout<<"Congrats! You won!";
             }
             else {
-                std::cout<<"Congrats! You lost!";
+                std::cout<<"You lost!";
             }
         }
         else {
@@ -318,10 +260,10 @@ void listaGoala(const Joc& joc, const cosCumparaturi& cos) {
 listaCumparaturi listGenerator(const Magazin& magazin) {
     std::set<std::string> produse;
     std::vector<Item> listaMea;
-    std::random_device rd;
-    std::mt19937 gen(rd());
 
-    for (const raion& r : magazin.getRaioane()) {
+    for (const Raion& r : magazin.getRaioane()) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
         std::vector<Item> produseleRndm = r.getItems();
         std::shuffle(produseleRndm.begin(),produseleRndm.end(),gen);
 
@@ -356,39 +298,7 @@ public:
 };
 
 int main() {
-
-    std::vector<Item> bread_ = {itemulp1,itemulp2,itemulp3,itemulp4,itemulp5,itemulp6,itemulp7,itemulp8,itemulp9,itemulp10,itemulp11, itemulp12, itemulp13, itemulp14, itemulp15};
-    raion raionb{"bread",bread_};
-
-    std::vector<Item> vegetables_ = {itemull1,itemull2,itemull3,itemull4,itemull5, itemull6, itemull7, itemull8, itemull9, itemull10, itemull11, itemull12, itemull13, itemull14, itemull15};
-    raion raionv{"vegetables", vegetables_};
-
-    std::vector <Item> fruits_ = {itemulf1,itemulf2,itemulf3, itemulf4, itemulf5, itemulf6, itemulf7, itemulf8, itemulf9, itemulf10, itemulf11, itemulf12, itemulf13, itemulf14, itemulf15};
-    raion raionf{"fruits", fruits_};
-
-    std::vector <Item> drinks_ = {itemulb1, itemulb2, itemulb3, itemulb4, itemulb5, itemulb6, itemulb7, itemulb8, itemulb9, itemulb10, itemulb11, itemulb12, itemulb13, itemulb14, itemulb15};
-    raion raiond{"drinks", drinks_};
-
-    std::vector <Item> kitchen_ = {itemulk1, itemulk2, itemulk3, itemulk4, itemulk5, itemulk6, itemulk7, itemulk8, itemulk9, itemulk10, itemulk11, itemulk12, itemulk13, itemuld14, itemuld15};
-    raion raionk{"Kitchen Utensils", kitchen_ };
-
-    std::vector <Item> garden_ = {itemulg1, itemulg2, itemulg3, itemulg4, itemulg5, itemulg6, itemulg7, itemulg8, itemulg9, itemulg10, itemulg11, itemulg12, itemulg13, itemuld14, itemuld15};
-    raion raiong{"garden", garden_};
-
-    std::vector <Item> school_ = {itemulss1, itemulss2, itemulss3, itemulss4, itemulss5, itemulss6, itemulss7, itemulss8, itemulss9, itemulss10, itemulss11, itemulss12, itemulss13, itemulss14, itemulss15};
-    raion raionss{"school supplies", school_};
-
-    std::vector <Item> snacks_ = {itemuls1, itemuls2, itemuls3, itemuls4, itemuls5, itemuls6, itemuls7, itemuls8, itemuls9, itemuls10, itemuls11, itemuls12, itemuls13, itemuls14, itemuls15};
-    raion raions{"snacks", snacks_};
-
-    std::vector <Item> meat_ = {itemulc1, itemulc2, itemulc3, itemulc4, itemulc5, itemulc6, itemulc7, itemulc8, itemulc9, itemulc10, itemulc11, itemulc12, itemulc13, itemulc14, itemulc15};
-    raion raionm{"meat", meat_};
-
-    std::vector <Item> dairy_ = {itemuld1, itemuld2, itemuld3, itemuld4, itemuld5, itemuld6, itemuld7, itemuld8, itemuld9, itemuld10, itemuld11, itemuld12, itemuld13, itemuld14, itemuld15};
-    raion raionda{"dairy", dairy_};
-
-    std::vector <Item> sweets_ = {itemulsw1, itemulsw2, itemulsw3, itemulsw4, itemulsw5, itemulsw6, itemulsw7, itemulsw8, itemulsw9, itemulsw10, itemulsw11, itemulsw12, itemulsw13, itemulsw14, itemulsw15};
-    raion raionsw{"sweets", sweets_};
+    std::cout<<raionb;
 
     Magazin magazin{{raiond, raionf,raionv, raionb, raionk, raiong, raionss, raions, raionm, raionda, raionsw}};
     std::cout<<"\n";

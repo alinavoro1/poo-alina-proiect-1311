@@ -4,6 +4,8 @@
 
 #include "Obiecte.h"
 
+#include <vector>
+
 //paine
 Item itemulp1{"sourdough",5.0, "lidl"};
 Item itemulp2{"ciabatta", 12.0,"lidl"};
@@ -187,4 +189,16 @@ Item itemulsw12{"gummy bears", 7.5, "auchan"};
 Item itemulsw13{"biscuits", 6.5, "auchan"};
 Item itemulsw14{"candy bars", 9.0, "auchan"};
 Item itemulsw15{"lollipops", 5.5, "auchan"};
+
+std::vector<Item> bread_ = {itemulp1, itemulp2, itemulp3, itemulp4, itemulp5, itemulp6, itemulp7, itemulp8, itemulp9, itemulp10, itemulp11, itemulp12, itemulp13, itemulp14, itemulp15};
+std::vector<Item> vegetables_ = {itemull1, itemull2, itemull3, itemull4, itemull5, itemull6, itemull7, itemull8, itemull9, itemull10, itemull11, itemull12, itemull13, itemull14, itemull15};
+std::vector<Item> fruits_ = {itemulf1, itemulf2, itemulf3, itemulf4, itemulf5, itemulf6, itemulf7, itemulf8, itemulf9, itemulf10, itemulf11, itemulf12, itemulf13, itemulf14, itemulf15};
+std::vector<Item> drinks_ = {itemulb1, itemulb2, itemulb3, itemulb4, itemulb5, itemulb6, itemulb7, itemulb8, itemulb9, itemulb10, itemulb11, itemulb12, itemulb13, itemulb14, itemulb15};
+std::vector<Item> kitchen_ = {itemulk1, itemulk2, itemulk3, itemulk4, itemulk5, itemulk6, itemulk7, itemulk8, itemulk9, itemulk10, itemulk11, itemulk12, itemulk13, itemuld14, itemuld15};
+std::vector<Item> garden_ = {itemulg1, itemulg2, itemulg3, itemulg4, itemulg5, itemulg6, itemulg7, itemulg8, itemulg9, itemulg10, itemulg11, itemulg12, itemulg13, itemuld14, itemuld15};
+std::vector<Item> school_ = {itemulss1, itemulss2, itemulss3, itemulss4, itemulss5, itemulss6, itemulss7, itemulss8, itemulss9, itemulss10, itemulss11, itemulss12, itemulss13, itemulss14, itemulss15};
+std::vector<Item> snacks_ = {itemuls1, itemuls2, itemuls3, itemuls4, itemuls5, itemuls6, itemuls7, itemuls8, itemuls9, itemuls10, itemuls11, itemuls12, itemuls13, itemuls14, itemuls15};
+std::vector<Item> meat_ = {itemulc1, itemulc2, itemulc3, itemulc4, itemulc5, itemulc6, itemulc7, itemulc8, itemulc9, itemulc10, itemulc11, itemulc12, itemulc13, itemulc14, itemulc15};
+std::vector<Item> dairy_ = {itemuld1, itemuld2, itemuld3, itemuld4, itemuld5, itemuld6, itemuld7, itemuld8, itemuld9, itemuld10, itemuld11, itemuld12, itemuld13, itemuld14, itemuld15};
+std::vector<Item> sweets_ = {itemulsw1, itemulsw2, itemulsw3, itemulsw4, itemulsw5, itemulsw6, itemulsw7, itemulsw8, itemulsw9, itemulsw10, itemulsw11, itemulsw12, itemulsw13, itemulsw14, itemulsw15};
 

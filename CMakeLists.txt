@@ -55,6 +55,10 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Item.h
         Obiecte.cpp
         Obiecte.h
+        ObiecteRaioane.cpp
+        ObiecteRaioane.h
+        Raion.cpp
+        Raion.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

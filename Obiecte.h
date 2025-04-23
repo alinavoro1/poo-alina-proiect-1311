@@ -5,6 +5,8 @@
 #ifndef OBIECTE_H
 #define OBIECTE_H
 
+#include <vector>
+
 #include  "Item.h"
 //paine
 extern Item  itemulp1;
@@ -189,6 +191,18 @@ extern Item itemulsw12;
 extern Item itemulsw13;
 extern Item itemulsw14;
 extern Item itemulsw15;
+
+extern std::vector<Item> bread_;
+extern std::vector<Item> vegetables_;
+extern std::vector<Item> fruits_;
+extern std::vector<Item> drinks_;
+extern std::vector<Item> kitchen_;
+extern std::vector<Item> garden_;
+extern std::vector<Item> school_;
+extern std::vector<Item> snacks_;
+extern std::vector<Item> meat_;
+extern std::vector<Item> dairy_;
+extern std::vector<Item> sweets_;
 
 
 #endif //OBIECTE_H
