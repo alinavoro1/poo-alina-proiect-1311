@@ -18,21 +18,19 @@
 class Joc {
     Magazin magazin;
     std::string playerName;
+    int varianta=0;
     listaCumparaturi lista;
-    int variantaJoc;
     int timp;
     std::atomic<bool> running = false;
 public:
     Joc ();
     explicit Joc(const std::string& playerName_);
-    explicit Joc(const std::string& playerName_, int varianta);
-    Joc(const std::string& playerName_,const listaCumparaturi& lista_,int varianta);
 
-    int getVarianta() const;
+    Joc(const std::string& playerName_,const listaCumparaturi& lista_);
+
 
     const listaCumparaturi& getLista() const;
 
-    void setTimp(int timp_);
 
     Joc& operator=(const Joc& other);
 
@@ -40,7 +38,6 @@ public:
 
     friend std::ostream & operator<<(std::ostream &os, const Joc &obj);
 
-    void setareTimer();
 
     int verificarePret() const;
 

@@ -19,8 +19,6 @@
 #include "Stopwatch.h"
 #include "Magazin.h"
 
-
-
 int main() {
     Magazin magazin{get_raioane()};
     std::cout << get_raioane()[0] << "\n\n";
