@@ -53,8 +53,6 @@ add_executable(${MAIN_EXECUTABLE_NAME}
     generated/src/Helper.cpp
         Item.cpp
         Item.h
-        Obiecte.cpp
-        Obiecte.h
         ObiecteRaioane.cpp
         ObiecteRaioane.h
         Raion.cpp

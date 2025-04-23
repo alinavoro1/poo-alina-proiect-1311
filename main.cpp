@@ -298,9 +298,10 @@ public:
 };
 
 int main() {
-    std::cout<<raionb;
+    // std::cout<<raionb;
 
-    Magazin magazin{{raiond, raionf,raionv, raionb, raionk, raiong, raionss, raions, raionm, raionda, raionsw}};
+    Magazin magazin{get_raioane()};
+    std::cout << get_raioane()[0] << "\n\n";
     std::cout<<"\n";
 
     std::cout<<"Enter player name: ";

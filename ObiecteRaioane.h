@@ -8,17 +8,7 @@
 #include "Raion.h"
 
 
-extern Raion raionb;
-extern Raion raionv;
-extern Raion raionf;
-extern Raion raiond;
-extern Raion raionk;
-extern Raion raiong;
-extern Raion raionss;
-extern Raion raions;
-extern Raion raionm;
-extern Raion raionda;
-extern Raion raionsw;
+std::vector<Raion> get_raioane();
 
 
 
