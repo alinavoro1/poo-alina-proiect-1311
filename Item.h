@@ -29,6 +29,15 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Item& item);
 
     bool operator==(const Item& other) const;
+
+    void aplicaDiscount(double procent) {
+        if (procent > 0 && procent <= 100) {
+            pret -= pret * (procent / 100);
+        } else {
+            std::cout << "Procent discount invalid!" << std::endl;
+        }
+    }
+
 };
 
 

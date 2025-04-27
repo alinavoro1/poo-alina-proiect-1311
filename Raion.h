@@ -13,14 +13,16 @@
 
 class Raion: public Lista {
     std::string name;
+    bool powerUpUtilizat;
 public:
-    Raion(const std::string& name_,const std::vector <Item>& items_) : Lista(items_),name{name_}{}
-    Raion(const Raion&  other) : Lista(other),name{other.name} {}
+    Raion(const std::string& name_,const std::vector <Item>& items_) : Lista(items_),name{name_}, powerUpUtilizat{false} {}
+    Raion(const Raion&  other) : Lista(other),name{other.name}, powerUpUtilizat {other.powerUpUtilizat} {}
 
     const std::string& getName() const{ return name;}
 
     Raion& operator=(const Raion& other) {
         name = other.name;
+        powerUpUtilizat = other.powerUpUtilizat;
         Lista::operator=(other);
         return *this;
     }
@@ -65,44 +67,36 @@ public:
         os << header << "\n" << tabel << "\n";
         return os;
     }
-
-    void afisare() const override {
-        std::cout << *this;
-    }
+    //
+    // void afisare() const override {
+    //     std::cout << *this;
+    // }
 
     Lista* clone() const override {
         return new Raion(*this);
     }
+    //
+    // void calculTotal() override {
+    //     std::cout << "calculTotal() nu este definit pentru Raion.\n";
+    // }
 
-    void calculTotal() override {
-        std::cout << "calculTotal() nu este definit pentru Raion.\n";
+
+    void reducere(double discount) {
+        if (!powerUpUtilizat) {
+            aplicaReducere(discount);  // Ordona produsele pe raion după preț
+            powerUpUtilizat = true;
+        }  // Power-up-ul a fost folosit
+        else {
+            std::cout << "Power Up already used!\n";
+        }
     }
-
+    void sorteaza()  {
+        if (!powerUpUtilizat) {
+            sorteazaProduse();  // Sortează produsele în raion
+            powerUpUtilizat = true;
+        } else {
+            std::cout << "PowerUp already used!\n";
+        }
+    }
 };
-
-
-//
-//
-// class Raion: public Lista {
-//     std::string name;
-//     std::vector<Item> items;
-// public:
-//     Raion(const std::string& name_,const std::vector <Item>& Item_);
-//
-//     Raion(const Raion&  other);
-//
-//     const std::string& getName() const;
-//
-//     Raion& operator=(const Raion& other);
-//
-//     ~Raion();
-//
-//     friend std::ostream & operator<<(std::ostream &os, const Raion &obj);
-//
-//
-//     const std::vector <Item>& getItems() const;
-// };
-//
-//
-//
 #endif //RAION_H
