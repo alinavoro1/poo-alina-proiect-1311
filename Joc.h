@@ -127,16 +127,16 @@ public:
         lossRate++;
     }
 
-    static void calculProcent(int winRate, int lossRate) {
-        int totalJocuri = winRate + lossRate;
+    static void calculProcent(int wins, int losses) {
+        int totalJocuri = wins + losses;
         double procentWin, procentLoss;
         if (totalJocuri == 0) {
             std::cout<< "No games played yet ;P \n";
 
         }
         else {
-            procentWin = (winRate * 100)/ totalJocuri;
-            procentLoss = (lossRate * 100)/ totalJocuri;
+            procentWin = (wins * 100)/ totalJocuri;
+            procentLoss = (losses * 100)/ totalJocuri;
             std::cout << "You won " << procentWin << "% of the time\n";
             std::cout << "You lost" << procentLoss << "% of the time\n";
         }
