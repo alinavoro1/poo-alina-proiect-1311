@@ -67,6 +67,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Magazin.h
         cosCumparaturi.cpp
         cosCumparaturi.h
+        Lista.cpp
+        Lista.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

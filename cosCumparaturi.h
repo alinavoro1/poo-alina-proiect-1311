@@ -7,32 +7,95 @@
 #include "Item.h"
 #include "listaCumparaturi.h"
 
-
-class cosCumparaturi {
+class cosCumparaturi: public Lista {
     listaCumparaturi lista;
-    std::vector <Item> items;
     double totalPlata;
 public:
-    cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Item> &items_, double totalPlata_ = 0.0);
-    cosCumparaturi(const cosCumparaturi &other);
-    explicit cosCumparaturi( double totalPlata_ );
+    cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Item> &items_, double totalPlata_ = 0.0):Lista(items_), lista(lista_), totalPlata(totalPlata_){}
+    cosCumparaturi(const cosCumparaturi &other):  Lista(other.items), lista(other.lista), totalPlata(other.totalPlata) {}
+    explicit cosCumparaturi( double totalPlata_ = 0.0 ) : totalPlata(totalPlata_) {}
 
-    cosCumparaturi& operator=(const cosCumparaturi &other);
+    cosCumparaturi& operator=(const cosCumparaturi &other) {
+        if (this != &other) {
+            Lista::operator=(other);
+            lista = other.lista;
+            totalPlata = other.totalPlata;
+        }
+        return *this;
+    }
+    double getTotalPlata() const {return totalPlata; }
 
-    double getTotalPlata() const;
+    const listaCumparaturi& getLista() const {return lista;}
 
-    const listaCumparaturi& getLista() const;
+    ~cosCumparaturi() override = default;
 
-    const std::vector<Item>& getItems() const;
+    friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos) {
+        os <<"Your shopping list: "<< cos.lista;
+        os << "Your shopping bag: ";
+        for (const auto& item : cos.items) {
+            os<< item<< ", ";
+        }
+        os << "\n";
+        os << "Total price: " << cos.totalPlata<<"\n";
+        os<<"\n";
+        return os;
+    }
 
-    ~cosCumparaturi();
+    void calculTotal() override{
+        if (items.empty()) {
+            std::cout << "Shopping bag is empty 🤣\n";
+        }
+        else {
+            totalPlata = 0.0;
+            for (const auto& item: items) {
+                totalPlata += item.getPret();
+            }
 
-    friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos);
+            std::cout << "Your total is now: " << totalPlata << std::endl;
+        }
+    }
+    void adaugaInCos(const Item &item) {
+        items.push_back(item);
+        lista.stergeProdus(item);
+    }
 
-    void sumadinCos();
 
-    void adaugaInCos(const Item &item);
+    void afisare() const override {
+        std::cout << *this;
+    }
+
+
+    Lista* clone() const override {
+        return new cosCumparaturi(*this);
+    }
 };
+
+// class cosCumparaturi : public Lista{
+//     listaCumparaturi list;
+//     double totalPlata;
+// public:
+//     // cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Item> &items_, double totalPlata_ = 0.0);
+//     cosCumparaturi ( const listaCumparaturi &list_ , const std::vector<Item>& items_, double totalPlata = 0.0) : list(list_), Lista(items_),totalPlata(totalPlata){}
+//
+//     cosCumparaturi(const cosCumparaturi &other);
+//     explicit cosCumparaturi( double totalPlata_ );
+//
+//     cosCumparaturi& operator=(const cosCumparaturi &other);
+//
+//     double getTotalPlata() const;
+//
+//     const listaCumparaturi& getLista() const;
+//
+//     const std::vector<Item>& getItems() const;
+//
+//     ~cosCumparaturi();
+//
+//     friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos);
+//
+//     void sumadinCos();
+//
+//     void adaugaInCos(const Item &item);
+// };
 
 
 #endif //COSCUMPARATURI_H

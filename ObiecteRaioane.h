@@ -4,8 +4,9 @@
 
 #ifndef OBIECTERAIOANE_H
 #define OBIECTERAIOANE_H
-
+#include <vector>
 #include "Raion.h"
+
 
 
 std::vector<Raion> get_raioane();

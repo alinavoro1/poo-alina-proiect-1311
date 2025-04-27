@@ -3,6 +3,8 @@
 //
 #include "ObiecteRaioane.h"
 #include <vector>
+#include "Item.h"
+
 
 //paine
 const Item itemulp1{"sourdough",5.0, "lidl"};
