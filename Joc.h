@@ -30,7 +30,7 @@ class Joc {
 public:
     Joc() {}
 
-    Joc(const std::string &playerName_): playerName{playerName_}, timp(0) {}
+    explicit Joc(const std::string &playerName_): playerName{playerName_}, timp(0) {}
 
     Joc(const std::string &playerName_, const listaCumparaturi &lista_): playerName{playerName_}, lista{lista_}, timp(0) {}
 
@@ -41,6 +41,8 @@ public:
         timp = other.timp;
         varianta = other.varianta;
         playerName = other.playerName;
+        Dpower = other.Dpower;
+        Spower = other.Spower;
         return *this;
     }
 
@@ -69,7 +71,7 @@ public:
             std::cout << "this version is not availble right now.\n";
             return 0;}
     }
-    static void inregistreazaWin(int Dpower, int Spower) {
+    static void inregistreazaWin(int& Dpower, int& Spower) {
         winStreak ++;
         if (winStreak >= 3) {
             if (Dpower < 1 ) Dpower =1;
@@ -131,12 +133,12 @@ public:
     static void calculProcent(int wins, int losses) {
         using namespace indicators;
         int totalJocuri = wins + losses;
-        double procentWin, procentLoss;
         if (totalJocuri == 0) {
             std::cout<< "No games played yet ;P \n";
 
         }
         else {
+            double procentWin, procentLoss;
             procentWin = (wins * 100)/ totalJocuri;
             procentLoss = (losses * 100)/ totalJocuri;
             ProgressBar bar1{

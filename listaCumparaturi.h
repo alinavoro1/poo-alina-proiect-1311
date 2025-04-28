@@ -15,7 +15,7 @@ class listaCumparaturi : public Lista {
     int buget;
 
 public:
-    listaCumparaturi() = default;
+    listaCumparaturi(): buget(0) {}
 
     explicit listaCumparaturi(const std::vector<Item>& items_, int buget_ = 0)
         : Lista(items_), buget{buget_} {}

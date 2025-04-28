@@ -14,7 +14,7 @@ protected:
 
 public:
     Lista() = default;
-    Lista(const std::vector<Item>& items_) : items(items_) {}
+    explicit Lista(const std::vector<Item>& items_) : items(items_) {}
 
     Lista(const Lista& other) {
         items = other.items;
