@@ -2,21 +2,11 @@
 #include <ostream>
 #include <string>
 #include <vector>
-// #include <random>
-// #include <cmath>
-// #include <unordered_set>
-// #include <chrono>
-// #include <thread>
 #include <tabulate.hpp>
 // #include <indicators.hpp>
 
 #include "Joc.h"
-// #include "Item.h"
-// #include "Raion.h"
-// #include <set>
-
 #include "ObiecteRaioane.h"
-// #include "Stopwatch.h"
 #include "Magazin.h"
 
 

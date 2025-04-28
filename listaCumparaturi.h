@@ -19,6 +19,9 @@ public:
 
     explicit listaCumparaturi(const std::vector<Item>& items_, int buget_ = 0)
         : Lista(items_), buget{buget_} {}
+    explicit listaCumparaturi(int buget_): buget(buget_) {
+
+    }
 
     listaCumparaturi(const listaCumparaturi& other)
         : Lista(other.items), buget{other.buget} {}
@@ -66,6 +69,7 @@ public:
         double total = 0;
         for (const auto& item : items) {
             total += item.getPret();
+            std::cout<< total << "\n";
         }
         // Aici adăugăm acel +5 din fosta funcție calculeazaBuget
         int bugetFinal = int(round(total)) + 5;

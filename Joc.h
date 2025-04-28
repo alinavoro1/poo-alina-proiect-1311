@@ -13,6 +13,7 @@
 #include "listaCumparaturi.h"
 #include "Magazin.h"
 #include "Stopwatch.h"
+#include <indicators.hpp>
 
 class Joc {
     Magazin magazin;
@@ -128,6 +129,7 @@ public:
     }
 
     static void calculProcent(int wins, int losses) {
+        using namespace indicators;
         int totalJocuri = wins + losses;
         double procentWin, procentLoss;
         if (totalJocuri == 0) {
@@ -137,8 +139,20 @@ public:
         else {
             procentWin = (wins * 100)/ totalJocuri;
             procentLoss = (losses * 100)/ totalJocuri;
-            std::cout << "You won " << procentWin << "% of the time\n";
-            std::cout << "You lost" << procentLoss << "% of the time\n";
+            ProgressBar bar1{
+                option::BarWidth{50},
+                option::Start{"["},
+                option::Fill{"■"},
+                option::Lead{"|"},
+                option::Remainder{"="},
+                option::End{" ]"},
+                option::ForegroundColor{Color::yellow},
+                option::PrefixText{"Win rate =>  "},
+                option::FontStyles{std::vector<FontStyle>{FontStyle::bold}}
+            };
+            std::cout<< "       " << procentWin << "% win "<< procentLoss << "% loss\n";
+            bar1.set_progress(procentWin);
+            std::cout<<std::endl;
         }
     }
 
@@ -181,10 +195,18 @@ public:
         std::string replay;
         do {
             int versiune = selecteazaVersiune();
-            int limitaTimp = (versiune == 1) ? 90 : 60;
+            int limitaTimp;
+            if (versiune ==1) {
+                limitaTimp = 90;
+            }
+            else if (versiune ==2 || versiune ==3) {
+                limitaTimp = 60;
+            }
+            else {
+                std::cout<<"Version unavailable. Enter a valid version\n";
+            }
 
             listaCumparaturi listaGenerata = magazin.genereazaListaCumparaturi();
-            listaGenerata.calculTotal();
 
             afiseazaLista(listaGenerata, versiune);
 
@@ -209,6 +231,7 @@ public:
             listaGoala(cos, listaGenerata);
             std::cout <<"Your win rate is: \n";
             calculProcent(winRate, lossRate);
+
             std::cout << "Do you want to play again? Please...(y/n)\n";
             std::cin >> replay;
         } while (replay == "y");
@@ -229,7 +252,7 @@ public:
     }
 
 
-    void afiseazaLista(const listaCumparaturi& listaC, int versiune) {
+    void afiseazaLista( listaCumparaturi listaC, int versiune) {
         tabulate::Table listaInit;
         std::vector<std::string> display_items;
         for (const auto& item: listaC.getItems()) {
@@ -246,9 +269,10 @@ public:
                 .font_style({tabulate::FontStyle::italic})
                 .font_color(tabulate::Color::red);
 
-        std::cout << "Your list contains:\n" << listaInit << "\n";
+        std::cout << "Your list contains:\n" << listaC << "\n";
         if (versiune == 3) {
-            std::cout << "Your budget is: " << lista.getBuget() << "\n\n";
+            listaC.calculTotal();
+            std::cout << "Your budget is: " << listaC.getBuget() << "\n\n";
         }
     }
 
