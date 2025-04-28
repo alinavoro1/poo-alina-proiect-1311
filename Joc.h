@@ -203,6 +203,7 @@ public:
                 limitaTimp = 60;
             }
             else {
+                limitaTimp = 0;
                 std::cout<<"Version unavailable. Enter a valid version\n";
             }
 
