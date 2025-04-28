@@ -270,7 +270,7 @@ public:
                 .font_style({tabulate::FontStyle::italic})
                 .font_color(tabulate::Color::red);
 
-        std::cout << "Your list contains:\n" << listaC << "\n";
+        std::cout << "Your list contains:\n" << listaInit << "\n";
         if (versiune == 3) {
             listaC.calculTotal();
             std::cout << "Your budget is: " << listaC.getBuget() << "\n\n";

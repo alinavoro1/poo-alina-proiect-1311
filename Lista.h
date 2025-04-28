@@ -24,7 +24,7 @@ public:
     virtual ~Lista() = default;
 
     // virtual void afisare() const = 0;
-    virtual Lista* clone() const = 0;
+    // virtual Lista* clone() const = 0;
 
     virtual void calculTotal() {};
 

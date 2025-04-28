@@ -61,15 +61,14 @@ public:
     //     std::cout << *this;
     // }
 
-    Lista* clone() const override {
-        return new listaCumparaturi(*this);
-    }
+    // Lista* clone() const override {
+    //     return new listaCumparaturi(*this);
+    // }
 
     void calculTotal() override {
         double total = 0;
         for (const auto& item : items) {
             total += item.getPret();
-            std::cout<< total << "\n";
         }
         // Aici adăugăm acel +5 din fosta funcție calculeazaBuget
         int bugetFinal = int(round(total)) + 5;

@@ -72,9 +72,9 @@ public:
     //     std::cout << *this;
     // }
 
-    Lista* clone() const override {
-        return new Raion(*this);
-    }
+    // Lista* clone() const override {
+    //     return new Raion(*this);
+    // }
     //
     // void calculTotal() override {
     //     std::cout << "calculTotal() nu este definit pentru Raion.\n";

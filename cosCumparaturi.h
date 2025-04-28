@@ -64,9 +64,9 @@ public:
     //     std::cout << *this;
     // }
 
-    Lista* clone() const override {
-        return new cosCumparaturi(*this);
-    }
+    // Lista* clone() const override {
+    //     return new cosCumparaturi(*this);
+    // }
 
 };
 
