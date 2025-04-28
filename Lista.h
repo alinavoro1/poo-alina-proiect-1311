@@ -16,9 +16,7 @@ public:
     Lista() = default;
     explicit Lista(const std::vector<Item>& items_) : items(items_) {}
 
-    Lista(const Lista& other) {
-        items = other.items;
-    }
+    Lista(const Lista& other): items(other.items) {}
 
 
     virtual ~Lista() = default;
