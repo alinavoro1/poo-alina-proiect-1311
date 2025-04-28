@@ -61,9 +61,9 @@ public:
     //     std::cout << *this;
     // }
 
-    // Lista* clone() const override {
-    //     return new listaCumparaturi(*this);
-    // }
+    Lista* clone() const override {
+        return new listaCumparaturi(*this);
+    }
 
     void calculTotal() override {
         double total = 0;
