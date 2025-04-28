@@ -158,11 +158,11 @@ public:
 
     Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0) {}
 
-    void listaGoala(const cosCumparaturi &cos, const listaCumparaturi& lista) {
+    void listaGoala(const cosCumparaturi &cos, const listaCumparaturi& listaVerif) {
         // std::cout<<"lista initiala a fost : " << lista;
         if (cos.getLista().getItems().empty()) {
             std::unordered_set<std::string> produse;
-            for (const auto& item : lista.getItems()) {
+            for (const auto& item : listaVerif.getItems()) {
                 produse.insert(item.getName());
             }
             for (const auto& item : cos.getItems()) {
@@ -172,7 +172,7 @@ public:
                 }
             }
             if (varianta == 3) {
-                if (cos.getTotalPlata() <= lista.getBuget()) {
+                if (cos.getTotalPlata() <= listaVerif.getBuget()) {
                     std::cout << "Congrats! You won!💎💎💎💎👑👑👑\n";
                     actualizeazaWin();
                     inregistreazaWin(Dpower, Spower);
