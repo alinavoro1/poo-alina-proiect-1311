@@ -40,7 +40,7 @@ public:
         return os;
     }
 
-    const std::vector<Raion> & getRaioane() const { return this->raioane;}
+    const std::vector<Raion> & getRaioane()const  { return this->raioane;}
 
     listaCumparaturi genereazaListaCumparaturi() const {
         std::set<std::string> produse;

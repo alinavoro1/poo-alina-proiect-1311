@@ -13,16 +13,14 @@
 
 class Raion: public Lista {
     std::string name;
-    bool powerUpUtilizat;
 public:
-    Raion(const std::string& name_,const std::vector <Item>& items_) : Lista(items_),name{name_}, powerUpUtilizat{false} {}
-    Raion(const Raion&  other) : Lista(other),name{other.name}, powerUpUtilizat {other.powerUpUtilizat} {}
+    Raion(const std::string& name_,const std::vector <Item>& items_) : Lista(items_),name{name_} {}
+    Raion(const Raion&  other) : Lista(other),name{other.name} {}
 
     const std::string& getName() const{ return name;}
 
     Raion& operator=(const Raion& other) {
         name = other.name;
-        powerUpUtilizat = other.powerUpUtilizat;
         Lista::operator=(other);
         return *this;
     }
@@ -67,6 +65,18 @@ public:
         os << header << "\n" << tabel << "\n";
         return os;
     }
+
+    void aplicaReducere(double discount) {
+        for (auto& item : items) {
+            item.aplicaDiscount(discount); // tot pentru powerupuri la 3 wins
+        }
+    }
+
+    virtual void sorteazaProduse() {
+        std::sort(items.begin(), items.end(), [](const Item& a, const Item& b) {
+            return a.getPret() < b.getPret(); // Sortează crescător după preț pentru a adauga powerupuri la 3 winuri cred
+        });
+    }
     //
     // void afisare() const override {
     //     std::cout << *this;
@@ -81,22 +91,22 @@ public:
     // }
 
 
-    void reducere(double discount) {
-        if (!powerUpUtilizat) {
-            aplicaReducere(discount);  // Ordona produsele pe raion după preț
-            powerUpUtilizat = true;
-        }  // Power-up-ul a fost folosit
-        else {
-            std::cout << "Power Up already used!\n";
-        }
-    }
-    void sorteaza()  {
-        if (!powerUpUtilizat) {
-            sorteazaProduse();  // Sortează produsele în raion
-            powerUpUtilizat = true;
-        } else {
-            std::cout << "PowerUp already used!\n";
-        }
-    }
+    // void reducere(double discount) {
+    //     if (!powerUpUtilizat) {
+    //         aplicaReducere(discount);  // Ordona produsele pe raion după preț
+    //         powerUpUtilizat = true;
+    //     }  // Power-up-ul a fost folosit
+    //     else {
+    //         std::cout << "Power Up already used!\n";
+    //     }
+    // }
+    // void sorteaza()  {
+    //     if (!powerUpUtilizat) {
+    //         sorteazaProduse();  // Sortează produsele în raion
+    //         powerUpUtilizat = true;
+    //     } else {
+    //         std::cout << "PowerUp already used!\n";
+    //     }
+    // }
 };
 #endif //RAION_H

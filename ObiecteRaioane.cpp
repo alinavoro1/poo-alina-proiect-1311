@@ -201,19 +201,19 @@ const std::vector<Item> meat_ = {itemulc1, itemulc2, itemulc3, itemulc4, itemulc
 const std::vector<Item> dairy_ = {itemuld1, itemuld2, itemuld3, itemuld4, itemuld5, itemuld6, itemuld7, itemuld8, itemuld9, itemuld10, itemuld11, itemuld12, itemuld13, itemuld14, itemuld15};
 const std::vector< Item> sweets_ = {itemulsw1, itemulsw2, itemulsw3, itemulsw4, itemulsw5, itemulsw6, itemulsw7, itemulsw8, itemulsw9, itemulsw10, itemulsw11, itemulsw12, itemulsw13, itemulsw14, itemulsw15};
 
-Raion raionb{"bread",bread_};
-Raion raionf{"fruits",fruits_};
-Raion raiond{"drinks",drinks_};
-Raion raionk{"kitchen",kitchen_};
-Raion raiong{"garden",garden_};
-Raion raionv{"vegetables",vegetables_};
-Raion raionss{"school supplies", school_};
-Raion raions{"snacks", snacks_};
-Raion raionm{"meat", meat_};
-Raion raionda{"dairy", dairy_};
-Raion raionsw{"sweets", sweets_};
+const Raion raionb{"bread",bread_};
+const Raion raionf{"fruits",fruits_};
+const Raion raiond{"drinks",drinks_};
+const Raion raionk{"kitchen",kitchen_};
+const Raion raiong{"garden",garden_};
+const Raion raionv{"vegetables",vegetables_};
+const Raion raionss{"school supplies", school_};
+const Raion raions{"snacks", snacks_};
+const Raion raionm{"meat", meat_};
+const Raion raionda{"dairy", dairy_};
+const Raion raionsw{"sweets", sweets_};
 
 
-std::vector<Raion> get_raioane() {
+const std::vector<Raion> get_raioane() {
     return {raiond, raionf,raionv, raionb, raionk, raiong, raionss, raions, raionm, raionda, raionsw};
 }

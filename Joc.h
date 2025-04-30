@@ -15,6 +15,10 @@
 #include "Stopwatch.h"
 #include <indicators.hpp>
 
+#include "Discount.h"
+#include "PowerUp.h"
+#include "SortItems.h"
+
 class Joc {
     Magazin magazin;
     std::string playerName;
@@ -24,25 +28,36 @@ class Joc {
     std::atomic<bool> running = false;
     static int winRate;
     static int lossRate;
-    static int winStreak;
-    int Dpower = 0;
-    int Spower = 0;
+    static int currentStreak;
+    std::vector<std::shared_ptr<PowerUp>> powerUps;
 public:
-    Joc() {}
+    Joc() {
+        initializePowerUps();
+    }
 
-    explicit Joc(const std::string &playerName_): playerName{playerName_}, timp(0) {}
+    explicit Joc(const std::string &playerName_): playerName{playerName_}, timp(0) {
+        initializePowerUps();
+    }
 
-    Joc(const std::string &playerName_, const listaCumparaturi &lista_): playerName{playerName_}, lista{lista_}, timp(0) {}
+    Joc(const std::string &playerName_, const listaCumparaturi &lista_)
+    : playerName{playerName_}, lista{lista_}, timp(0) {
+        initializePowerUps();
+    }
 
     const listaCumparaturi & getLista() const { return this->lista; }
 
     Joc & operator=(const Joc &other) {
+        if (this == &other) return *this;
         lista = other.lista;
         timp = other.timp;
         varianta = other.varianta;
         playerName = other.playerName;
-        Dpower = other.Dpower;
-        Spower = other.Spower;
+        currentStreak = other.currentStreak;
+
+        powerUps.clear();
+        for (const auto& up : other.powerUps) {
+            powerUps.push_back(std::shared_ptr<PowerUp>(up)); // Copie shallow
+        }
         return *this;
     }
 
@@ -56,6 +71,10 @@ public:
         return os;
     }
 
+    void initializePowerUps() {
+        powerUps.push_back(std::make_shared<Discount>(10));
+        powerUps.push_back(std::make_shared<SortItems>());
+    }
 
     int verificarePret() const {
         int ok =0;
@@ -71,50 +90,32 @@ public:
             std::cout << "this version is not availble right now.\n";
             return 0;}
     }
-    static void inregistreazaWin(int& Dpower, int& Spower) {
-        winStreak ++;
-        if (winStreak >= 3) {
-            if (Dpower < 1 ) Dpower =1;
-            std::cout<< "You won 3(three) times in a row! You can use the discount PowerUp!\n";
-            std::cout<< "Do you need info on how to use it? (y/n)\n";
-            std::string info;
-            std::cin >> info;
-            if (info == "y" ) {
-                std::cout << "You can press the key D/d while playing\n and the discount will be applied to all the items on the aisle\n";
-            }
-        }
-        if (winStreak >= 2) {
-            if (Spower < 1 ) Spower =1;
-            std::cout<< "You won 2(two) times in a row! You can use the sorting PowerUp!\n";
-            std::cout<< "Do you need info on how to use it? (y/n)\n";
-            std::string info;
-            std::cin >> info;
-            if (info == "y" ) {
-                std::cout << "You can press the key S/s while playing\n and the items on the aisle will be sorted in ascending order \nto help you get the cheapest products!\n";
+
+    static void inregistreazaWin(std::vector<std::shared_ptr<PowerUp>>& powerUps) {
+        currentStreak++;
+        for (auto& power : powerUps) {
+            if (power->canBeUsed(currentStreak)) {
+                power->showInfo();
             }
         }
     }
 
-    void aplicaPowerUp(char keyPress, Raion raion) {
-        if (keyPress == 'D' || keyPress == 'd') {
-            reseteazaStreak();
-            Dpower -- ;
-            int discount = (winStreak - 1)*10; //calculeaza discountul in functie de win streak;
-            raion.reducere(discount); //
-            std::cout << "Discount of "<<discount <<"% applied!\n";
-            std::cout << raion;
-        }
-        else if (keyPress == 'S' || keyPress == 's') {
-            reseteazaStreak();
-            Spower -- ;
-            // Sortează produsele pe raionul curent
-            raion.sorteaza();
-            std::cout << "Items sorted by price!\n";
-            std::cout << raion;
+    void aplicaPowerUp(const std::string& keyPress, Raion raion) {
+        for (auto& power : powerUps) {
+            if (power->canBeUsed(currentStreak)) {
+                power->verifyKey(keyPress);
+                if (power->canBeUsed(currentStreak)) {
+                    power->activateAislePower(raion);
+                    reseteazaStreak();
+                    std::cout<<"powerup applied";
+                    break;
+                }
+            }
         }
     }
+
     static void reseteazaStreak() {
-        winStreak = 0;
+        currentStreak = 0;
     }
 
     static void initStatic() {
@@ -128,6 +129,7 @@ public:
 
     static void actualizeazaLoss() {
         lossRate++;
+        reseteazaStreak();
     }
 
     static void calculProcent(int wins, int losses) {
@@ -177,7 +179,7 @@ public:
                 if (cos.getTotalPlata() <= listaVerif.getBuget()) {
                     std::cout << "Congrats! You won!💎💎💎💎👑👑👑\n";
                     actualizeazaWin();
-                    inregistreazaWin(Dpower, Spower);
+                    inregistreazaWin(powerUps);
                 } else {
                     std::cout << "You lost!❌❌\n";
                     actualizeazaLoss();
@@ -185,7 +187,7 @@ public:
             } else {
                 std::cout << "Congrats! You won!💎💎💎💎👑👑👑\n";
                 actualizeazaWin();
-                inregistreazaWin(Dpower, Spower);
+                inregistreazaWin(powerUps);
             }
         } else {
             std::cout << "You lost!❌❌\n";
@@ -284,7 +286,7 @@ public:
         timer.start();
         bool timpExpirat = false;
 
-        for (const auto& raion : magazin.getRaioane()) {
+        for (auto& raion : magazin.getRaioane()) {
             if (timer.elapsed() >= limitaTimp) {
                 std::cout << "\n⏰ Time has expired! You lost!\n";
                 timpExpirat = true;
@@ -312,21 +314,13 @@ public:
             std::cout << listaDisplay << "\n\n";
 
             std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
-            if (winStreak >=2 ) {
-                char cheie;
-                if (Dpower == 1 and Spower ==1 ) {
-                    std::cout << "Press 'D' to apply discount or 'S' to sort items by price: ";
-                    std::cin >> cheie;
-                    aplicaPowerUp(cheie, raion);
-                }
-                else if (Spower == 1 ) {
-                    std::cout << "Press 'S' to sort items by price: ";
-                    std::cin >> cheie;
-                    aplicaPowerUp(cheie, raion);
-                }
-
-
+            if (currentStreak >= 2) {
+                std::string inputKey;
+                std::cout << "Press key for available power-up (e.g., D or S): ";
+                std::cin >> inputKey;
+                aplicaPowerUp(inputKey, raion);
             }
+
             int index;
             while (std::cin >> index) {
                 if (index == -1) break;

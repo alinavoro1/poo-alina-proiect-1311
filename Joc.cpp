@@ -6,4 +6,4 @@
 
 int Joc::winRate = 0;
 int Joc::lossRate = 0;
-int Joc::winStreak = 0;
+int Joc::currentStreak = 0;

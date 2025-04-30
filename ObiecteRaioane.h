@@ -9,7 +9,7 @@
 
 
 
-std::vector<Raion> get_raioane();
+const std::vector<Raion> get_raioane();
 
 
 

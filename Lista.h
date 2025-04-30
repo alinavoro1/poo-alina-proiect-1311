@@ -37,23 +37,6 @@ public:
         return *this;
     }
 
-    virtual void aplicaReducere(double discount) {
-        for (auto& item : items) {
-            item.aplicaDiscount(discount); // tot pentru powerupuri la 1 win
-        }
-    }
-
-    virtual void sorteazaProduse() {
-        std::sort(items.begin(), items.end(), [](const Item& a, const Item& b) {
-            return a.getPret() < b.getPret(); // Sortează crescător după preț pentru a adauga powerupuri la 3 winuri cred
-        });
-    }
-
-    // virtual void afiseazaLista() const {
-    //     for (const auto& item : items) {
-    //         std::cout << item.getName() << ": " << item.getPret() << "$\n";
-    //     }
-    // }
 };
 
 #endif //LISTA_H

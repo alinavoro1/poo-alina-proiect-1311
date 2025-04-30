@@ -69,6 +69,14 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         cosCumparaturi.h
         Lista.cpp
         Lista.h
+        PowerUp.cpp
+        PowerUp.h
+        Discount.cpp
+        Discount.h
+        SortItems.cpp
+        SortItems.h
+        BonusTime.cpp
+        BonusTime.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
