@@ -15,6 +15,7 @@
 #include "Stopwatch.h"
 #include <indicators.hpp>
 
+#include "BonusTime.h"
 #include "Discount.h"
 #include "PowerUp.h"
 #include "SortItems.h"
@@ -74,6 +75,7 @@ public:
     void initializePowerUps() {
         powerUps.push_back(std::make_shared<Discount>(10));
         powerUps.push_back(std::make_shared<SortItems>());
+        powerUps.push_back(std::make_shared<BonusTime>(30));
     }
 
     int verificarePret() const {
@@ -100,12 +102,15 @@ public:
         }
     }
 
-    void aplicaPowerUp(const std::string& keyPress, Raion raion) {
+    void aplicaPowerUp(const std::string& keyPress, Raion raion, int& limit) {
         for (auto& power : powerUps) {
             if (power->canBeUsed(currentStreak)) {
                 power->verifyKey(keyPress);
                 if (power->canBeUsed(currentStreak)) {
-                    power->activateAislePower(raion);
+                    if (keyPress == "s" or keyPress == "d")
+                        power->activateAislePower(raion);
+                    else if (keyPress == "t")
+                        power -> activateTimePower(limit);
                     reseteazaStreak();
                     std::cout<<"powerup applied";
                     break;
@@ -318,7 +323,7 @@ public:
                 std::string inputKey;
                 std::cout << "Press key for available power-up (e.g., D or S): ";
                 std::cin >> inputKey;
-                aplicaPowerUp(inputKey, raion);
+                aplicaPowerUp(inputKey, raion, limitaTimp);
             }
 
             int index;

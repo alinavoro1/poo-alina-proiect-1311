@@ -10,7 +10,7 @@
 class BonusTime: public PowerUp {
     int bonus = 30; //se adauga 30s la timp
 public:
-    BonusTime():PowerUp(4, "You can press the key t while playing\n and you will get 30s bonus on your timer\n", "t"){}
+    explicit BonusTime(int bonus_): PowerUp(4, "You can press the key t while playing\n and you will get 30s bonus on your timer\n", "t"),bonus(bonus_){}
     ~BonusTime() = default;
     BonusTime(const BonusTime& other): PowerUp(other) {}
 
@@ -18,7 +18,6 @@ public:
         PowerUp::operator=(other);
         return *this;
     }
-
 
 
     void showInfo() override {
@@ -30,7 +29,5 @@ public:
         std::cout << "time remaining: " << t << "\n";
     }
 };
-
-
 
 #endif //BONUSTIME_H

@@ -6,7 +6,7 @@
 #define POWERUP_H
 #include <string>
 
-#include "Joc.h"
+// #include "Joc.h"
 #include "Raion.h"
 
 
@@ -32,11 +32,6 @@ public:
         description = other.description;
         key = other.key;
         return *this;
-    }
-
-    virtual void resetStreak () {
-        winStreakRequired = 0;
-        isActive = false;
     }
 
     virtual bool canBeUsed(int currentStreak ) const {
@@ -65,7 +60,5 @@ public:
 
     virtual void showInfo() = 0;
 };
-
-
 
 #endif //POWERUP_H
