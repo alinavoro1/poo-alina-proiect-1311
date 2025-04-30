@@ -53,7 +53,7 @@ public:
         std::cout<<raionCrt;
     };
 
-    virtual void activateTimePower(int& t) {
+    virtual void activateTimePower (int& t) {
         std::cout << "no powerup activated";
         std::cout<< t;
     }

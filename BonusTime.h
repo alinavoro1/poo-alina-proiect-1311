@@ -24,8 +24,8 @@ public:
         std::cout<< description << "\n";
     }
 
-    void activateTimePower(int& t) {
-        t = t+ 30;
+    void activateTimePower (int& t) override{
+        t = t+ bonus;
         std::cout << "time remaining: " << t << "\n";
     }
 };
