@@ -1,6 +1,6 @@
-# Tag & Bag
+# Tag & Bag - Supermarket
 
-# A supermarket game🛒
+# Un joc care provoaca neliniste🛒
 
 ## Table of Contents
 - [Reguli](#Regulile-jocului)
@@ -25,7 +25,7 @@ Pentru a selecta obiectele player-ul trebuie sa scrie indexul corespunzator obie
 ## Features de implementat
 
 features pe care vreau sa le mai implementez:
-- [ ] win rate, poate si cu bara de procent;D 
+- [ ] interfata 
 - [ ] bara pentru timer,sa stii cat timp a mai ramas
 
 ![full-shopping-cart-snacks-grocery-shopping-supermarket-cart](https://github.com/user-attachments/assets/3ba200f7-f8c7-46d8-af70-e37d7baf0fa3)
