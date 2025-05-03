@@ -115,7 +115,7 @@ public:
     void aplicaPowerUp(const std::string& keyPress, Raion& raion, int& limit) {
         for (auto& power : powerUps) {
             if (power->canBeUsed(currentStreak)) {
-                power->verifyKey(keyPress);
+                if (power->verifyKey(keyPress))
                 if (power->canBeUsed(currentStreak)) {
                     if (keyPress == "s" or keyPress == "d")
                         power->activateAislePower(raion);
