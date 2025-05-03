@@ -225,6 +225,9 @@ public:
             else if (versiune ==2 || versiune ==3) {
                 limitaTimp = 60;
             }
+            else {
+                limitaTimp = 0;
+            }
 
             listaCumparaturi listaGenerata = magazin.genereazaListaCumparaturi();
 
