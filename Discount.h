@@ -15,12 +15,15 @@ class Discount: public PowerUp {
     int percentage;
 public:
     explicit Discount (int percentage_):
-    PowerUp(1, "You can press the key d while playing\n and the discount will be applied to all the items on the aisle\n", "d"),
+    PowerUp(3, "You can press the key d while playing and the discount will be applied to all the items on the aisle\n", "d"),
     percentage(percentage_) {}
 
     ~Discount() override = default;
 
     Discount(const Discount &other): PowerUp(other), percentage(other.percentage) {}
+    PowerUp* clone()const override {
+        return new Discount(*this);
+    }
     Discount & operator=(const Discount &other) {
 
         PowerUp::operator=(other);
@@ -29,7 +32,7 @@ public:
     }
 
     void calculatePercentage(int currentStreak) {
-        percentage = (currentStreak - winStreakRequired)* 10;
+        percentage = (currentStreak - winStreakRequired+1)* 10;
     }
 
     void activateAislePower(Raion& raionCrt, int strk) override {
@@ -42,6 +45,9 @@ public:
     void showInfo(const std::string& reply) override {
         if (reply == "y" or reply == "Y") {
             afis(std::cout);
+        }
+        else if (reply == "n" or reply == "N") {
+            std::cout << "ook.. \n";
         }
     }
 

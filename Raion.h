@@ -25,7 +25,7 @@ public:
         return *this;
     }
 
-    ~Raion() override = default;
+    ~Raion() = default;
 
     friend std::ostream & operator<<(std::ostream &os, const Raion& raion) {
 
@@ -72,41 +72,10 @@ public:
         }
     }
 
-    virtual void sorteazaProduse() {
+    void sorteazaProduse() {
         std::sort(items.begin(), items.end(), [](const Item& a, const Item& b) {
-            return a.getPret() < b.getPret(); // Sortează crescător după preț pentru a adauga powerupuri la 3 winuri cred
+            return a.getPret() < b.getPret(); // Sortează crescător după preț pentru a adauga powerupuri la 2 winuri cred
         });
     }
-    //
-    // void afisare() const override {
-    //     std::cout << *this;
-    // }
-
-    // Lista* clone() const override {
-    //     return new Raion(*this);
-    // }
-    //
-    // void calculTotal() override {
-    //     std::cout << "calculTotal() nu este definit pentru Raion.\n";
-    // }
-
-
-    // void reducere(double discount) {
-    //     if (!powerUpUtilizat) {
-    //         aplicaReducere(discount);  // Ordona produsele pe raion după preț
-    //         powerUpUtilizat = true;
-    //     }  // Power-up-ul a fost folosit
-    //     else {
-    //         std::cout << "Power Up already used!\n";
-    //     }
-    // }
-    // void sorteaza()  {
-    //     if (!powerUpUtilizat) {
-    //         sorteazaProduse();  // Sortează produsele în raion
-    //         powerUpUtilizat = true;
-    //     } else {
-    //         std::cout << "PowerUp already used!\n";
-    //     }
-    // }
 };
 #endif //RAION_H

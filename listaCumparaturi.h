@@ -38,7 +38,7 @@ public:
         return buget;
     }
 
-    ~listaCumparaturi() override = default;
+    ~listaCumparaturi()  = default;
 
     friend std::ostream& operator<<(std::ostream& os, const listaCumparaturi& lista) {
         for (const auto& item : lista.items) {
@@ -57,15 +57,7 @@ public:
         }
     }
 
-    // void afisare() const override {
-    //     std::cout << *this;
-    // }
-
-    // Lista* clone() const override {
-    //     return new listaCumparaturi(*this);
-    // }
-
-    void calculTotal() override {
+    void calculTotal() {
         double total = 0;
         for (const auto& item : items) {
             total += item.getPret();

@@ -27,7 +27,7 @@ public:
 
     const listaCumparaturi& getLista() const {return lista;}
 
-    ~cosCumparaturi() override = default;
+    ~cosCumparaturi()  = default;
 
     friend std::ostream& operator<<(std::ostream& os, const cosCumparaturi& cos) {
         os <<"Your shopping list: "<< cos.lista;
@@ -41,7 +41,7 @@ public:
         return os;
     }
 
-    void calculTotal() override{
+    void calculTotal() {
         if (items.empty()) {
             std::cout << "Shopping bag is empty 🤣\n";
         }
@@ -58,16 +58,6 @@ public:
         items.push_back(item);
         lista.stergeProdus(item);
     }
-
-
-    // void afisare() const override {
-    //     std::cout << *this;
-    // }
-
-    // Lista* clone() const override {
-    //     return new cosCumparaturi(*this);
-    // }
-
 };
 
 #endif //COSCUMPARATURI_H

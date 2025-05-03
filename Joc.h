@@ -58,8 +58,8 @@ public:
         currentStreak = other.currentStreak;
 
         powerUps.clear();
-        for (const auto& up : other.powerUps) {
-            powerUps.push_back(std::shared_ptr<PowerUp>(up)); // Copie shallow
+        for (const auto& up: other.powerUps) {
+            powerUps.push_back(std::shared_ptr<PowerUp>(up->clone()));
         }
         return *this;
     }
@@ -285,7 +285,6 @@ public:
         varianta = versiune;
         return versiune;
     }
-
 
     void afiseazaLista( listaCumparaturi listaC, int versiune) {
         tabulate::Table listaInit;

@@ -37,7 +37,6 @@ public:
             std::cout << "Procent discount invalid!" << std::endl;
         }
     }
-
 };
 
 

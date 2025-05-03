@@ -14,17 +14,15 @@ protected:
 
 public:
     Lista() = default;
+
     explicit Lista(const std::vector<Item>& items_) : items(items_) {}
 
     Lista(const Lista& other): items(other.items) {}
 
 
-    virtual ~Lista() = default;
+    ~Lista() = default;
 
-    // virtual void afisare() const = 0;
-    // virtual Lista* clone() const = 0;
-
-    virtual void calculTotal() {};
+    void calculTotal() {};
 
     const std::vector<Item>& getItems() const {
         return items;

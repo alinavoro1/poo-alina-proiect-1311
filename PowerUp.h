@@ -23,6 +23,8 @@ public:
         : winStreakRequired(other.winStreakRequired),  description(other.description), key(other.key) {
     }
 
+    virtual PowerUp* clone() const = 0;
+
     PowerUp & operator=(const PowerUp &other) {
         if (this == &other)
             return *this;

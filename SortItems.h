@@ -11,12 +11,16 @@
 class SortItems: public PowerUp {
 public:
     SortItems():
-    PowerUp(1, "You can press the key s while playing and the items on the aisle will be sorted in ascending order to help you get the cheapest products!\n", "s")
+    PowerUp(2, "You can press the key s while playing and the items on the aisle will be sorted in ascending order to help you get the cheapest products!\n", "s")
     {}
 
     ~SortItems()override = default;
 
     SortItems(const SortItems& other): PowerUp(other) {}
+
+    PowerUp* clone() const override {
+        return new SortItems(*this);
+    }
 
     SortItems& operator=(const SortItems& other) {
         PowerUp::operator=(other);

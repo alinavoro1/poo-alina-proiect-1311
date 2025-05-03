@@ -11,18 +11,6 @@
 
 
 int main() {
-    //DEBUG
-    // BonusTime bonusPowerUp(30);
-    //
-    // // Test 1: Verificarea afișării prin `showInfo()`
-    // std::cout << "[DEBUG]Test 1: Verificarea cu showInfo('y'):\n";
-    // bonusPowerUp.showInfo("y");  // Ar trebui să afișeze: "Bonus Time PowerUp: Limited Time Bonus Activated!"
-    //
-    // std::cout << "\n";
-    //
-    // // Test 2: Verificarea afișării prin `operator<<`
-    // std::cout << "[DEBUG]Test 2: Verificarea cu operator<<:\n";
-    // std::cout << bonusPowerUp;
 
     Magazin magazin{get_raioane()};
     // std::cout << get_raioane()[0] << "\n\n";
