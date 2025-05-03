@@ -45,6 +45,8 @@ public:
         initializePowerUps();
     }
 
+    Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0) { initializePowerUps(); }
+
     const listaCumparaturi & getLista() const { return this->lista; }
 
     Joc & operator=(const Joc &other) {
@@ -88,21 +90,29 @@ public:
             std::cout << "this version is available right now.\n";
             return 1;
         }
-        else{
-            std::cout << "this version is not availble right now.\n";
-            return 0;}
+        std::cout << "this version is not availble right now.\n";
+        return 0;
     }
 
     static void inregistreazaWin(std::vector<std::shared_ptr<PowerUp>>& powerUps) {
         currentStreak++;
+        std::cout <<"[DEBUG]"<<powerUps.size() << "\n";
+        std::cout << "[DEBUG] current win streak is : " << currentStreak << "\n";
         for (auto& power : powerUps) {
             if (power->canBeUsed(currentStreak)) {
-                power->showInfo();
+                std::cout<< "you won the" << power->Name()<< "Do you want to learn how to use it?(y/n)\n";
+                std::string dasaunu;
+                std::cin >> dasaunu;
+                while (dasaunu != "y" && dasaunu != "n" && dasaunu != "N" && dasaunu != "Y") {
+                    std::cout<< "Not a valid response. Enter again: ";
+                    std::cin >> dasaunu;
+                }
+                power->showInfo(dasaunu);
             }
         }
     }
 
-    void aplicaPowerUp(const std::string& keyPress, Raion raion, int& limit) {
+    void aplicaPowerUp(const std::string& keyPress, Raion& raion, int& limit) {
         for (auto& power : powerUps) {
             if (power->canBeUsed(currentStreak)) {
                 power->verifyKey(keyPress);
@@ -110,7 +120,7 @@ public:
                     if (keyPress == "s" or keyPress == "d")
                         power->activateAislePower(raion);
                     else if (keyPress == "t")
-                        power -> activateTimePower(limit);
+                        power->activateTimePower(limit);
                     reseteazaStreak();
                     std::cout<<"powerup applied";
                     break;
@@ -130,6 +140,7 @@ public:
 
     static void actualizeazaWin() {
         winRate++;
+        // currentStreak++;
     }
 
     static void actualizeazaLoss() {
@@ -165,8 +176,6 @@ public:
         }
     }
 
-    Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0) {}
-
     void listaGoala(const cosCumparaturi &cos, const listaCumparaturi& listaVerif) {
         // std::cout<<"lista initiala a fost : " << lista;
         if (cos.getLista().getItems().empty()) {
@@ -177,6 +186,7 @@ public:
             for (const auto& item : cos.getItems()) {
                 if (produse.find(item.getName()) == produse.end()) {
                     std::cout << "❌The shopping cart does not contain the correct items.\n ";
+                    actualizeazaLoss();
                     return;
                 }
             }
@@ -211,10 +221,6 @@ public:
             else if (versiune ==2 || versiune ==3) {
                 limitaTimp = 60;
             }
-            else {
-                limitaTimp = 0;
-                std::cout<<"Version unavailable. Enter a valid version\n";
-            }
 
             listaCumparaturi listaGenerata = magazin.genereazaListaCumparaturi();
 
@@ -237,6 +243,18 @@ public:
                     }
                     std::cout << cos;
                 }
+                else if ( raspuns != "n" || raspuns != "N") {
+                    std::cout<< "Invalid response. Enter again(y/n!!) ";
+                    while (raspuns != "n" && raspuns != "N" && raspuns != "y" && raspuns != "Y") {
+                        std::cin >> raspuns;
+                    }
+                    if (raspuns == "y" || raspuns == "Y") {
+                        if (startJoc( cos, limitaTimp)) {
+                            std::cout << "You finished on time!\n";
+                        }
+                        std::cout << cos;
+                    }
+                }
             }
             listaGoala(cos, listaGenerata);
             std::cout <<"Your win rate is: \n";
@@ -253,9 +271,9 @@ public:
         int versiune;
         std::cout << "Select a game version:\n - [1] 1min 30s no budget\n - [2] 1min no budget\n - [3] 1min with budget\n";
         std::cin >> versiune;
-        if (versiune < 1 || versiune > 3) {
+        while (versiune < 1 || versiune > 3) {
             std::cout << "Invalid version\n";
-            exit(1);
+            std::cin >> versiune;
         }
         varianta = versiune;
         return versiune;
@@ -319,11 +337,14 @@ public:
             std::cout << listaDisplay << "\n\n";
 
             std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
-            if (currentStreak >= 2) {
+            if (currentStreak >= 1) {
+                Raion raionCrt = raion;
                 std::string inputKey;
-                std::cout << "Press key for available power-up (e.g., D or S): ";
+                std::cout << "Press key for available power-up (e.g., d/s/t) or type x for no power-up: ";
                 std::cin >> inputKey;
-                aplicaPowerUp(inputKey, raion, limitaTimp);
+                if (inputKey != "x") {
+                    aplicaPowerUp(inputKey, raionCrt, limitaTimp);
+                }
             }
 
             int index;

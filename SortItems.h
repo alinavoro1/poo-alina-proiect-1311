@@ -6,11 +6,12 @@
 #define SORTITEMS_H
 #include "PowerUp.h"
 
+//SA NU UIT SA SCHIMB STREAKUL LA 2. L-AM SCHIMBAT CA SA VERIFIC FUNCTIONALITATEA CORECTA
 
 class SortItems: public PowerUp {
 public:
     SortItems():
-    PowerUp(2, "You can press the key s while playing\n and the items on the aisle will be sorted in ascending order \nto help you get the cheapest products!\n", "s")
+    PowerUp(1, "You can press the key s while playing and the items on the aisle will be sorted in ascending order to help you get the cheapest products!\n", "s")
     {}
 
     ~SortItems() = default;
@@ -22,8 +23,13 @@ public:
         return *this;
     }
 
-    void showInfo() override {
-        std::cout<< description << "\n";
+    void showInfo(const std::string& reply) override {
+        if (reply == "y" or reply == "Y") {
+            afis(std::cout);
+        }
+        else if (reply == "n" or reply == "N") {
+            std::cout << "ook.. \n";
+        }
     }
 
     void activateAislePower(Raion& raionCrt) override {
@@ -31,6 +37,9 @@ public:
         std::cout<< raionCrt;
     }
 
+    std::string Name() const override {
+        return " Sort Items PowerUp. ";
+    }
 
 };
 

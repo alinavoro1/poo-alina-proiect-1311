@@ -9,19 +9,20 @@
 #include "PowerUp.h"
 
 
+//SA NU UIT SA SCHIMB STREAKUL LA 3. L-AM SCHIMBAT CA SA VERIFIC FUNCTIONALITATEA CORECTA
 
 class Discount: public PowerUp {
     int percentage;
 public:
     explicit Discount (int percentage_):
-    PowerUp(3, "You can press the key d while playing\n and the discount will be applied to all the items on the aisle\n", "d"),
+    PowerUp(1, "You can press the key d while playing\n and the discount will be applied to all the items on the aisle\n", "d"),
     percentage(percentage_) {}
 
     ~Discount() = default;
 
     Discount(const Discount &other): PowerUp(other), percentage(other.percentage) {}
-
     Discount & operator=(const Discount &other) {
+
         PowerUp::operator=(other);
         percentage = other.percentage;
         return *this;
@@ -37,10 +38,15 @@ public:
     };
 
 
-    void showInfo() override {
-        std::cout<< description << "\n";
+    void showInfo(const std::string& reply) override {
+        if (reply == "y" or reply == "Y") {
+            afis(std::cout);
+        }
     }
 
+    std::string Name()  const override {
+        return " Discount PowerUp. ";
+    }
 };
 
 

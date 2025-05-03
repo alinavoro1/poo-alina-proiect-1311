@@ -58,7 +58,24 @@ public:
         std::cout<< t;
     }
 
-    virtual void showInfo() = 0;
+    friend std::ostream& operator<<(std::ostream& os, const PowerUp& obj) {
+        return obj.afis(os);
+    }
+
+    virtual std::ostream& afis(std::ostream& os) const {
+        os<< description;
+        os<< "activation key: " <<key<< "; (win streak required: "<<winStreakRequired<<")\n";
+        return os;
+    }
+
+    // friend std::ostream& operator<<(std::ostream& os, const PowerUp& obj) {
+    //     os<< obj.description;
+    //     os<< "activation key: " <<obj.key<< "(win streak required: "<<obj.winStreakRequired<<")";
+    //     return os;
+    // }
+
+    virtual void showInfo(const std::string& reply) = 0;
+    virtual std::string Name() const = 0;
 };
 
 #endif //POWERUP_H
