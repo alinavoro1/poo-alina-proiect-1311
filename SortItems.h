@@ -14,7 +14,7 @@ public:
     PowerUp(1, "You can press the key s while playing and the items on the aisle will be sorted in ascending order to help you get the cheapest products!\n", "s")
     {}
 
-    ~SortItems() = default;
+    ~SortItems()override = default;
 
     SortItems(const SortItems& other): PowerUp(other) {}
 

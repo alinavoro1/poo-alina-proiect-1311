@@ -309,7 +309,7 @@ public:
         timer.start();
         bool timpExpirat = false;
 
-        for (auto& raion : magazin.getRaioane()) {
+        for (const auto& raion : magazin.getRaioane()) {
             if (timer.elapsed() >= limitaTimp) {
                 std::cout << "\n⏰ Time has expired! You lost!\n";
                 timpExpirat = true;

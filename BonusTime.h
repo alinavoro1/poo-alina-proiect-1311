@@ -11,11 +11,12 @@ class BonusTime: public PowerUp {
     int bonus = 30; //se adauga 30s la timp
 public:
     explicit BonusTime(int bonus_): PowerUp(1, "You can press the key t while playing\n and you will get 30s bonus on your timer\n", "t"),bonus(bonus_){}
-    ~BonusTime() = default;
+    ~BonusTime() override = default;
     BonusTime(const BonusTime& other): PowerUp(other) {}
 
     BonusTime& operator=(const BonusTime& other) {
         PowerUp::operator=(other);
+        bonus = other.bonus;
         return *this;
     }
 

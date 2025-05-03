@@ -18,7 +18,7 @@ public:
     PowerUp(1, "You can press the key d while playing\n and the discount will be applied to all the items on the aisle\n", "d"),
     percentage(percentage_) {}
 
-    ~Discount() = default;
+    ~Discount() override = default;
 
     Discount(const Discount &other): PowerUp(other), percentage(other.percentage) {}
     Discount & operator=(const Discount &other) {
