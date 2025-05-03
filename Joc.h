@@ -117,8 +117,12 @@ public:
             if (power->canBeUsed(currentStreak)) {
                 if (power->verifyKey(keyPress))
                 if (power->canBeUsed(currentStreak)) {
-                    if (keyPress == "s" or keyPress == "d")
-                        power->activateAislePower(raion);
+                    if (keyPress == "s") {
+                        power->activateAislePower(raion, currentStreak);
+                    }
+                    else if (keyPress == "d") {
+                        power->activateAislePower(raion,currentStreak);
+                    }
                     else if (keyPress == "t")
                         power->activateTimePower(limit);
                     reseteazaStreak();

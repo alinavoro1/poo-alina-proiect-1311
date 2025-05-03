@@ -32,8 +32,9 @@ public:
         }
     }
 
-    void activateAislePower(Raion& raionCrt) override {
+    void activateAislePower(Raion& raionCrt,int strk) override {
         raionCrt.sorteazaProduse();
+        std::cout<<"old streak " <<strk;
         std::cout<< raionCrt;
     }
 

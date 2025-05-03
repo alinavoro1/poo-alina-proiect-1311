@@ -32,7 +32,8 @@ public:
         percentage = (currentStreak - winStreakRequired)* 10;
     }
 
-    void activateAislePower(Raion& raionCrt) override {
+    void activatePower(Raion& raionCrt, int strk) {
+        calculatePercentage(strk);
         raionCrt.aplicaReducere(percentage);
         std::cout << raionCrt;
     };

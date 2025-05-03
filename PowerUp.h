@@ -46,9 +46,9 @@ public:
         return false;
     };
 
-    virtual void activateAislePower(Raion& raionCrt) {
+    virtual void activateAislePower(Raion& raionCrt, int strk) {
         std::cout << "No powerup activated";
-        std::cout<<raionCrt;
+        std::cout<<raionCrt<< strk;
     };
 
     virtual void activateTimePower (int& t) {
