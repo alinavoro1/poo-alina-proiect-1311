@@ -22,8 +22,6 @@ public:
 
     ~Lista() = default;
 
-    void calculTotal() {};
-
     const std::vector<Item>& getItems() const {
         return items;
     }
