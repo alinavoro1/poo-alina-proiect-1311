@@ -8,6 +8,7 @@
 #include <tabulate.hpp>
 #include <vector>
 
+#include "AppExceptions.h"
 #include "Item.h"
 #include "Lista.h"
 
@@ -67,12 +68,18 @@ public:
     }
 
     void aplicaReducere(double discount) {
+        if (items.empty()) {
+            throw RaionGol(name + " is empty [applying Discount PowerUp]");
+        }
         for (auto& item : items) {
             item.aplicaDiscount(discount); // tot pentru powerupuri la 3 wins
         }
     }
 
     void sorteazaProduse() {
+        if (items.empty()) {
+            throw RaionGol(name + " is empty [applying Sort Items PowerUp]");
+        }
         std::sort(items.begin(), items.end(), [](const Item& a, const Item& b) {
             return a.getPret() < b.getPret(); // Sortează crescător după preț pentru a adauga powerupuri la 2 winuri cred
         });

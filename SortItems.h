@@ -4,6 +4,7 @@
 
 #ifndef SORTITEMS_H
 #define SORTITEMS_H
+#include "AppExceptions.h"
 #include "PowerUp.h"
 
 //SA NU UIT SA SCHIMB STREAKUL LA 2. L-AM SCHIMBAT CA SA VERIFIC FUNCTIONALITATEA CORECTA
@@ -37,8 +38,14 @@ public:
     }
 
     void activateAislePower(Raion& raionCrt,int strk) override {
+        if (raionCrt.getItems().empty()) {
+            throw RaionGol("Can not sort Items in the Aisle");
+        }
+        if (!canBeUsed(strk)) {
+            throw EroarePowerUp("The win streak is too low to apply this Power-Up");
+        }
         raionCrt.sorteazaProduse();
-        std::cout<<"old streak " <<strk;
+        // std::cout<<"old streak " <<strk;
         std::cout<< raionCrt;
     }
 

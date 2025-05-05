@@ -81,17 +81,12 @@ public:
     }
 
     int verificarePret() const {
-        int ok =0;
         for (const auto& item : lista.getItems()) {
             if (item.getPret() == 0){
-                ok++;}
+                throw PretInvalid(item.getPret(), " is the invalid price for " + item.getName());}
         }
-        if(ok == 0){
-            std::cout << "this version is available right now.\n";
-            return 1;
-        }
-        std::cout << "this version is not availble right now.\n";
-        return 0;
+        std::cout << "this version is available right now.\n";
+        return 1;
     }
 
     static void inregistreazaWin(std::vector<std::shared_ptr<PowerUp>>& powerUps) {
@@ -113,9 +108,13 @@ public:
     }
 
     void aplicaPowerUp(const std::string& keyPress, Raion& raion, int& limit) {
+        //pt a arunca o exceptie in cazul in care PowerUp -ul nu este activat desi ar trebui
+        bool isActive = false;
+
         for (auto& power : powerUps) {
             if (power->canBeUsed(currentStreak)) {
                 if (power->verifyKey(keyPress))
+                    isActive = true;
                 if (power->canBeUsed(currentStreak)) {
                     if (keyPress == "s") {
                         power->activateAislePower(raion, currentStreak);
@@ -131,9 +130,16 @@ public:
                 }
             }
         }
+        if (!isActive) {
+            throw EroarePowerUp("PowerUp not applied due to an error.");
+        }
     }
 
     static void reseteazaStreak() {
+        //arunc exceptii in cazul in care adaug functii care ar trebui sa modifice aceste atribute si poate ceva nu functioneaza bine in ele
+        if (currentStreak < 0) {
+            throw ValueException(currentStreak , "Invalid value for current streak. Something went wrong. " );
+        }
         currentStreak = 0;
     }
 
@@ -143,11 +149,17 @@ public:
     }
 
     static void actualizeazaWin() {
+        if (winRate < 0) {
+            throw ValueException(winRate, "Invalid value for win rate. Something went wrong. ");
+        }
         winRate++;
         // currentStreak++;
     }
 
     static void actualizeazaLoss() {
+        if (lossRate < 0) {
+            throw ValueException(lossRate, "Invalid value for loss rate. Something went wrong. ");
+        }
         lossRate++;
         reseteazaStreak();
     }
@@ -155,15 +167,19 @@ public:
     static void calculProcent(int wins, int losses) {
         using namespace indicators;
         int totalJocuri = wins + losses;
-        if (totalJocuri == 0) {
-            std::cout<< "No games played yet ;P \n";
+        // if (totalJocuri == 0) {
+        //     // std::cout<< "No games played yet ;P \n";
+        //
+        // }
 
+        //exceptie care sa inlocuiasca if/else  ul de mai sus pentru ca nu ar trebui vreodata ca totalJocuri sa fie 0 sau mai putin
+        if (totalJocuri <=0 ) {
+            throw ValueException(totalJocuri, "Total of games played should not be zero or less. ");
         }
-        else {
-            double procentWin, procentLoss;
-            procentWin = (wins * 100)/ totalJocuri;
-            procentLoss = (losses * 100)/ totalJocuri;
-            ProgressBar bar1{
+        double procentWin, procentLoss;
+        procentWin = (wins * 100)/ totalJocuri;
+        procentLoss = (losses * 100)/ totalJocuri;
+        ProgressBar bar1{
                 option::BarWidth{50},
                 option::Start{"["},
                 option::Fill{"■"},
@@ -173,11 +189,11 @@ public:
                 option::ForegroundColor{Color::yellow},
                 option::PrefixText{"Win rate =>  "},
                 option::FontStyles{std::vector<FontStyle>{FontStyle::bold}}
-            };
-            std::cout<< "       " << procentWin << "% win "<< procentLoss << "% loss\n";
-            bar1.set_progress(procentWin);
-            std::cout<<std::endl;
-        }
+        };
+        std::cout<< "       " << procentWin << "% win "<< procentLoss << "% loss\n";
+        bar1.set_progress(procentWin);
+        std::cout<<std::endl;
+
     }
 
     void listaGoala(const cosCumparaturi &cos, const listaCumparaturi& listaVerif) {
@@ -230,6 +246,10 @@ public:
             }
 
             listaCumparaturi listaGenerata = magazin.genereazaListaCumparaturi();
+
+            if (listaGenerata.getItems().empty()) {
+                throw ExceptieListaGoala("Generated shopping list is empty.");
+            }
 
             afiseazaLista(listaGenerata, versiune);
 
@@ -356,8 +376,8 @@ public:
             int index;
             while (std::cin >> index) {
                 if (index == -1) break;
-                else if (index == 99) return false;
-                else if (index >= 0 && index < int(raion.getItems().size())) {
+                if (index == 99) return false;
+                if (index >= 0 && index < int(raion.getItems().size())) {
                     cos.adaugaInCos(raion.getItems()[index]);
                     cos.calculTotal();
                 } else {

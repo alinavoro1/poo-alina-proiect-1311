@@ -6,7 +6,6 @@
 #define POWERUP_H
 #include <string>
 
-// #include "Joc.h"
 #include "Raion.h"
 
 

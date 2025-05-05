@@ -77,6 +77,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         SortItems.h
         BonusTime.cpp
         BonusTime.h
+        AppExceptions.cpp
+        AppExceptions.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

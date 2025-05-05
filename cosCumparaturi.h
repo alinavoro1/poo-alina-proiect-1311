@@ -4,6 +4,7 @@
 
 #ifndef COSCUMPARATURI_H
 #define COSCUMPARATURI_H
+#include "AppExceptions.h"
 #include "Item.h"
 #include "listaCumparaturi.h"
 
@@ -48,6 +49,12 @@ public:
         else {
             totalPlata = 0.0;
             for (const auto& item: items) {
+                if (item.getPret() < 0) {
+                    //exceptie in cazul in care pretul este mai mic decat 0
+                    std::string msg;
+                    msg = " is the invalid price for the " + item.getName();
+                    throw PretInvalid (item.getPret(),msg );
+                }
                 totalPlata += item.getPret();
             }
 
