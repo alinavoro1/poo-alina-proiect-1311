@@ -84,7 +84,6 @@ public:
         for (const auto& item : lista.getItems()) {
             if (item.getPret() == 0){
                 throw PretInvalid(item.getPret(), " is the invalid price for " + item.getName());
-                return 0;
             }
         }
         std::cout << "this version is available right now.\n";
