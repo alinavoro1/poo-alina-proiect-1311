@@ -18,12 +18,17 @@ Joc::Joc(const std::string &playerName_, const listaCumparaturi &lista_): player
 
 Joc::Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()) { }
 
-Joc::Joc(const Joc &other): magazin(other.magazin),
-                            playerName(other.playerName),
-                            varianta(other.varianta),
-                            lista(other.lista),
-                            timp(other.timp),
-                            powerUps(other.powerUps) {}
+Joc::Joc(const Joc& other)
+    : magazin(other.magazin),
+      playerName(other.playerName),
+      varianta(other.varianta),
+      lista(other.lista),
+      timp(other.timp)
+{
+    for (const auto& pu : other.powerUps) {
+        powerUps.push_back(std::shared_ptr<PowerUp>(pu->clone()));
+    }
+}
 
 Joc::~Joc() = default;
 
