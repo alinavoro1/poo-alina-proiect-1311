@@ -79,16 +79,16 @@ public:
         powerUps.push_back(std::make_shared<SortItems>());
         powerUps.push_back(std::make_shared<BonusTime>(30));
     }
-
-    int verificarePret() const {
-        for (const auto& item : lista.getItems()) {
-            if (item.getPret() == 0){
-                throw PretInvalid(item.getPret(), " is the invalid price for " + item.getName());
-            }
-        }
-        std::cout << "this version is available right now.\n";
-        return 1;
-    }
+    //
+    // int verificarePret() const {
+    //     for (const auto& item : lista.getItems()) {
+    //         if (item.getPret() == 0){
+    //             throw PretInvalid(item.getPret(), " is the invalid price for " + item.getName());
+    //         }
+    //     }
+    //     std::cout << "this version is available right now.\n";
+    //     return 1;
+    // }
 
     static void inregistreazaWin(std::vector<std::shared_ptr<PowerUp>>& powerUps) {
         currentStreak++;
