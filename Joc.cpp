@@ -8,19 +8,15 @@ int Joc::winRate = 0;
 int Joc::lossRate = 0;
 int Joc::currentStreak = 0;
 
-Joc::Joc() {
-    powerUps = FabricaPowerUps::createDefaultPowerUps();
+Joc::Joc(): timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()) {}
+
+Joc::Joc(const std::string &playerName_): playerName{playerName_}, timp(0),powerUps(FabricaPowerUps::createDefaultPowerUps()) {
 }
 
-Joc::Joc(const std::string &playerName_): playerName{playerName_}, timp(0) {
-    powerUps = FabricaPowerUps::createDefaultPowerUps();
+Joc::Joc(const std::string &playerName_, const listaCumparaturi &lista_): playerName{playerName_}, lista{lista_}, timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()){
 }
 
-Joc::Joc(const std::string &playerName_, const listaCumparaturi &lista_): playerName{playerName_}, lista{lista_}, timp(0) {
-    powerUps = FabricaPowerUps::createDefaultPowerUps();
-}
-
-Joc::Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0) { powerUps = FabricaPowerUps::createDefaultPowerUps(); }
+Joc::Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()) { }
 
 Joc::Joc(const Joc &other): magazin(other.magazin),
                             playerName(other.playerName),
