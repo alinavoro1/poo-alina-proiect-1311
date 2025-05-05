@@ -5,6 +5,7 @@
 #ifndef APPEXCEPTIONS_H
 #define APPEXCEPTIONS_H
 #include <stdexcept>
+#include <string>
 
 
 class AppException : public std::runtime_error{
@@ -18,7 +19,7 @@ public:
 
 class PretInvalid : public AppException {
 public:
-    explicit PretInvalid(double pret, std::string msg) : AppException(std::string("Invalid price: " )+ std::to_string(pret) + msg) {}
+    explicit PretInvalid(double pret, const std::string& msg) : AppException(std::string("Invalid price: " )+ std::to_string(pret) + msg) {}
 };
 
 class RaionGol : public AppException {
@@ -38,6 +39,6 @@ public:
 
 class ValueException : public AppException {
 public:
-    explicit ValueException(int value, std::string msg) : AppException(std::string("Value error: " )+ msg + std::to_string(value)) {}
+    explicit ValueException(int value, const std::string& msg) : AppException(std::string("Value error: " )+ msg + std::to_string(value)) {}
 };
 #endif //APPEXCEPTIONS_H
