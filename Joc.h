@@ -260,7 +260,7 @@ public:
             Joc joc{playerName, listaGenerata};
 
 
-            if (joc.verificarePret() == 1) {
+
                 std::string raspuns;
                 std::cout << "Do you want to start the game? (y/n)\n";
                 std::cin >> raspuns;
@@ -283,7 +283,7 @@ public:
                         std::cout << cos;
                     }
                 }
-            }
+
             listaGoala(cos, listaGenerata);
             std::cout <<"Your win rate is: \n";
             calculProcent(winRate, lossRate);
