@@ -15,57 +15,27 @@ protected:
     std::string description;
     std::string key;
 public:
-    PowerUp(int winStreak_,const std::string& description_, const std::string& key_) : winStreakRequired(winStreak_), description(description_), key(key_) {}
-    virtual ~PowerUp() = default;
+    PowerUp(int winStreak_,const std::string& description_, const std::string& key_);
 
-    PowerUp(const PowerUp &other)
-        : winStreakRequired(other.winStreakRequired),  description(other.description), key(other.key) {
-    }
+    virtual ~PowerUp();
+
+    PowerUp(const PowerUp &other);
 
     virtual PowerUp* clone() const = 0;
 
-    PowerUp & operator=(const PowerUp &other) {
-        if (this == &other)
-            return *this;
-        winStreakRequired = other.winStreakRequired;
-        description = other.description;
-        key = other.key;
-        return *this;
-    }
+    PowerUp & operator=(const PowerUp &other);
 
-    virtual bool canBeUsed(int currentStreak ) const {
-        if (currentStreak>=winStreakRequired) {
-            return true;
-        }
-        return false;
-    }
+    virtual bool canBeUsed(int currentStreak ) const;
 
-    virtual bool verifyKey(const std::string& inp) {
-        if (key == inp) {
-            return true;
-        }
-        return false;
-    };
+    virtual bool verifyKey(const std::string& inp);
 
-    virtual void activateAislePower(Raion& raionCrt, int strk) {
-        std::cout << "No powerup activated";
-        std::cout<<raionCrt<< strk;
-    };
+    virtual void activateAislePower(Raion& raionCrt, int strk);
 
-    virtual void activateTimePower (int& t) {
-        std::cout << "no powerup activated";
-        std::cout<< t;
-    }
+    virtual void activateTimePower (int& t);
 
-    friend std::ostream& operator<<(std::ostream& os, const PowerUp& obj) {
-        return obj.afis(os);
-    }
+    friend std::ostream& operator<<(std::ostream& os, const PowerUp& obj);
 
-    virtual std::ostream& afis(std::ostream& os) const {
-        os<< description;
-        os<< "activation key: " <<key<< "; (win streak required: "<<winStreakRequired<<")\n";
-        return os;
-    }
+    virtual std::ostream& afis(std::ostream& os) const;
 
     // friend std::ostream& operator<<(std::ostream& os, const PowerUp& obj) {
     //     os<< obj.description;

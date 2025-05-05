@@ -14,31 +14,31 @@ class AppException : public std::runtime_error{
 
 class EroarePowerUp : public AppException {
 public:
-    explicit EroarePowerUp(const std::string& msg) : AppException(std::string("Power-Up error: ") +msg) {}
+    explicit EroarePowerUp(const std::string& msg);
 };
 
 class PretInvalid : public AppException {
 public:
-    explicit PretInvalid(double pret, const std::string& msg) : AppException(std::string("Invalid price: " )+ std::to_string(pret) + msg) {}
+    explicit PretInvalid(double pret, const std::string& msg);
 };
 
 class RaionGol : public AppException {
 public:
-    explicit RaionGol(const std::string& msg) : AppException(std::string("Empty aisle error : ") + msg) {}
+    explicit RaionGol(const std::string& msg);
 };
 
 class TimpNegativ : public AppException {
 public:
-    explicit TimpNegativ(int timp) : AppException(std::string("Time value error: " )+ std::to_string(timp)) {}
+    explicit TimpNegativ(int timp);
 };
 
 class ExceptieListaGoala : public AppException {
 public:
-    explicit ExceptieListaGoala(const std::string& msg) : AppException("List error: " + msg) {}
+    explicit ExceptieListaGoala(const std::string& msg);
 };
 
 class ValueException : public AppException {
 public:
-    explicit ValueException(int value, const std::string& msg) : AppException(std::string("Value error: " )+ msg + std::to_string(value)) {}
+    explicit ValueException(int value, const std::string& msg);
 };
 #endif //APPEXCEPTIONS_H

@@ -14,46 +14,24 @@
 class Discount: public PowerUp {
     int percentage;
 public:
-    explicit Discount (int percentage_):
-    PowerUp(3, "You can press the key d while playing and the discount will be applied to all the items on the aisle\n", "d"),
-    percentage(percentage_) {}
+    explicit Discount (int percentage_);
 
-    ~Discount() override = default;
+    ~Discount() override;
 
-    Discount(const Discount &other): PowerUp(other), percentage(other.percentage) {}
-    PowerUp* clone()const override {
-        return new Discount(*this);
-    }
-    Discount & operator=(const Discount &other) {
+    Discount(const Discount &other);
 
-        PowerUp::operator=(other);
-        percentage = other.percentage;
-        return *this;
-    }
+    PowerUp* clone()const override;
 
-    void calculatePercentage(int currentStreak) {
-        percentage = (currentStreak - winStreakRequired+1)* 10;
-    }
+    Discount & operator=(const Discount &other);
 
-    void activateAislePower(Raion& raionCrt, int strk) override {
-        calculatePercentage(strk);
-        raionCrt.aplicaReducere(percentage);
-        std::cout << raionCrt;
-    };
+    void calculatePercentage(int currentStreak);
+
+    void activateAislePower(Raion& raionCrt, int strk) override;
 
 
-    void showInfo(const std::string& reply) override {
-        if (reply == "y" or reply == "Y") {
-            afis(std::cout);
-        }
-        else if (reply == "n" or reply == "N") {
-            std::cout << "ook.. \n";
-        }
-    }
+    void showInfo(const std::string& reply) override;
 
-    std::string Name()  const override {
-        return " Discount PowerUp. ";
-    }
+    std::string Name()  const override;
 };
 
 

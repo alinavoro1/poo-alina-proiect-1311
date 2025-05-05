@@ -79,6 +79,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         BonusTime.h
         AppExceptions.cpp
         AppExceptions.h
+        FabricaPowerUps.cpp
+        FabricaPowerUps.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

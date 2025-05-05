@@ -10,38 +10,22 @@
 class BonusTime: public PowerUp {
     int bonus = 30; //se adauga 30s la timp
 public:
-    explicit BonusTime(int bonus_): PowerUp(4, "You can press the key t while playing\n and you will get 30s bonus on your timer\n", "t"),bonus(bonus_){}
-    ~BonusTime() override = default;
-    BonusTime(const BonusTime& other): PowerUp(other) {}
+    explicit BonusTime(int bonus_);
 
-    PowerUp* clone() const override {
-        return new BonusTime(*this);
-    }
+    ~BonusTime() override;
 
-    BonusTime& operator=(const BonusTime& other) {
-        PowerUp::operator=(other);
-        bonus = other.bonus;
-        return *this;
-    }
+    BonusTime(const BonusTime& other);
+
+    PowerUp* clone() const override;
+
+    BonusTime& operator=(const BonusTime& other);
 
 
-    void showInfo(const std::string& reply) override {
-        if (reply == "y" or reply == "Y") {
-            afis(std::cout);
-        }
-        else if (reply == "n" or reply == "N") {
-            std::cout << "ook.. \n";
-        }
-    }
+    void showInfo(const std::string& reply) override;
 
-    void activateTimePower (int& t) override{
-        t = t + bonus;
-        std::cout << "time remaining: " << t << "\n";
-    }
+    void activateTimePower (int& t) override;
 
-    std::string Name() const override {
-        return " Bonus Time PowerUp. ";
-    }
+    std::string Name() const override;
 };
 
 #endif //BONUSTIME_H

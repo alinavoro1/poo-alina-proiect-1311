@@ -8,7 +8,8 @@
 
 Item::Item(): pret(0.0) {}
 
-Item::Item(const std::string &name_, const std::string &brand_): name{name_}, pret{0.0}, brand{brand_} {}
+Item::Item(const std::string &name_, const std::string &brand_): name{name_}, pret{0.0}, brand{brand_} {
+}
 
 Item::Item(const std::string &name_, double pret_, const std::string &brand_): name{name_}, pret{pret_}, brand{brand_} {
     if (pret_ < 0) throw PretInvalid(pret, " is the invalid price for " + name);
@@ -31,6 +32,14 @@ Item::~Item() = default;
 
 bool Item::operator==(const Item &other) const {
     return name == other.name && pret == other.pret && brand == other.brand;
+}
+
+void Item::aplicaDiscount(double procent) {
+    if (procent > 0 && procent <= 100) {
+        pret -= pret * (procent / 100);
+    } else {
+        std::cout << "Procent discount invalid!" << std::endl;
+    }
 }
 
 std::ostream & operator<<(std::ostream &os, const Item &item) {

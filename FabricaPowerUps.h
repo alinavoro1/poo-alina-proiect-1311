@@ -4,11 +4,15 @@
 
 #ifndef FABRICAPOWERUPS_H
 #define FABRICAPOWERUPS_H
-
+#include "BonusTime.h"
+#include "Discount.h"
+#include "PowerUp.h"
+#include "SortItems.h"
 
 
 class FabricaPowerUps {
-
+public:
+    static std::vector<std::shared_ptr<PowerUp>> createDefaultPowerUps();
 };
 
 

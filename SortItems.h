@@ -11,48 +11,21 @@
 
 class SortItems: public PowerUp {
 public:
-    SortItems():
-    PowerUp(2, "You can press the key s while playing and the items on the aisle will be sorted in ascending order to help you get the cheapest products!\n", "s")
-    {}
+    SortItems();
 
-    ~SortItems()override = default;
+    ~SortItems()override;
 
-    SortItems(const SortItems& other): PowerUp(other) {}
+    SortItems(const SortItems& other);
 
-    PowerUp* clone() const override {
-        return new SortItems(*this);
-    }
+    PowerUp* clone() const override;
 
-    SortItems& operator=(const SortItems& other) {
-        PowerUp::operator=(other);
-        return *this;
-    }
+    SortItems& operator=(const SortItems& other);
 
-    void showInfo(const std::string& reply) override {
-        if (reply == "y" or reply == "Y") {
-            afis(std::cout);
-        }
-        else if (reply == "n" or reply == "N") {
-            std::cout << "ook.. \n";
-        }
-    }
+    void showInfo(const std::string& reply) override;
 
-    void activateAislePower(Raion& raionCrt,int strk) override {
-        if (raionCrt.getItems().empty()) {
-            throw RaionGol("Can not sort Items in the Aisle");
-        }
-        if (!canBeUsed(strk)) {
-            throw EroarePowerUp("The win streak is too low to apply this Power-Up");
-        }
-        raionCrt.sorteazaProduse();
-        // std::cout<<"old streak " <<strk;
-        std::cout<< raionCrt;
-    }
+    void activateAislePower(Raion& raionCrt,int strk) override;
 
-    std::string Name() const override {
-        return " Sort Items PowerUp. ";
-    }
-
+    std::string Name() const override;
 };
 
 

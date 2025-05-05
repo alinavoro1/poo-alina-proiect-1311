@@ -13,26 +13,18 @@ protected:
     std::vector<Item> items;
 
 public:
-    Lista() = default;
+    Lista();
 
-    explicit Lista(const std::vector<Item>& items_) : items(items_) {}
+    explicit Lista(const std::vector<Item>& items_);
 
-    Lista(const Lista& other): items(other.items) {}
+    Lista(const Lista& other);
 
 
-    ~Lista() = default;
+    ~Lista();
 
-    const std::vector<Item>& getItems() const {
-        return items;
-    }
+    const std::vector<Item>& getItems() const;
 
-    Lista& operator=(const Lista& other) {
-        if (this != &other) {
-            items = other.items;
-        }
-        return *this;
-    }
-
+    Lista& operator=(const Lista& other);
 };
 
 #endif //LISTA_H

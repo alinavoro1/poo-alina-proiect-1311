@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include <tabulate.hpp>
-// #include <indicators.hpp>
 
 #include "Joc.h"
 #include "ObiecteRaioane.h"
@@ -62,7 +61,7 @@ int main() {
         joc.run();
     }
     catch (const RaionGol& e) {
-        std::cerr <<"[Aisle Error]: "<< e.what()<< "\n";
+        std::cerr <<"[Empty aisle Error]: "<< e.what()<< "\n";
     }
     catch (const PretInvalid& e) {
         std::cerr << "[Price Error]: " << e.what()<< "\n";
