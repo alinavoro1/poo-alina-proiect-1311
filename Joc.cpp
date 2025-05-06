@@ -48,8 +48,8 @@ void Joc::verificarePret() const {
 
 void Joc::inregistreazaWin(std::vector<std::shared_ptr<PowerUp>> &powerUps) {
     currentStreak++;
-    std::cout <<termcolor::on_red <<"[DEBUG]"<<powerUps.size() << "\n"<< termcolor::reset;
-    std::cout <<termcolor::on_red<< "[DEBUG] current win streak is : " << currentStreak << "\n"<< termcolor::reset;
+    // std::cout <<termcolor::on_red <<"[DEBUG]"<<powerUps.size() << "\n"<< termcolor::reset;
+    // std::cout <<termcolor::on_red<< "[DEBUG] current win streak is : " << currentStreak << "\n"<< termcolor::reset;
     for (auto& power : powerUps) {
         if (power->canBeUsed(currentStreak)) {
 
@@ -74,7 +74,7 @@ void Joc::inregistreazaWin(std::vector<std::shared_ptr<PowerUp>> &powerUps) {
                 std::cout<< termcolor::red << "Not a valid response. Enter again: "<< termcolor::reset;
                 std::cin >> dasaunu;
             }
-            if (dasaunu == "y") {
+            if (dasaunu == "y" || dasaunu == "n" || dasaunu == "N" || dasaunu == "Y") {
                 power->showInfo(dasaunu);
             }
         }
@@ -99,7 +99,7 @@ void Joc::aplicaPowerUp(const std::string &keyPress, Raion &raion, int &limit) {
                 else if (keyPress == "t")
                     power->activateTimePower(limit);
                 reseteazaStreak();
-                std::cout<<termcolor::blue<<"Power-Up applied. "<< power->Name()<< termcolor::reset;
+                std::cout<<termcolor::blue<<"Power-Up applied. "<< power->Name()<<"\n"<< termcolor::reset;
                 break;
             }
         }
@@ -313,13 +313,14 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
     bool timpExpirat = false;
 
     for (const auto& raion : magazin.getRaioane()) {
+        Raion raionCrt = raion;
         if (timer.elapsed() >= limitaTimp) {
             std::cout << "\n⏰ Time has expired! You lost!\n";
             timpExpirat = true;
             break;
         }
 
-        std::cout << raion << "\n\n";
+        std::cout << raionCrt << "\n\n";
         tabulate::Table listaDisplay;
         std::vector<std::string> item_names;
         for (const auto& item: cos.getLista().getItems()) {
@@ -340,22 +341,49 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
         std::cout << listaDisplay << "\n\n";
 
         std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
-        if (currentStreak >= 1) {
-            Raion raionCrt = raion;
+        int ok=0;
+
+        int lowest=21;//doar o valoare random, nu cred ca in viitorul apropiat o sa faca cineva streakul 21
+        for (auto& power : powerUps) {
+            if (power->canBeUsed(currentStreak)) {
+                ok++;
+                if (lowest > currentStreak) {
+                    lowest = currentStreak;
+                }
+            }
+        }
+
+        if (currentStreak >= lowest) {
             std::string inputKey;
-            std::cout << "Press key for available power-up (e.g., d/s/t) or type x for no power-up: ";
+            if (ok == 1) {
+                std::cout<<"Press a key to use the available Power-Ups (s) or type x for no Power-Up: ";
+            }
+            if (ok == 2) {
+                std::cout<< "Press a key to use the available Power-Ups (s/d) or type x for no Power-Up: ";
+            }
+            if (ok == 3 ) {
+                std::cout << "Press a key to use the available Power-Ups (s/d/t) or type x for no Power-Up: ";
+            }
+            if (ok > 3) {
+                std::cout << "Press a key to use the available Power-Ups (s/d/t/p) or type x for no Power-Up: ";
+                ///clasa pe care o sa  o  adaug pentru commitul separat o sa aiba key-ul p
+            }
             std::cin >> inputKey;
             if (inputKey != "x") {
                 aplicaPowerUp(inputKey, raionCrt, limitaTimp);
+                std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
+                // raion = raionCrt;
             }
         }
+
+
 
         int index;
         while (std::cin >> index) {
             if (index == -1) break;
             if (index == 99) return false;
-            if (index >= 0 && index < int(raion.getItems().size())) {
-                cos.adaugaInCos(raion.getItems()[index]);
+            if (index >= 0 && index < int(raionCrt.getItems().size())) {
+                cos.adaugaInCos(raionCrt.getItems()[index]);
                 cos.calculTotal();
             } else {
                 std::cout <<termcolor::red<< "Invalid number\n"<< termcolor::reset;
