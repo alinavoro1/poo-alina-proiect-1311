@@ -344,7 +344,7 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
         int ok=0;
 
         int lowest=21;//doar o valoare random, nu cred ca in viitorul apropiat o sa faca cineva streakul 21
-        for (auto& power : powerUps) {
+        for (const auto& power : powerUps) {
             if (power->canBeUsed(currentStreak)) {
                 ok++;
                 if (lowest > currentStreak) {
