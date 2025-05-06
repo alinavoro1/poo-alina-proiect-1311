@@ -17,15 +17,11 @@ PowerUp * Discount::clone() const {
 }
 
 Discount & Discount::operator=(const Discount &other) {
-
     PowerUp::operator=(other);
     percentage = other.percentage;
     return *this;
 }
 
-void Discount::calculatePercentage(int currentStreak) {
-    percentage = (currentStreak - winStreakRequired+1)* 10;
-}
 
 void Discount::activateAislePower(Raion &raionCrt, int strk) {
     calculatePercentage(strk);

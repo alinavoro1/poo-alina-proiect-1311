@@ -53,20 +53,7 @@ void Joc::inregistreazaWin(std::vector<std::shared_ptr<PowerUp>> &powerUps) {
     for (auto& power : powerUps) {
         if (power->canBeUsed(currentStreak)) {
 
-            // std::cout<< "you won the" << power->Name()<< "Do you want to learn how to use it?(y/n)\n";
-            if (auto pwrup = std::dynamic_pointer_cast<Discount>(power)) {
-                std::cout<< termcolor::green << "You won the Discount Power-Up. Do you want to learn how to use it? (y/n) \n"<< termcolor::reset;
-            }
-            else if (auto pwrup2 = std::dynamic_pointer_cast<SortItems>(power)) {
-                std::cout<< termcolor::green << "You won the Sort Items Power-Up. Do you want to learn how to use it? (y/n) \n"<< termcolor::reset;
-            }
-            else if (auto pwrup3 = std::dynamic_pointer_cast<BonusTime>(power)) {
-                std::cout<<termcolor::green<< "You won the Bonus Time Power-Up. Do you want to learn how to use it? (y/n) \n"<< termcolor::reset;
-            }
-            else {
-                std::cout <<termcolor::green << "You won a new Power-Up. Do you want to learn more about it? (y/n) \n"<< termcolor::reset;
-            }
-
+            std::cout<<termcolor::green<< "you won the" << power->Name()<< "Do you want to learn how to use it?(y/n)\n"<<termcolor::reset;
 
             std::string dasaunu;
             std::cin >> dasaunu;
@@ -90,16 +77,20 @@ void Joc::aplicaPowerUp(const std::string &keyPress, Raion &raion, int &limit) {
             if (power->verifyKey(keyPress))
                 isActive = true;
             if (power->canBeUsed(currentStreak)) {
-                if (keyPress == "s") {
+                if (keyPress == "s" || keyPress == "d") {
                     power->activateAislePower(raion, currentStreak);
-                }
-                else if (keyPress == "d") {
-                    power->activateAislePower(raion,currentStreak);
                 }
                 else if (keyPress == "t")
                     power->activateTimePower(limit);
-                reseteazaStreak();
-                std::cout<<termcolor::blue<<"Power-Up applied. "<< power->Name()<<"\n"<< termcolor::reset;
+
+                if (auto pwrup = std::dynamic_pointer_cast<Discount>(power)) {
+                    int reducere;
+                    reducere = (currentStreak - 3)*10;
+                    std::cout<<termcolor::blue << "Power-Up applied. You got a discount of: " << reducere << " percent\n"<<termcolor::reset;//sa afiseze si discountul aplicat
+                }
+                else {
+                    std::cout<<termcolor::blue<<"Power-Up applied. "<< power->Name()<<"\n"<< termcolor::reset;
+                }
                 break;
             }
         }
@@ -141,10 +132,6 @@ void Joc::actualizeazaLoss() {
 void Joc::calculProcent(int wins, int losses) {
     using namespace indicators;
     int totalJocuri = wins + losses;
-    // if (totalJocuri == 0) {
-    //     // std::cout<< "No games played yet ;P \n";
-    //
-    // }
 
     //exceptie care sa inlocuiasca if/else  ul de mai sus pentru ca nu ar trebui vreodata ca totalJocuri sa fie 0 sau mai putin
     if (totalJocuri <=0 ) {
@@ -375,8 +362,6 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
                 // raion = raionCrt;
             }
         }
-
-
 
         int index;
         while (std::cin >> index) {

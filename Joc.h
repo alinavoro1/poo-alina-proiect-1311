@@ -15,6 +15,7 @@
 #include "Magazin.h"
 #include "Stopwatch.h"
 #include <indicators.hpp>
+#include <rlutil.h>
 
 #include "PowerUp.h"
 #include "FabricaPowerUps.h"

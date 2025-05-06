@@ -13,6 +13,9 @@
 
 class Discount: public PowerUp {
     int percentage;
+    void calculatePercentage(int currentStreak) {
+        percentage = (currentStreak - winStreakRequired+1)* 10;
+    }
 public:
     explicit Discount (int percentage_);
 
@@ -24,7 +27,6 @@ public:
 
     Discount & operator=(const Discount &other);
 
-    void calculatePercentage(int currentStreak);
 
     void activateAislePower(Raion& raionCrt, int strk) override;
 
