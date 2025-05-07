@@ -7,6 +7,7 @@
 #include <string>
 
 #include "Raion.h"
+#include "Stopwatch.h"
 
 
 class PowerUp {
@@ -31,7 +32,7 @@ public:
 
     virtual void activateAislePower(Raion& raionCrt, int strk);
 
-    virtual void activateTimePower (int& t);
+    virtual void activateTimePower (int& t, Stopwatch& sw);
 
     friend std::ostream& operator<<(std::ostream& os, const PowerUp& obj);
 

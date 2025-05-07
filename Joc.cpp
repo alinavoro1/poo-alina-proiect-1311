@@ -68,7 +68,7 @@ void Joc::inregistreazaWin(std::vector<std::shared_ptr<PowerUp>> &powerUps) {
     }
 }
 
-void Joc::aplicaPowerUp(const std::string &keyPress, Raion &raion, int &limit) {
+void Joc::aplicaPowerUp(const std::string &keyPress, Raion &raion, int &limit, Stopwatch& sw) {
     //pt a arunca o exceptie in cazul in care PowerUp -ul nu este activat desi ar trebui
     bool isActive = false;
 
@@ -81,7 +81,7 @@ void Joc::aplicaPowerUp(const std::string &keyPress, Raion &raion, int &limit) {
                     power->activateAislePower(raion, currentStreak);
                 }
                 else if (keyPress == "t")
-                    power->activateTimePower(limit);
+                    power->activateTimePower(limit, sw);
 
                 if (auto pwrup = std::dynamic_pointer_cast<Discount>(power)) {
                     int reducere;
@@ -357,7 +357,7 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
             }
             std::cin >> inputKey;
             if (inputKey != "x") {
-                aplicaPowerUp(inputKey, raionCrt, limitaTimp);
+                aplicaPowerUp(inputKey, raionCrt, limitaTimp, timer);
                 std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
                 // raion = raionCrt;
             }

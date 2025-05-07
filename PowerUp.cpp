@@ -39,9 +39,9 @@ void PowerUp::activateAislePower(Raion &raionCrt, int strk) {
     std::cout<<raionCrt<< strk;
 }
 
-void PowerUp::activateTimePower(int &t) {
+void PowerUp::activateTimePower(int &t, Stopwatch& sw) {
     std::cout << "no powerup activated";
-    std::cout<< t;
+    std::cout << "Time remaining: "<< t-sw.elapsed() << "\n";
 }
 
 std::ostream & PowerUp::afis(std::ostream &os) const {

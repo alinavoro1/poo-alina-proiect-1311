@@ -4,7 +4,7 @@
 
 #include "BonusTime.h"
 
-BonusTime::BonusTime(int bonus_): PowerUp(4, "You can press the key t while playing\n and you will get 30s bonus on your timer\n", "t"),bonus(bonus_) {}
+BonusTime::BonusTime(int bonus_): PowerUp(5, "You can press the key t while playing\n and you will get 30s bonus on your timer\n", "t"),bonus(bonus_) {}
 
 BonusTime::~BonusTime() = default;
 
@@ -29,9 +29,10 @@ void BonusTime::showInfo(const std::string &reply) {
     }
 }
 
-void BonusTime::activateTimePower(int &t) {
+void BonusTime::activateTimePower(int &t, Stopwatch& sw) {
+    std::cout <<termcolor::red<< "Time remaining before: " << t - sw.elapsed() << "\n" << termcolor::reset;
     t = t + bonus;
-    std::cout << "time remaining: " << t << "\n";
+    std::cout <<termcolor::magenta<< "time remaining now: " <<t - sw.elapsed() << "\n" <<termcolor::reset;
 }
 
 std::string BonusTime::Name() const {

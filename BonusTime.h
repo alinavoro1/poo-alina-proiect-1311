@@ -6,7 +6,7 @@
 #define BONUSTIME_H
 #include "PowerUp.h"
 
-//SA NU UIT SA SCHIMB STREAKUL LA 4. L-AM SCHIMBAT CA SA VERIFIC FUNCTIONALITATEA CORECTA
+//SA NU UIT SA SCHIMB STREAKUL LA 5. L-AM SCHIMBAT CA SA VERIFIC FUNCTIONALITATEA CORECTA
 class BonusTime: public PowerUp {
     int bonus = 30; //se adauga 30s la timp
 public:
@@ -23,7 +23,7 @@ public:
 
     void showInfo(const std::string& reply) override;
 
-    void activateTimePower (int& t) override;
+    void activateTimePower (int& t, Stopwatch& sw) override;
 
     std::string Name() const override;
 };

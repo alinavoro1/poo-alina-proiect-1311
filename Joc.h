@@ -71,7 +71,7 @@ public:
 
     static void inregistreazaWin(std::vector<std::shared_ptr<PowerUp>>& powerUps);
 
-    void aplicaPowerUp(const std::string& keyPress, Raion& raion, int& limit);
+    void aplicaPowerUp(const std::string& keyPress, Raion& raion, int& limit, Stopwatch& sw);
 
     static void reseteazaStreak();
 
