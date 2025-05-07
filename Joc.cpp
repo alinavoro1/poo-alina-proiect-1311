@@ -53,7 +53,7 @@ void Joc::inregistreazaWin(std::vector<std::shared_ptr<PowerUp>> &powerUps) {
     for (auto& power : powerUps) {
         if (power->canBeUsed(currentStreak)) {
 
-            std::cout<<termcolor::green<< "you won the" << power->Name()<< "Do you want to learn how to use it?(y/n)\n"<<termcolor::reset;
+            std::cout<<termcolor::green<< "you won the " << power->Name()<< "Do you want to learn how to use it?(y/n)\n"<<termcolor::reset;
 
             std::string dasaunu;
             std::cin >> dasaunu;
@@ -80,7 +80,7 @@ void Joc::aplicaPowerUp(const std::string &keyPress, Raion &raion, int &limit, S
                 if (keyPress == "s" || keyPress == "d") {
                     power->activateAislePower(raion, currentStreak);
                 }
-                else if (keyPress == "t")
+                else if (keyPress == "t" || keyPress == "p")
                     power->activateTimePower(limit, sw);
 
                 if (auto pwrup = std::dynamic_pointer_cast<Discount>(power)) {
@@ -349,7 +349,7 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
                 std::cout<< "Press a key to use the available Power-Ups (s/d) or type x for no Power-Up: ";
             }
             if (ok == 3 ) {
-                std::cout << "Press a key to use the available Power-Ups (s/d/t) or type x for no Power-Up: ";
+                std::cout << "Press a key to use the available Power-Ups (s/d/p) or type x for no Power-Up: ";
             }
             if (ok > 3) {
                 std::cout << "Press a key to use the available Power-Ups (s/d/t/p) or type x for no Power-Up: ";
@@ -358,6 +358,7 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
             std::cin >> inputKey;
             if (inputKey != "x") {
                 aplicaPowerUp(inputKey, raionCrt, limitaTimp, timer);
+                std::cout << listaDisplay << "\n\n";
                 std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
                 // raion = raionCrt;
             }

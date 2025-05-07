@@ -8,7 +8,7 @@
 
 //SA NU UIT SA SCHIMB STREAKUL LA 5. L-AM SCHIMBAT CA SA VERIFIC FUNCTIONALITATEA CORECTA
 class BonusTime: public PowerUp {
-    int bonus = 30; //se adauga 30s la timp
+    int bonus; //se adauga 30s la timp
 public:
     explicit BonusTime(int bonus_);
 

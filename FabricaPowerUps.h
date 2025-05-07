@@ -8,6 +8,8 @@
 #include "Discount.h"
 #include "PowerUp.h"
 #include "SortItems.h"
+#include "FreezeTime.h"
+
 
 
 class FabricaPowerUps {

@@ -81,6 +81,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         AppExceptions.h
         FabricaPowerUps.cpp
         FabricaPowerUps.h
+        FreezeTime.cpp
+        FreezeTime.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
