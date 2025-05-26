@@ -6,8 +6,8 @@
 #define POWERUP_H
 #include <string>
 
-#include "Raion.h"
-#include "Stopwatch.h"
+#include "../core/Raion.h"
+#include "../utils/Stopwatch.h"
 
 
 class PowerUp {

@@ -4,13 +4,14 @@
 #include <vector>
 #include <tabulate.hpp>
 
-#include "Joc.h"
-#include "ObiecteRaioane.h"
-#include "Magazin.h"
+#include "core/Joc.h"
+#include "core/ObiecteRaioane.h"
+#include "core/Magazin.h"
 
 
 int main() {
     try {
+
         Magazin magazin{get_raioane()};
         // std::cout << get_raioane()[0] << "\n\n";
         std::cout<<"\n";

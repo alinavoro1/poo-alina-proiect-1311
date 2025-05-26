@@ -8,7 +8,7 @@
 #include <vector>
 #include <random>
 
-#include "AppExceptions.h"
+#include "../utils/AppExceptions.h"
 #include "listaCumparaturi.h"
 #include "Raion.h"
 

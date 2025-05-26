@@ -51,38 +51,38 @@ include(cmake/CopyHelper.cmake)
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
     generated/src/Helper.cpp
-        Item.cpp
-        Item.h
-        ObiecteRaioane.cpp
-        ObiecteRaioane.h
-        Raion.cpp
-        Raion.h
-        Stopwatch.cpp
-        Stopwatch.h
-        Joc.cpp
-        Joc.h
-        listaCumparaturi.cpp
-        listaCumparaturi.h
-        Magazin.cpp
-        Magazin.h
-        cosCumparaturi.cpp
-        cosCumparaturi.h
-        Lista.cpp
-        Lista.h
-        PowerUp.cpp
-        PowerUp.h
-        Discount.cpp
-        Discount.h
-        SortItems.cpp
-        SortItems.h
-        BonusTime.cpp
-        BonusTime.h
-        AppExceptions.cpp
-        AppExceptions.h
-        FabricaPowerUps.cpp
-        FabricaPowerUps.h
-        FreezeTime.cpp
-        FreezeTime.h
+        core/Item.cpp
+        core/Item.h
+        core/ObiecteRaioane.cpp
+        core/ObiecteRaioane.h
+        core/Raion.cpp
+        core/Raion.h
+        utils/Stopwatch.cpp
+        utils/Stopwatch.h
+        core/Joc.cpp
+        core/Joc.h
+        core/listaCumparaturi.cpp
+        core/listaCumparaturi.h
+        core/Magazin.cpp
+        core/Magazin.h
+        core/cosCumparaturi.cpp
+        core/cosCumparaturi.h
+        core/Lista.cpp
+        core/Lista.h
+        powerups/PowerUp.cpp
+        powerups/PowerUp.h
+        powerups/Discount.cpp
+        powerups/Discount.h
+        powerups/SortItems.cpp
+        powerups/SortItems.h
+        powerups/BonusTime.cpp
+        powerups/BonusTime.h
+        utils/AppExceptions.cpp
+        utils/AppExceptions.h
+        powerups/FabricaPowerUps.cpp
+        powerups/FabricaPowerUps.h
+        powerups/FreezeTime.cpp
+        powerups/FreezeTime.h
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
@@ -97,6 +97,12 @@ set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ${MAIN_EXECUTABLE_NAME})
 # use SYSTEM so cppcheck and clang-tidy do not report warnings from these directories
 target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE generated/include)
  target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ext/include)
+target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE core)
+target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE utils)
+target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE powerups)
+
+
+
 # target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 # target_link_libraries(${MAIN_EXECUTABLE_NAME} <SomeLib>)

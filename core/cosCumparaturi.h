@@ -4,7 +4,7 @@
 
 #ifndef COSCUMPARATURI_H
 #define COSCUMPARATURI_H
-#include "AppExceptions.h"
+#include "../utils/AppExceptions.h"
 #include "Item.h"
 #include "listaCumparaturi.h"
 

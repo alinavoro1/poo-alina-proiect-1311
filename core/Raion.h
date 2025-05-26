@@ -5,10 +5,10 @@
 #ifndef RAION_H
 #define RAION_H
 #include <string>
-#include <tabulate.hpp>
+#include <../ext/include/tabulate.hpp>
 #include <vector>
 
-#include "AppExceptions.h"
+#include "../utils/AppExceptions.h"
 #include "Item.h"
 #include "Lista.h"
 

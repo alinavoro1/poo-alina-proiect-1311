@@ -4,7 +4,7 @@
 
 #include "Item.h"
 
-#include "AppExceptions.h"
+#include "../utils/AppExceptions.h"
 
 Item::Item(): pret(0.0) {}
 

@@ -6,19 +6,19 @@
 #define JOC_H
 #include <atomic>
 #include <iostream>
-#include <tabulate.hpp>
+#include <../ext/include/tabulate.hpp>
 #include <unordered_set>
-#include <termcolor.hpp>
+#include <../ext/include/termcolor.hpp>
 
 #include "cosCumparaturi.h"
 #include "listaCumparaturi.h"
 #include "Magazin.h"
-#include "Stopwatch.h"
-#include <indicators.hpp>
-#include <rlutil.h>
+#include "../utils/Stopwatch.h"
+#include <../ext/include/indicators.hpp>
+#include <../ext/include/rlutil.h>
 
-#include "PowerUp.h"
-#include "FabricaPowerUps.h"
+#include "../powerups/PowerUp.h"
+#include "../powerups/FabricaPowerUps.h"
 
 class Joc {
     Magazin magazin;

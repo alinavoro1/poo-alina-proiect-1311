@@ -298,9 +298,27 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
     Stopwatch timer;
     timer.start();
     bool timpExpirat = false;
+    using namespace indicators;
+    using namespace std::chrono_literals;
+
+    ProgressBar bar {
+        option::BarWidth{50},
+        option::Start{"["},
+        option::Fill{"="},
+        option::Lead{">"},
+        option::End{"]"},
+        option::Remainder{" "},
+        option::PrefixText{"Time remaining: "},
+        option::ShowPercentage{true},
+        option::ShowElapsedTime{true},
+        option::ShowRemainingTime{true},
+        option::ForegroundColor{Color::blue},
+        option::FontStyles{std::vector<FontStyle>{FontStyle::bold}}
+    };
 
     for (const auto& raion : magazin.getRaioane()) {
         Raion raionCrt = raion;
+        double elapsed = timer.elapsed();
         if (timer.elapsed() >= limitaTimp) {
             std::cout << "\n⏰ Time has expired! You lost!\n";
             timpExpirat = true;
@@ -360,9 +378,14 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
                 aplicaPowerUp(inputKey, raionCrt, limitaTimp, timer);
                 std::cout << listaDisplay << "\n\n";
                 std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
-                // raion = raionCrt;
             }
         }
+
+        int progress = static_cast<int>((elapsed/limitaTimp) *100);
+        bar.set_progress(progress);
+        // rlutil::resetColor();
+        std::this_thread::sleep_for(100ms);
+        std::cout<<termcolor::red<< "\n\n"<<termcolor::reset;
 
         int index;
         while (std::cin >> index) {
