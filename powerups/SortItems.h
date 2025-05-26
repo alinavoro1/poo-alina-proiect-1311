@@ -4,7 +4,7 @@
 
 #ifndef SORTITEMS_H
 #define SORTITEMS_H
-#include "AppExceptions.h"
+#include "../utils/AppExceptions.h"
 #include "PowerUp.h"
 
 //SA NU UIT SA SCHIMB STREAKUL LA 2. L-AM SCHIMBAT CA SA VERIFIC FUNCTIONALITATEA CORECTA
