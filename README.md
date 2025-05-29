@@ -1,6 +1,6 @@
 # Tag & Bag - Supermarket
 
-# Un joc care provoaca neliniste🛒
+# Un joc care provoacă neliniște🛒
 
 ![full-shopping-cart-snacks-grocery-shopping-supermarket-cart](https://github.com/user-attachments/assets/3ba200f7-f8c7-46d8-af70-e37d7baf0fa3)
 
@@ -11,8 +11,6 @@
 - [🏆 Win Streaks & Power-ups](#-win-streaks--power-ups)
 - [🧠 Strategie](#-strategie)
 - [🔧 Tehnologie](#-tehnologie)
-- [📌 Ce urmează?](#-ce-urmează)
-- [▶️ Build & Run](#️-build--run)
 
 ---
 
