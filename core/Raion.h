@@ -12,7 +12,8 @@
 #include "Item.h"
 #include "Lista.h"
 
-class Raion: public Lista {
+class Raion{
+    std::vector<Item> items;
     std::string name;
 public:
     Raion(const std::string& name_,const std::vector <Item>& items_);
@@ -30,5 +31,7 @@ public:
     void aplicaReducere(double discount);
 
     void sorteazaProduse();
+
+    std::vector<Item> getItems() const;
 };
 #endif //RAION_H

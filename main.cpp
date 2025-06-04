@@ -12,9 +12,9 @@
 int main() {
     try {
 
-        Magazin magazin{get_raioane()};
+        // Magazin magazin{get_raioane()};
         // std::cout << get_raioane()[0] << "\n\n";
-        std::cout<<"\n";
+        // std::cout<<"\n";
 
         std::cout<<"Enter player name: ";
         std::string nume;
@@ -57,7 +57,8 @@ int main() {
 
         std::cout<<welcoming<<"\n";
 
-        Joc joc{magazin, nume};
+        Joc& joc = Joc::getInstance();
+        // Joc joc{magazin, nume};
         Joc::initStatic();
         joc.run();
     }

@@ -8,7 +8,8 @@
 #include "Item.h"
 #include "listaCumparaturi.h"
 
-class cosCumparaturi: public Lista {
+class cosCumparaturi{
+    std::vector<Item> items;
     listaCumparaturi lista;
     double totalPlata;
 public:
@@ -31,6 +32,8 @@ public:
     void calculTotal();
 
     void adaugaInCos(const Item &item);
+
+    std::vector<Item> getItems() const;
 };
 
 #endif //COSCUMPARATURI_H

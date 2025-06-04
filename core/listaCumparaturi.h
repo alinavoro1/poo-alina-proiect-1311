@@ -11,7 +11,8 @@
 #include "Item.h"
 #include "Lista.h"
 
-class listaCumparaturi : public Lista {
+class listaCumparaturi {
+    std::vector<Item> items;
     int buget;
 public:
     listaCumparaturi();
@@ -33,6 +34,8 @@ public:
     void stergeProdus(const Item& item);
 
     void calculTotal();
+
+    std::vector<Item> getItems() const;
 };
 
 #endif //LISTACUMPARATURI_H

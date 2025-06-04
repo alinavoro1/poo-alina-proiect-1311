@@ -4,22 +4,24 @@
 //
 #include "Magazin.h"
 
+#include "ObiecteRaioane.h"
+
 Magazin::Magazin(const std::vector<Raion> &raioane_): raioane(raioane_) {
 }
 
-Magazin::Magazin() {}
+Magazin::Magazin() : raioane(get_raioane()){}
 
 Magazin::~Magazin() = default;
 
-Magazin::Magazin(const Magazin &other): raioane(other.raioane) {
-}
-
-Magazin & Magazin::operator=(const Magazin &other) {
-    if (this == &other)
-        return *this;
-    raioane = other.raioane;
-    return *this;
-}
+// Magazin::Magazin(const Magazin &other): raioane(other.raioane) {
+// }
+//
+// Magazin & Magazin::operator=(const Magazin &other) {
+//     if (this == &other)
+//         return *this;
+//     raioane = other.raioane;
+//     return *this;
+// }
 
 const std::vector<Raion> & Magazin::getRaioane() const { return this->raioane;}
 
@@ -64,3 +66,7 @@ std::ostream & operator<<(std::ostream &os, const Magazin &magazin) {
     os << "\n";
     return os;
 }
+
+// void Magazin::build() {
+//
+// }

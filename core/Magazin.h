@@ -14,22 +14,32 @@
 
 class Magazin {
     std::vector <Raion> raioane;
-public:
+
     explicit Magazin(const std::vector<Raion> &raioane_);
 
     Magazin();
 
     ~Magazin();
 
-    Magazin(const Magazin &other);
-
-    Magazin & operator=(const Magazin &other);
-
     friend std::ostream& operator<<(std::ostream& os, const Magazin& magazin);
+
+
+    static void build() ;
+public:
+
+    Magazin(const Magazin &other) = delete;
+
+    Magazin & operator=(const Magazin &other) = delete;
+
+    static Magazin& getInstance() {
+        static Magazin magazin;
+        return magazin;
+    };
+
+    listaCumparaturi genereazaListaCumparaturi() const;
 
     const std::vector<Raion> & getRaioane() const;
 
-    listaCumparaturi genereazaListaCumparaturi() const;
 };
 
 #endif //MAGAZIN_H

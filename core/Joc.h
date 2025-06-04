@@ -21,7 +21,7 @@
 #include "../powerups/FabricaPowerUps.h"
 
 class Joc {
-    Magazin magazin;
+    Magazin& magazin = Magazin::getInstance();
     std::string playerName;
     int varianta=0;
     listaCumparaturi lista;
@@ -31,7 +31,7 @@ class Joc {
     static int lossRate;
     static int currentStreak;
     std::vector<std::shared_ptr<PowerUp>> powerUps;
-public:
+
     Joc();
 
     explicit Joc(const std::string &playerName_);
@@ -40,32 +40,11 @@ public:
 
     Joc(const Magazin &magazin, const std::string &nume);
 
-    Joc(const Joc &other);
-
     ~Joc();
-
-    // const listaCumparaturi & getLista() const { return this->lista; }
-
-    // Joc & operator=(const Joc &other) {
-    //     if (this == &other) return *this;
-    //     lista = other.lista;
-    //     timp = other.timp;
-    //     varianta = other.varianta;
-    //     playerName = other.playerName;
-    //     currentStreak = other.currentStreak;
-    //
-    //     powerUps.clear();
-    //     for (const auto& up: other.powerUps) {
-    //         powerUps.push_back(std::shared_ptr<PowerUp>(up->clone()));
-    //     }
-    //     return *this;
-    // }
 
     friend std::ostream & operator<<(std::ostream &os, const Joc &joc);
 
     friend void swap(Joc &lhs, Joc &rhs) noexcept;
-
-    Joc& operator=(Joc other);
 
     void verificarePret() const;
 
@@ -75,8 +54,6 @@ public:
 
     static void reseteazaStreak();
 
-    static void initStatic();
-
     static void actualizeazaWin();
 
     static void actualizeazaLoss();
@@ -85,13 +62,24 @@ public:
 
     void listaGoala(const cosCumparaturi &cos, const listaCumparaturi& listaVerif);
 
-    void run();
+
+    bool startJoc(cosCumparaturi &cos, int limitaTimp);
 
     int selecteazaVersiune();
 
     void afiseazaLista( listaCumparaturi listaC, int versiune);
+public:
+    Joc(const Joc &other) = delete;
 
-    bool startJoc(cosCumparaturi &cos, int limitaTimp);
+    Joc& operator=(Joc& other) = delete;
+
+    static Joc& getInstance() {
+        static Joc joc;
+        return joc;
+    }
+    void run();
+
+    static void initStatic();
 };
 
 #endif //JOC_H

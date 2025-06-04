@@ -4,15 +4,15 @@
 //
 #include "Raion.h"
 
-Raion::Raion(const std::string &name_, const std::vector<Item> &items_): Lista(items_),name{name_} {}
+Raion::Raion(const std::string &name_, const std::vector<Item> &items_): name{name_}, items {items_} {}
 
-Raion::Raion(const Raion &other): Lista(other),name{other.name} {}
+Raion::Raion(const Raion &other): name{other.name}, items {other.items} {}
 
 const std::string & Raion::getName() const { return name;}
 
 Raion & Raion::operator=(const Raion &other) {
     name = other.name;
-    Lista::operator=(other);
+    items = other.items;
     return *this;
 }
 
@@ -73,4 +73,8 @@ std::ostream & operator<<(std::ostream &os, const Raion &raion) {
 
     os << header << "\n" << tabel << "\n";
     return os;
+}
+
+std::vector<Item> Raion::getItems() const {
+    return items;
 }

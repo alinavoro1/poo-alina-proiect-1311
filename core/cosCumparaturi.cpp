@@ -4,15 +4,15 @@
 
 #include "cosCumparaturi.h"
 
-cosCumparaturi::cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Item> &items_, double totalPlata_):Lista(items_), lista(lista_), totalPlata(totalPlata_) {}
+cosCumparaturi::cosCumparaturi(const listaCumparaturi &lista_, const std::vector<Item> &items_, double totalPlata_):items{items_}, lista(lista_), totalPlata(totalPlata_) {}
 
-cosCumparaturi::cosCumparaturi(const cosCumparaturi &other):  Lista(other.items), lista(other.lista), totalPlata(other.totalPlata) {}
+cosCumparaturi::cosCumparaturi(const cosCumparaturi &other):  items{other.items}, lista(other.lista), totalPlata(other.totalPlata) {}
 
 cosCumparaturi::cosCumparaturi(double totalPlata_): totalPlata(totalPlata_) {}
 
 cosCumparaturi & cosCumparaturi::operator=(const cosCumparaturi &other) {
     if (this != &other) {
-        Lista::operator=(other);
+        items = other.items;
         lista = other.lista;
         totalPlata = other.totalPlata;
     }
@@ -60,4 +60,8 @@ std::ostream & operator<<(std::ostream &os, const cosCumparaturi &cos) {
     os << "Total price: " << cos.totalPlata<<"\n";
     os<<"\n";
     return os;
+}
+
+std::vector<Item> cosCumparaturi::getItems() const {
+    return items;
 }

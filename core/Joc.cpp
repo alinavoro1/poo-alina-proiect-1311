@@ -8,7 +8,8 @@ int Joc::winRate = 0;
 int Joc::lossRate = 0;
 int Joc::currentStreak = 0;
 
-Joc::Joc(): timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()) {}
+Joc::Joc(): timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()) {
+}
 
 Joc::Joc(const std::string &playerName_): playerName{playerName_}, timp(0),powerUps(FabricaPowerUps::createDefaultPowerUps()) {
 }
@@ -16,26 +17,8 @@ Joc::Joc(const std::string &playerName_): playerName{playerName_}, timp(0),power
 Joc::Joc(const std::string &playerName_, const listaCumparaturi &lista_): playerName{playerName_}, lista{lista_}, timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()){
 }
 
-Joc::Joc(const Magazin &magazin, const std::string &nume): magazin(magazin), playerName(nume), timp(0), powerUps(FabricaPowerUps::createDefaultPowerUps()) { }
-
-Joc::Joc(const Joc& other)
-    : magazin(other.magazin),
-      playerName(other.playerName),
-      varianta(other.varianta),
-      lista(other.lista),
-      timp(other.timp)
-{
-    for (const auto& pu : other.powerUps) {
-        powerUps.push_back(std::shared_ptr<PowerUp>(pu->clone()));
-    }
-}
 
 Joc::~Joc() = default;
-
-Joc & Joc::operator=(Joc other) {
-    swap(*this, other);
-    return *this;
-}
 
 void Joc::verificarePret() const {
     for (const auto& item : lista.getItems()) {
@@ -84,8 +67,8 @@ void Joc::aplicaPowerUp(const std::string &keyPress, Raion &raion, int &limit, S
                     power->activateTimePower(limit, sw);
 
                 if (auto pwrup = std::dynamic_pointer_cast<Discount>(power)) {
-                    int reducere;
-                    reducere = (currentStreak - 3)*10;
+
+                    int reducere = (currentStreak - 3)*10;
                     std::cout<<termcolor::blue << "Power-Up applied. You got a discount of: " << reducere << " percent\n"<<termcolor::reset;//sa afiseze si discountul aplicat
                 }
                 else {
@@ -316,8 +299,9 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
         option::FontStyles{std::vector<FontStyle>{FontStyle::bold}}
     };
 
-    for (const auto& raion : magazin.getRaioane()) {
-        Raion raionCrt = raion;
+    // for (const auto& raion : magazin.getRaioane())
+    for (int i = 0; i < static_cast<int>(magazin.getRaioane().size()); ++i) {
+        Raion raionCrt = magazin.getRaioane()[i];
         double elapsed = timer.elapsed();
         if (timer.elapsed() >= limitaTimp) {
             std::cout << "\n⏰ Time has expired! You lost!\n";
@@ -333,9 +317,9 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
         }
 
         std::string items_combined;
-        for (size_t i = 0; i < item_names.size(); i++) {
-            items_combined += item_names[i];
-            if (i < item_names.size() - 1)
+        for (size_t j = 0; j < item_names.size(); j++) {
+            items_combined += item_names[j];
+            if (j < item_names.size() - 1)
                 items_combined += ", ";
         }
 
@@ -345,7 +329,7 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
                 .font_color(tabulate::Color::magenta);
         std::cout << listaDisplay << "\n\n";
 
-        std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
+        std::cout << "Pick a number to add the item to the cart, -1 to skip, -2 to go back to the previous aisle or 99 to exit game\n";
         int ok=0;
 
         int lowest=21;//doar o valoare random, nu cred ca in viitorul apropiat o sa faca cineva streakul 21
@@ -377,7 +361,7 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
             if (inputKey != "x") {
                 aplicaPowerUp(inputKey, raionCrt, limitaTimp, timer);
                 std::cout << listaDisplay << "\n\n";
-                std::cout << "Pick a number to add the item to the cart, -1 to skip, 99 to exit game\n";
+                std::cout << "Pick a number to add the item to the cart, -1 to skip, -2 to go back to the previous aisle or 99 to exit game\n";
             }
         }
 
@@ -390,6 +374,13 @@ bool Joc::startJoc(cosCumparaturi &cos, int limitaTimp) {
         int index;
         while (std::cin >> index) {
             if (index == -1) break;
+            if (index == -2) {
+                if (i>=1) {
+                    i = i + index;
+                    break;
+                }
+                std::cout << termcolor::red << "You're on the first aisle, you have nowhere to go back...\n" << termcolor::reset;
+            }
             if (index == 99) return false;
             if (index >= 0 && index < int(raionCrt.getItems().size())) {
                 cos.adaugaInCos(raionCrt.getItems()[index]);
@@ -414,14 +405,4 @@ std::ostream & operator<<(std::ostream &os, const Joc &joc) {
             << " lista: " << joc.lista
             << " timp: " << joc.timp<< "\n";
     return os;
-}
-
-void swap(Joc &lhs, Joc &rhs) noexcept {
-    using std::swap;
-    swap(lhs.magazin, rhs.magazin);
-    swap(lhs.playerName, rhs.playerName);
-    swap(lhs.varianta, rhs.varianta);
-    swap(lhs.lista, rhs.lista);
-    swap(lhs.timp, rhs.timp);
-    swap(lhs.powerUps, rhs.powerUps);
 }

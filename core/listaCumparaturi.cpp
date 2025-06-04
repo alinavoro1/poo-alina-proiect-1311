@@ -6,17 +6,17 @@
 
 listaCumparaturi::listaCumparaturi(): buget(0) {}
 
-listaCumparaturi::listaCumparaturi(const std::vector<Item> &items_, int buget_): Lista(items_), buget{buget_} {}
+listaCumparaturi::listaCumparaturi(const std::vector<Item> &items_, int buget_): items{items_}, buget{buget_} {}
 
 listaCumparaturi::listaCumparaturi(int buget_): buget(buget_) {
 
 }
 
-listaCumparaturi::listaCumparaturi(const listaCumparaturi &other): Lista(other.items), buget{other.buget} {}
+listaCumparaturi::listaCumparaturi(const listaCumparaturi &other): items{other.items}, buget{other.buget} {}
 
 listaCumparaturi & listaCumparaturi::operator=(const listaCumparaturi &other) {
     if (this != &other) {
-        Lista::operator=(other);
+        items = other.items;
         buget = other.buget;
     }
     return *this;
@@ -57,4 +57,8 @@ std::ostream & operator<<(std::ostream &os, const listaCumparaturi &lista) {
     }
     os << "\n";
     return os;
+}
+
+std::vector<Item> listaCumparaturi::getItems() const {
+    return items;
 }
