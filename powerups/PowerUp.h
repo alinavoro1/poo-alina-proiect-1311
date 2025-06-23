@@ -22,7 +22,7 @@ public:
 
     PowerUp(const PowerUp &other);
 
-    virtual PowerUp* clone() const = 0;
+    // virtual PowerUp* clone() const = 0;
 
     PowerUp & operator=(const PowerUp &other);
 

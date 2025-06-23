@@ -17,7 +17,7 @@ public:
 
     SortItems(const SortItems& other);
 
-    PowerUp* clone() const override;
+    // PowerUp* clone() const override;
 
     SortItems& operator=(const SortItems& other);
 

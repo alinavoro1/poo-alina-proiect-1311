@@ -17,7 +17,7 @@ public:
 
     FreezeTime (const FreezeTime& other);
 
-    PowerUp* clone() const override;
+    // PowerUp* clone() const override;
 
     FreezeTime & operator= (const FreezeTime &other);
 

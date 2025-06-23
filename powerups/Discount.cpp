@@ -12,9 +12,9 @@ Discount::~Discount() = default;
 
 Discount::Discount(const Discount &other): PowerUp(other), percentage(other.percentage) {}
 
-PowerUp * Discount::clone() const {
-    return new Discount(*this);
-}
+// PowerUp * Discount::clone() const {
+//     return new Discount(*this);
+// }
 
 Discount & Discount::operator=(const Discount &other) {
     PowerUp::operator=(other);

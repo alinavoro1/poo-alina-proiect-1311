@@ -10,9 +10,9 @@ BonusTime::~BonusTime() = default;
 
 BonusTime::BonusTime(const BonusTime &other): PowerUp(other), bonus(other.bonus) {}
 
-PowerUp * BonusTime::clone() const {
-    return new BonusTime(*this);
-}
+// PowerUp * BonusTime::clone() const {
+//     return new BonusTime(*this);
+// }
 
 BonusTime & BonusTime::operator=(const BonusTime &other) {
     PowerUp::operator=(other);

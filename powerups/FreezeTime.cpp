@@ -10,9 +10,9 @@ FreezeTime::~FreezeTime() = default;
 
 FreezeTime::FreezeTime(const FreezeTime &other): PowerUp(other) {}
 
-PowerUp * FreezeTime::clone() const {
-    return new FreezeTime(*this);
-}
+// PowerUp * FreezeTime::clone() const {
+//     return new FreezeTime(*this);
+// }
 
 FreezeTime & FreezeTime::operator=(const FreezeTime &other) {
     PowerUp::operator=(other);

@@ -11,9 +11,9 @@ SortItems::~SortItems() = default;
 
 SortItems::SortItems(const SortItems &other): PowerUp(other) {}
 
-PowerUp * SortItems::clone() const {
-    return new SortItems(*this);
-}
+// PowerUp * SortItems::clone() const {
+//     return new SortItems(*this);
+// }
 
 SortItems & SortItems::operator=(const SortItems &other) {
     PowerUp::operator=(other);

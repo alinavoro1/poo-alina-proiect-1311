@@ -23,7 +23,7 @@ public:
 
     Discount(const Discount &other);
 
-    PowerUp* clone()const override;
+    // PowerUp* clone()const override;
 
     Discount & operator=(const Discount &other);
 

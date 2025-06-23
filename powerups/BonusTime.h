@@ -16,7 +16,7 @@ public:
 
     BonusTime(const BonusTime& other);
 
-    PowerUp* clone() const override;
+    // PowerUp* clone() const override;
 
     BonusTime& operator=(const BonusTime& other);
 
