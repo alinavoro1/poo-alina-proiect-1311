@@ -4,7 +4,7 @@
 //
 #include "Raion.h"
 
-Raion::Raion(const std::string &name_, const std::vector<Item> &items_): name{name_}, items {items_} {}
+Raion::Raion(const std::string &name_, const std::vector<Item> &items_):  items {items_}, name{name_}{}
 
 Raion::Raion(const Raion &other):  items {other.items}, name{other.name}{}
 
