@@ -32,6 +32,6 @@ public:
 
     void sorteazaProduse();
 
-    std::vector<Item> getItems() const;
+    const std::vector<Item>& getItems() const;
 };
 #endif //RAION_H

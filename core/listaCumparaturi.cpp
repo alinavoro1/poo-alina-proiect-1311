@@ -59,6 +59,6 @@ std::ostream & operator<<(std::ostream &os, const listaCumparaturi &lista) {
     return os;
 }
 
-std::vector<Item> listaCumparaturi::getItems() const {
+const std::vector<Item>& listaCumparaturi::getItems() const {
     return items;
 }

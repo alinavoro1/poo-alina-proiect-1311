@@ -35,7 +35,7 @@ public:
 
     void calculTotal();
 
-    std::vector<Item> getItems() const;
+    const std::vector<Item>& getItems() const;
 };
 
 #endif //LISTACUMPARATURI_H

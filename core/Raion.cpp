@@ -75,6 +75,6 @@ std::ostream & operator<<(std::ostream &os, const Raion &raion) {
     return os;
 }
 
-std::vector<Item> Raion::getItems() const {
+const std::vector<Item>& Raion::getItems() const {
     return items;
 }
