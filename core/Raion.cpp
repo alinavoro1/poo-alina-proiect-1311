@@ -6,7 +6,7 @@
 
 Raion::Raion(const std::string &name_, const std::vector<Item> &items_): name{name_}, items {items_} {}
 
-Raion::Raion(const Raion &other): name{other.name}, items {other.items} {}
+Raion::Raion(const Raion &other):  items {other.items}, name{other.name}{}
 
 const std::string & Raion::getName() const { return name;}
 
