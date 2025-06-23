@@ -16,11 +16,12 @@
 #include "../utils/Stopwatch.h"
 #include <../ext/include/indicators.hpp>
 #include <../ext/include/rlutil.h>
+#include <../core/Singleton.h>
 
 #include "../powerups/PowerUp.h"
 #include "../powerups/FabricaPowerUps.h"
 
-class Joc {
+class Joc: public Singleton<Joc> {
     Magazin& magazin = Magazin::getInstance();
     std::string playerName;
     int varianta=0;
@@ -31,6 +32,8 @@ class Joc {
     static int lossRate;
     static int currentStreak;
     std::vector<std::shared_ptr<PowerUp>> powerUps;
+
+    friend class Singleton<Joc>;
 
     Joc();
 
@@ -73,10 +76,6 @@ public:
 
     Joc& operator=(Joc& other) = delete;
 
-    static Joc& getInstance() {
-        static Joc joc;
-        return joc;
-    }
     void run();
 
     static void initStatic();

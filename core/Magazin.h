@@ -7,12 +7,13 @@
 #include <set>
 #include <vector>
 #include <random>
+#include "../core/Singleton.h"
 
 #include "../utils/AppExceptions.h"
 #include "listaCumparaturi.h"
 #include "Raion.h"
 
-class Magazin {
+class Magazin: public Singleton<Magazin> {
     std::vector <Raion> raioane;
 
     explicit Magazin(const std::vector<Raion> &raioane_);
@@ -25,16 +26,11 @@ class Magazin {
 
 
     static void build() ;
+
+    template<class T>
+    friend class Singleton;
+
 public:
-
-    Magazin(const Magazin &other) = delete;
-
-    Magazin & operator=(const Magazin &other) = delete;
-
-    static Magazin& getInstance() {
-        static Magazin magazin;
-        return magazin;
-    };
 
     listaCumparaturi genereazaListaCumparaturi() const;
 
