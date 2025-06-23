@@ -62,6 +62,6 @@ std::ostream & operator<<(std::ostream &os, const cosCumparaturi &cos) {
     return os;
 }
 
-std::vector<Item> cosCumparaturi::getItems() const {
+const std::vector<Item>& cosCumparaturi::getItems() const {
     return items;
 }

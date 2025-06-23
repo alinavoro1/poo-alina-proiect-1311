@@ -33,7 +33,7 @@ public:
 
     void adaugaInCos(const Item &item);
 
-    std::vector<Item> getItems() const;
+    const std::vector<Item>& getItems() const;
 };
 
 #endif //COSCUMPARATURI_H
