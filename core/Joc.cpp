@@ -160,7 +160,7 @@ void Joc::listaGoala(const cosCumparaturi &cos, const listaCumparaturi &listaVer
                 actualizeazaWin();
                 inregistreazaWin(powerUps);
             } else {
-                std::cout <<termcolor::red<< "You lost!❌❌\n"<< termcolor::reset;
+                std::cout <<termcolor::red<< "You lost!!!❌❌\n"<< termcolor::reset;
                 actualizeazaLoss();
             }
         } else {
@@ -190,6 +190,7 @@ void Joc::run() {
         }
 
         listaCumparaturi listaGenerata = magazin.genereazaListaCumparaturi();
+        listaGenerata.calculTotal();
 
         if (listaGenerata.getItems().empty()) {
             throw ExceptieListaGoala("Generated shopping list is empty.");
